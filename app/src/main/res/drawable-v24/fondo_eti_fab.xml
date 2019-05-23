@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--SE CREA ESTE DRAWABLE PARA EL FONDO DE CADA ETIQUETA-->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="#f40410"/>
+    <padding
+        android:left="16dp"
+        android:right="16dp"
+        android:top="5dp"
+        android:bottom="5dp"/>
+    <corners android:radius="2dp"/>
+</shape>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_venta"
+            android:icon="@drawable/ic_shopping_cart_black"
+            android:title="Ventas" />
+        <item
+            android:id="@+id/nav_servicio"
+            android:icon="@drawable/ic_phone_iphone_black"
+            android:title="Servicios" />
+        <item
+            android:id="@+id/nav_reporte"
+            android:icon="@drawable/ic_monetization_on_black"
+            android:title="Reportes" />
+    </group>
+
+    <group
+        android:id="@+id/menu_bottom"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_producto"
+            android:icon="@drawable/ic_local_offer_black"
+            android:title="Producto"/>
+        <item
+            android:id="@+id/nav_actualizar"
+            android:icon="@drawable/ic_edit_black"
+            android:title="Actualizar"/>
+        <item
+            android:id="@+id/nav_eliminar"
+            android:icon="@drawable/ic_delete_black"
+            android:title="Eliminar"/>
+        <item
+            android:id="@+id/nav_bodega"
+            android:icon="@drawable/ic_store_black"
+            android:title="Bodega"/>
+    </group>
+
+    <group
+        android:id="@+id/menu_settings"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_empleado"
+            android:icon="@drawable/ic_person"
+            android:title="Empleados" />
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_settings_black"
+            android:title="Configuración" />
+    </group>
+
+    <group
+        android:id="@+id/menu_info"
+        android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav_acerca"
+            android:icon="@drawable/ic_info_black"
+            android:title="Acerca" />
+    </group>
+</menu>

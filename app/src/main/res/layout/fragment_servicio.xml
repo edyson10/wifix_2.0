@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".AgregarProductoActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SERVICIO"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="5dp"
+        android:textStyle="bold"
+        android:textSize="17dp"/>
+
+   <ImageView
+       android:layout_width="170sp"
+       android:layout_height="170sp"
+       android:layout_gravity="center"
+       android:layout_marginTop="30sp"
+       android:src="@drawable/serviciotecnico"/>
+
+    <Button
+        android:id="@+id/btnVistaDiagnostico"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25sp"
+        android:layout_gravity="center"
+        android:text="DIAGNOSTICO"/>
+    <Button
+        android:id="@+id/btnVistaReparacion"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="REPARACION"/>
+    <Button
+        android:id="@+id/btnVistaGarantia"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="GARANTIA"/>
+    <Button
+        android:id="@+id/btnVistaListarServicios"
+        android:layout_width="200sp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="LISTAR SERVICIOS"/>
+</LinearLayout>

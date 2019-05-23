@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.duvan.wifix_v2">
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity android:name=".UtilidadAleActivity"></activity>
+        <activity android:name=".UtilidadPalActivity" />
+        <activity android:name=".ListarVentaAlActivity" />
+        <activity android:name=".ListarDiagnosticoActivity" />
+        <activity android:name=".ListarGarantiaActivity" />
+        <activity android:name=".ListarReparacionActivity" />
+        <activity android:name=".RegistrarProductoActivity" />
+        <activity android:name=".GarantiaActivity" />
+        <activity android:name=".ReparacionActivity" />
+        <activity android:name=".ActualizarVentaActivity" />
+        <activity android:name=".EliminaSalidaActivity" />
+        <activity android:name=".ListarVentasActivity" />
+        <activity
+            android:name=".MainEmpleadoActivity"
+            android:label="@string/app_name"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ListarServicioActivity" />
+        <activity android:name=".EliminarVentaActivity" />
+        <activity android:name=".EliminarServicioActivity" />
+        <activity android:name=".EditarProductoActivity" />
+        <activity android:name=".DiagnosticoActivity" /> <!-- CODIGO QUE SE CREA DE AS ACTIVITY CREADAS ANTERIORMENTE PARA MODIFICAR EL INCIO DEL APLICATIVO -->
+        <activity
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".SplashActivity"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+            android:screenOrientation="portrait">
+
+            <!-- CODIGO PARA QUE DIGA CUAL ES LA ACTIVITY FRAGMENT QUE SE MOSTRRA AL INCIAR A APLICACIÓN -->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".BuscarServActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".recuperarPassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AgregarProductoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".CambiarPassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".FotosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActualizarDatosActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ListarProductoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BajasActivity"
+            android:screenOrientation="portrait" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+    </application>
+
+</manifest>

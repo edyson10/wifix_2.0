@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient"
+    android:padding="40dp"
+    tools:context=".LoginActivity">
+
+    <!--- android:layout_below="@id/ImagenLogin"
+    ESTA LINEA DE CODIGO SIRVE PARA DECIRLE A LA VISTA EN DONDE
+    DEBE POSICIONARSE PERO DESPUES DE DECIRLE EN DONDE DEBE HACERSE,
+    EN ESTE CASO LE ESTA DICIENDO QUE DEBE HACERSE DESPUÉS DEL LOGO O IMAGEN
+    -->
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="1">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.6">
+            <ImageView
+                android:id="@+id/ImagenLogin"
+                android:layout_width="330dp"
+                android:layout_height="330dp"
+                android:src="@drawable/icono"
+                android:layout_marginTop="1dp"
+                android:layout_centerHorizontal="true"/>
+            <!--
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="ADMINISTRADOR"
+                android:textColor="@color/white"
+                android:layout_below="@id/ImagenLogin"
+                android:layout_marginTop="25dp"
+                android:gravity="center"
+                android:textStyle="bold"
+                android:textSize="17dp"/>
+                -->
+        </RelativeLayout>
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.4"
+            android:fillViewport="true"
+            android:layout_marginTop="40dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:padding="3dp">
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="16dp"
+                    android:theme="@style/edit_text_white">
+
+                    <android.support.design.widget.TextInputEditText
+                        android:id="@+id/txtUser"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableTint="@color/white"
+                        android:textColorHint="@color/white"
+                        android:textColor="@color/white"
+                        android:backgroundTint="@color/primaryTextColor"
+                        android:drawablePadding="8dp"
+                        android:hint="Usuario"
+                        android:inputType="number"/>
+                </android.support.design.widget.TextInputLayout>
+
+                <android.support.design.widget.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:passwordToggleEnabled="true"
+                    app:passwordToggleTint="@android:color/white"
+                    android:theme="@style/edit_text_white">
+
+                    <EditText
+                        android:id="@+id/txtPass"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableTint="@color/white"
+                        android:textColor="@color/white"
+                        android:textColorHint="@color/primaryTextColor"
+                        android:backgroundTint="@color/primaryTextColor"
+                        android:drawablePadding="10dp"
+                        android:inputType="textPassword"
+                        android:hint="Contraseña"/>/>
+                </android.support.design.widget.TextInputLayout>
+                <RadioGroup
+                    android:id="@+id/opciones_rol"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+                    <RadioButton
+                        android:id="@+id/radio_admin"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="16dp"
+                        android:checked="true"
+                        android:text="Administrador"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+                    <RadioButton
+                        android:id="@+id/radio_empleado"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Empleado"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+                </RadioGroup>
+                <Button
+                    android:id="@+id/btnLoginActivity"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="INICIAR SESIÓN"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/gradientbuttonligth"
+                    android:theme="@style/raised_button"/>
+            </LinearLayout>
+        </ScrollView>
+
+        <TextView
+            android:id="@+id/txtVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="bottom|center"
+            android:gravity="bottom|center|end"
+            android:text="Versión 1.2.155.2.2"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

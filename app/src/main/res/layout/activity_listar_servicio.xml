@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    tools:context=".ListarServicioActivity">
+
+    <TextView
+        android:id="@+id/txtListar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LISTA DE SERVICIOS"
+        android:layout_gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="15dp"
+        android:textStyle="bold"
+        android:textSize="17dp"
+        android:gravity="center"/>
+
+    <LinearLayout
+        android:id="@+id/layoutBusqueda"
+        android:layout_below="@id/txtListar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/txtBuscarServicio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:inputType="number"
+            android:hint="Digite ID Servicio o Cedula"
+            android:textSize="15dp" />
+        <ImageButton
+            android:id="@+id/btnBuscaServicio"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_search_black" />
+    </LinearLayout>
+    <ListView
+        android:id="@+id/listServEmpleado"
+        android:layout_below="@id/layoutBusqueda"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:dividerHeight="10dp">
+    </ListView>
+</RelativeLayout>

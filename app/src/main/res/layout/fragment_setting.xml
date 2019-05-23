@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    android:layout_marginTop="16sp"
+    android:layout_marginLeft="16sp"
+    android:layout_marginRight="16sp"
+    android:layout_marginBottom="16sp"
+    android:orientation="vertical"
+    tools:context=".Fragments.SettingFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <TextView
+                android:id="@+id/txtInicio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="CONFIGURACIÓN"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+            <ImageView
+                android:id="@+id/imagenUser"
+                android:layout_width="150sp"
+                android:layout_height="150sp"
+                android:layout_gravity="center"
+                android:layout_marginTop="25sp"
+                android:src="@drawable/user"
+                android:layout_below="@id/txtInicio"/>
+
+            <LinearLayout
+                android:id="@+id/layoutNombre"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="5sp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:layout_below="@id/imagenUser">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Nombre"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtNombreEmpleado"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:hint="None" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutApellido"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:layout_below="@id/layoutNombre">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Apellido"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtApellidoEmpleado"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:hint="None" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutCedula"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:layout_below="@id/layoutApellido">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Cédula"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtCedulaEmpleadoAct"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:hint="1234567890" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutSexo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:layout_below="@id/layoutCedula">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Sexo"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtSexoEmpleado"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:hint="None" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutTelefono"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:layout_below="@id/layoutSexo">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Teléfono"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtTelefonoEmpleado"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:hint="None" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutDireccion"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:layout_below="@id/layoutTelefono">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Dirección"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtDireccionEmpleado"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:hint="None" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutCorreo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:layout_below="@id/layoutDireccion">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Correo"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtCorreoEmpleado"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:hint="None" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutTienda"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="10sp"
+                android:layout_weight="0.5"
+                android:orientation="horizontal"
+                android:layout_below="@id/layoutCorreo">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.3"
+                    android:text="Tienda"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/txtTiendaEmpleado"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.2"
+                    android:hint="None" />
+            </LinearLayout>
+
+            <Spinner
+                android:id="@+id/spTiendaEmpleado"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20sp"
+                android:layout_marginTop="15sp"
+                android:layout_below="@id/layoutTienda">
+            </Spinner>
+
+            <Button
+                android:id="@+id/btnActualizarEmpleado"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginRight="40sp"
+                android:layout_marginTop="15sp"
+                android:layout_below="@+id/spTiendaEmpleado"
+                android:text="ACTUALIZAR TIENDA" />
+
+            <Button
+                android:id="@+id/btnActualizarContrasena"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="30sp"
+                android:layout_marginRight="40sp"
+                android:layout_below="@+id/btnActualizarEmpleado"
+                android:text="ACTUALIZAR CONTRASEÑA"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
