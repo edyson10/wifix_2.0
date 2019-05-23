@@ -104,19 +104,21 @@ public class VentasFragment extends Fragment {
         });
 
         spEmpleado = (Spinner) view.findViewById(R.id.spEmpleado);
+        /*
         //CODIGO PARA MOSTRAR LOS DATOS EN EN SPINNER O COMBOBOX
-        List<String> listaEmpleado;
+        List<String> listaEmpleados;
         ArrayAdapter adapterSpinner;
-        listaEmpleado = new ArrayList<>();
+        listaEmpleados = new ArrayList<>();
         //Cargo sexo en listaSexo
-        Collections.addAll(listaEmpleado, empleado);
+        Collections.addAll(listaEmpleados, empleado);
         //Paso los valores a mi adapter
-        adapterSpinner = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, listaEmpleado);
+        adapterSpinner = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, listaEmpleados);
         //Linea de código secundario sirve para asignar un layout a los ítems
         adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         //Muestro los ítems en el spinner, obtenidos gracias al adapter
         spEmpleado.setAdapter(adapterSpinner);
         //FIN CODIGO
+        */
 
         lista = (ListView) view.findViewById(R.id.listaModelos);
         cantidad = (EditText) view.findViewById(R.id.txtCantidadVenta);
@@ -131,10 +133,12 @@ public class VentasFragment extends Fragment {
                 @Override
                 public void run() {
                     final String resultado = obtenerDatosGET();
+                    final String resultado1 = recibirDatosGET();
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             cargarLista(listaProductos(resultado));
+                            cargarSpinner(listaEmpleados(resultado1));
                             adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, listaProductos(resultado));
                             lista.setAdapter(adapter);
                             //Toast.makeText(getContext(),cedula_U, Toast.LENGTH_SHORT).show();
@@ -304,6 +308,33 @@ public class VentasFragment extends Fragment {
         return resul.toString();
     }
 
+    public String recibirDatosGET(){
+        URL url = null;
+        String linea = "";
+        int respuesta = 0;
+        StringBuilder resul = null;
+        String url_local = "http://192.168.1.4/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/empleados.php";
+
+        try{
+            //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
+            url = new URL(url_aws);
+            HttpURLConnection conection = (HttpURLConnection) url.openConnection();
+            respuesta = conection.getResponseCode();
+            resul = new StringBuilder();
+            if (respuesta == HttpURLConnection.HTTP_OK){
+                InputStream inputStream = new BufferedInputStream(conection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                while ((linea = reader.readLine()) != null){
+                    resul.append(linea);
+                }
+            }
+        }catch (Exception e){
+            return e.getMessage();
+        }
+        return resul.toString();
+    }
+
     //METODO QUE PERMITE OBTENER EL JSON Y RECORRERLO Y SABER SI RECIBIO O NO DATOS
     public int obtenerDatosJSON(String response){
         int res = 0;
@@ -330,11 +361,30 @@ public class VentasFragment extends Fragment {
         return listado;
     }
 
+    public ArrayList<String> listaEmpleados(String response){
+        ArrayList<String> listado = new ArrayList<String>();
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            String texto = "";
+            for (int i = 0;i<jsonArray.length();i++){
+                texto = jsonArray.getJSONObject(i).getString("nombre") + " - " + jsonArray.getJSONObject(i).getString("cedula");
+                listado.add(texto);
+            }
+        }catch (Exception e){}
+        return listado;
+    }
+
     //METODO QUE PERMITE CARGAR EL LISTVIEW
     public void cargarLista(ArrayList<String> listaProd) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, listaProd);
         lista = (ListView) view.findViewById(R.id.listaModelos);
         lista.setAdapter(adapter);
+    }
+
+    public void cargarSpinner(ArrayList<String> empleado){
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, empleado);
+        spEmpleado = (Spinner) view.findViewById(R.id.spEmpleado);
+        spEmpleado.setAdapter(adapter);
     }
 
     private void cargarPreferencias(){
