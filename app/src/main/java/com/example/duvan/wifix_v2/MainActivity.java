@@ -109,9 +109,9 @@ public class MainActivity extends AppCompatActivity
                 })
                 .setPositiveButton("Si", new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
+                        //Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
                         removePreferences();
-                        startActivity(intent);
+                        //startActivity(intent);
                         Toast.makeText(getApplicationContext(), "Se ha cerrado sesión", Toast.LENGTH_SHORT).show();
                     }
                 }).show();
@@ -179,10 +179,6 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onFragmentInteraction(Uri uri) {
-
-    }
-
-    public void logoutClick(View view) {
 
     }
 }

@@ -172,14 +172,14 @@ public class ProductoFragment extends Fragment {
                                         int r = obtenerDatosJSON(resultado);
                                         //Condición para validar si los campos estan llenos
                                         if (r > 0) {
+                                            Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Mensaje " + resultado, Toast.LENGTH_LONG).show();
+                                            progressDialog.hide();
+                                        } else {
                                             progressDialog.dismiss();
                                             Toast.makeText(getContext(), "Se ha añadido la cantidad exitosamente", Toast.LENGTH_SHORT).show();
                                             producto.setText("");
                                             cantidad.setText("");
-                                        } else {
-                                            Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
-                                            //Toast.makeText(getContext(), "Mensaje " + resultado, Toast.LENGTH_LONG).show();
-                                            progressDialog.hide();
                                         }
                                         progressDialog.hide();
                                     }
@@ -233,12 +233,12 @@ public class ProductoFragment extends Fragment {
         int respuesta = 0;
         StringBuilder resul = null;
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/actualizarCantidad.php?";
-        String url_local = "http://192.168.1.6/ServiciosWeb/actualizarCantidad.php?";
+        String url_local = "http://192.168.1.4/ServiciosWeb/actualizarCantidad.php?";
         String mod = modelo.replace(" ", "%20");
         String mar =  marca.replace(" ", "%20");
 
         try{
-            url = new URL(url_aws + "marca=" + mar + "&modelo=" + mod + "&cantidad=" + cantidad);
+            url = new URL(url_aws + "marca=" + mar + "&modelo=" + mod + "&cantidad=" + cantidad + "&cedula=" + cedula_U);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
