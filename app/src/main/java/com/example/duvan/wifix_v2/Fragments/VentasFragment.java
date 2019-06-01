@@ -186,11 +186,13 @@ public class VentasFragment extends Fragment {
                     Toast.makeText(getContext(), "¡Complete los campos!", Toast.LENGTH_LONG).show();
                 } else {
                     String[] prod = producto.getText().toString().split(" - ");
+                    String id = "";
                     String art = "";
                     String mod = "";
                     for (int i = 0; i < prod.length; i++) {
-                        art = prod[0].toString();
-                        mod = prod[1].toString();
+                        id = prod[0].toString();
+                        art = prod[1].toString();
+                        mod = prod[2].toString();
                     }
 
                     String cedulaEmpleado = "";
@@ -227,11 +229,12 @@ public class VentasFragment extends Fragment {
                                             progressDialog.hide();
                                         } else {
                                             progressDialog.dismiss();
-                                            Toast.makeText(getContext(), "Se ha registrado la venta exitosamente", Toast.LENGTH_SHORT).show();
+
                                             producto.setText("");
                                             cantidad.setText("");
                                             precio.setText("");
-                                            Toast.makeText(getContext(), finalCedulaEmpleado, Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Se ha registrado la venta exitosamente", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getContext(), finalCedulaEmpleado, Toast.LENGTH_SHORT).show();
                                         }
                                         progressDialog.hide();
                                     }
@@ -256,7 +259,7 @@ public class VentasFragment extends Fragment {
         int respuesta = 0;
         StringBuilder resul = null;
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/registrarVenta.php";
-        String url_local = "http://192.168.1.4/ServiciosWeb/registrarVenta.php";
+        String url_local = "http://192.168.1.6/ServiciosWeb/registrarVenta.php";
         String mod = modelo.replace(" ", "%20");
         String mar = marca.replace(" ", "%20");
 
@@ -286,8 +289,8 @@ public class VentasFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_local = "http://192.168.1.4/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
+            String url_local = "http://192.168.1.6/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
+            String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
@@ -313,7 +316,7 @@ public class VentasFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_local = "http://192.168.1.4/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
+        String url_local = "http://192.168.1.6/ServiciosWeb/empleados.php";
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/empleados.php";
 
         try{
@@ -354,7 +357,9 @@ public class VentasFragment extends Fragment {
             JSONArray jsonArray = new JSONArray(response);
             String texto = "";
             for (int i = 0;i<jsonArray.length();i++){
-                texto = jsonArray.getJSONObject(i).getString("articulo") + " - " + jsonArray.getJSONObject(i).getString("modelo");
+                texto = jsonArray.getJSONObject(i).getString("id_producto") + " - "
+                        + jsonArray.getJSONObject(i).getString("articulo") + " - "
+                        + jsonArray.getJSONObject(i).getString("modelo");
                 listado.add(texto);
             }
         }catch (Exception e){}

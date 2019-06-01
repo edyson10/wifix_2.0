@@ -144,13 +144,16 @@ public class ProductoFragment extends Fragment {
                     Toast.makeText(getContext(), "¡Complete los campos!", Toast.LENGTH_LONG).show();
                 } else {
                     String[] prod = producto.getText().toString().split(" - ");
+                    String id = "";
                     String art = "";
                     String mod = "";
                     for (int i = 0; i < prod.length; i++) {
-                        art = prod[0].toString();
-                        mod = prod[1].toString();
+                        id = prod[0].toString();
+                        art = prod[1].toString();
+                        mod = prod[2].toString();
                     }
 
+                    final String finalId = id;
                     final String finalArt = art;
                     final String finalMod = mod;
                     final char[] cant = cantidad.getText().toString().toCharArray();
@@ -165,21 +168,22 @@ public class ProductoFragment extends Fragment {
                         Thread thread = new Thread() {
                             @Override
                             public void run() {
-                                final String resultado = actualizarDatosGET(finalArt, finalMod, Integer.parseInt(cantidad.getText().toString()));
+                                final String resultado = actualizarDatosGET(finalId, Integer.parseInt(cantidad.getText().toString()));
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         int r = obtenerDatosJSON(resultado);
                                         //Condición para validar si los campos estan llenos
                                         if (r > 0) {
-                                            Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
-                                            Toast.makeText(getContext(), "Mensaje " + resultado, Toast.LENGTH_LONG).show();
-                                            progressDialog.hide();
-                                        } else {
                                             progressDialog.dismiss();
                                             Toast.makeText(getContext(), "Se ha añadido la cantidad exitosamente", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getContext(), "Mensaje " + resultado, Toast.LENGTH_LONG).show();
                                             producto.setText("");
                                             cantidad.setText("");
+                                        } else {
+                                            Toast.makeText(getContext(), "¡Error al actualizar!", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getContext(), "Mensaje " + resultado, Toast.LENGTH_LONG).show();
+                                            progressDialog.hide();
                                         }
                                         progressDialog.hide();
                                     }
@@ -227,18 +231,16 @@ public class ProductoFragment extends Fragment {
 
     //===== INICIO CODIGO =====>
     //METODO PARA ACTUALIZAR LOS DATOS AL SERVIDOR LOCAL
-    public String actualizarDatosGET(String marca, String modelo,int cantidad){
+    public String actualizarDatosGET(String id ,int cantidad){
         URL url = null;
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/actualizarCantidad.php?";
-        String url_local = "http://192.168.1.4/ServiciosWeb/actualizarCantidad.php?";
-        String mod = modelo.replace(" ", "%20");
-        String mar =  marca.replace(" ", "%20");
+        String url_local = "http://192.168.1.6/ServiciosWeb/actualizarCantidad.php?";
 
         try{
-            url = new URL(url_aws + "marca=" + mar + "&modelo=" + mod + "&cantidad=" + cantidad + "&cedula=" + cedula_U);
+            url = new URL(url_aws + "id=" + id + "&cantidad=" + cantidad);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -261,7 +263,7 @@ public class ProductoFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_local = "http://192.168.1.4/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
+        String url_local = "http://192.168.1.6/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
 
         try{
@@ -302,7 +304,9 @@ public class ProductoFragment extends Fragment {
             JSONArray jsonArray = new JSONArray(response);
             String texto = "";
             for (int i = 0;i<jsonArray.length();i++){
-                texto = jsonArray.getJSONObject(i).getString("articulo") + " - " + jsonArray.getJSONObject(i).getString("modelo");
+                texto = jsonArray.getJSONObject(i).getString("id_producto") + " - "
+                        + jsonArray.getJSONObject(i).getString("articulo") + " - "
+                        + jsonArray.getJSONObject(i).getString("modelo");
                 listado.add(texto);
             }
         }catch (Exception e){}

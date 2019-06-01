@@ -203,7 +203,7 @@ public class ActualizarFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_local = "http://172.21.0.130/ServiciosWeb/buscarServicio.php";
+        String url_local = "http://192.168.1.6/ServiciosWeb/buscarServicio.php";
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/buscarServicio.php";
 
         try {
@@ -244,7 +244,7 @@ public class ActualizarFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_local = "http://192.168.65.1/ServiciosWeb/actualizarServicio.php?";
+        String url_local = "http://192.168.1.6/ServiciosWeb/actualizarServicio.php?";
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/actualizarServicio.php?";
 
         String falla = fallaExpresada.replace(" ", "%20");

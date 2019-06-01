@@ -162,7 +162,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             rol = 2;
         }
         StringBuilder resul = null;
-        String url_local = "http://192.168.1.4/ServiciosWeb/validarEmpleado.php?";
+        String url_local = "http://192.168.1.6/ServiciosWeb/validarEmpleado.php?";
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/validarEmpleado.php?";
 
         try{

@@ -107,14 +107,13 @@ public class RegistrarProductoActivity extends AppCompatActivity {
                             runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
-                                    progressDialog.dismiss();
                                     //cargarWebServices();
                                     int r = obtenerDatosJSON(resultado);
                                     //Condición para validar si los campos estan llenos
                                     if (r == 0) {
+                                        progressDialog.hide();
                                         Toast.makeText(getApplicationContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
                                         //Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
-                                        progressDialog.hide();
                                     } else {
                                         progressDialog.dismiss();
                                         Toast.makeText(getApplicationContext(), "Se ha registrado el producto exitosamente", Toast.LENGTH_SHORT).show();
@@ -145,7 +144,7 @@ public class RegistrarProductoActivity extends AppCompatActivity {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_local = "http://192.168.1.3/ServiciosWeb/registrarProducto.php?";
+        String url_local = "http://192.168.1.6/ServiciosWeb/registrarProducto.php?";
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/registrarProducto.php?";
         String mar = articulo.replace(" ", "%20");
         String mod = modelo.replace(" ", "%20");
@@ -155,7 +154,7 @@ public class RegistrarProductoActivity extends AppCompatActivity {
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
             http://localhost/ServiciosWeb/registrarProducto.php?
             url = new URL(url_aws + "articulo=" + mar + "&modelo=" + mod + "&precioUni=" + precioUni + "&precioVen=" + precioVen + "&cantidad="
-                    + cantidad + "&descripcion=" + descri+ "&bodega=" + bodega);
+                    + cantidad + "&descripcion=" + descri + "&bodega=" + bodega);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -184,6 +183,7 @@ public class RegistrarProductoActivity extends AppCompatActivity {
         return res;
     }
 
+    //NO SE ESTA UTILIZANDO
     //WEB SRVICES DE VOLLEY
     public void cargarWebServices(){
         String url_local = "http://192.168.149.2/ServiciosWeb/registrarProducto.php?";

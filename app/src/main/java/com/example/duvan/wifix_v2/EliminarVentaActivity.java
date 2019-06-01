@@ -204,7 +204,8 @@ public class EliminarVentaActivity extends AppCompatActivity {
                 articulo = jsonArray.getJSONObject(i).getString("marca");
                 modelo = jsonArray.getJSONObject(i).getString("modelo");
 
-                texto = "Marca: " + jsonArray.getJSONObject(i).getString("marca") + "\n"
+                texto = "Empleado: " + jsonArray.getJSONObject(i).getString("empleado") + "\n"
+                        + "Marca: " + jsonArray.getJSONObject(i).getString("marca") + "\n"
                         + "Modelo: " + jsonArray.getJSONObject(i).getString("modelo") + "\n"
                         + "Precio: " + jsonArray.getJSONObject(i).getString("precio") + "\n"
                         + "Cantidad: " + jsonArray.getJSONObject(i).getString("cantidad");
