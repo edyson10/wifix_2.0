@@ -47,7 +47,7 @@ public class EditarProductoActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editar_producto);
+        setContentView(R.layout.activity_editar);
 
         progressDialog = new ProgressDialog(EditarProductoActivity.this);
         spArticuloElim = (Spinner) findViewById(R.id.spArticuloProdElim);

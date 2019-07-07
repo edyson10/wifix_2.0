@@ -1,5 +1,6 @@
 package com.example.duvan.wifix_v2;
 
+import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
@@ -8,6 +9,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -21,13 +23,16 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Calendar;
 
 public class ActualizarVentaActivity extends AppCompatActivity {
 
     EditText txtBuscar,  txtPrecioAct, txtCantidadAct;
-    TextView txtModeloAct, txtArticuloAct;
+    TextView txtModeloAct, txtArticuloAct, fechaNueva, fechaVen;
     Button actualizar;
     ImageButton buscar;
+    Calendar mCurrentDate;
+    int dia, mes, anio;
 
     private ProgressDialog progressDialog;
 
@@ -44,6 +49,28 @@ public class ActualizarVentaActivity extends AppCompatActivity {
         txtCantidadAct = (EditText) findViewById(R.id.txtCantidadBuscar);
         buscar = (ImageButton) findViewById(R.id.btnBuscaVenta);
         actualizar = (Button)findViewById(R.id.btnActualizarVenta);
+        fechaVen = (TextView) findViewById(R.id.fechaVenta);
+        fechaNueva = (TextView) findViewById(R.id.fechaVentaNueva);
+
+        //CODIGO FECHA DE ENTREGA ESTIPULADA
+        mCurrentDate = Calendar.getInstance();
+        dia = mCurrentDate.get(Calendar.DAY_OF_MONTH);
+        mes = mCurrentDate.get(Calendar.MONTH);
+        anio = mCurrentDate.get(Calendar.YEAR);
+        fechaNueva.setText(anio + "-" + (mes + 1) + "-" + dia);
+        fechaNueva.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog datePickerDialog = new DatePickerDialog(getApplicationContext(), new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker datePicker , int year , int monthOfYear,  int dayOfMonth) {
+                        monthOfYear = monthOfYear + 1;
+                        fechaNueva.setText(year+"-"+monthOfYear+"-"+dayOfMonth);
+                    }
+                }, anio, mes, dia);
+                datePickerDialog.show();
+            }
+        });
 
         buscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -143,7 +170,7 @@ public class ActualizarVentaActivity extends AppCompatActivity {
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_local + "venta=" + venta);
+            url = new URL(url_aws + "venta=" + venta);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();

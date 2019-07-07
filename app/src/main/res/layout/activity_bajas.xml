@@ -77,11 +77,18 @@
                     android:text="Costo"
                     android:buttonTint="@color/secondaryTextColor"/>
             </RadioGroup>
+
             <Button
                 android:id="@+id/btnRegistrarBaja"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="REGISTRAR BAJA"/>
+
+            <Button
+                android:id="@+id/btnListarBajas"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="LISTAR BAJAS DE HOY"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

@@ -16,6 +16,10 @@
             android:id="@+id/nav_reporte"
             android:icon="@drawable/ic_monetization_on_black"
             android:title="Reportes" />
+        <item
+            android:id="@+id/nav_balance"
+            android:icon="@drawable/ic_euro_symbol_black"
+            android:title="Balance cuenta" />
     </group>
 
     <group
@@ -25,6 +29,10 @@
             android:id="@+id/nav_producto"
             android:icon="@drawable/ic_local_offer_black"
             android:title="Producto"/>
+        <item
+            android:id="@+id/nav_editar"
+            android:icon="@drawable/ic_edit_black"
+            android:title="Editar"/>
         <item
             android:id="@+id/nav_actualizar"
             android:icon="@drawable/ic_edit_black"

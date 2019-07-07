@@ -38,7 +38,7 @@
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Tiempo entrega"
+                    android:text="Fecha reporte"
                     android:textSize="15dp"
                     android:textStyle="bold" />
                 <TextView

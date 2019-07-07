@@ -50,13 +50,35 @@
                     android:src="@drawable/ic_search_black" />
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Fecha Venta"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/fechaVenta"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="2019-01-01" />
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/txtProductoBuscar"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10sp"
                 android:textSize="16sp"
-                android:text="Articulo"/>
+                android:text="Articulo"
+                android:textStyle="bold"/>
 
             <TextView
                 android:id="@+id/txtModeloBuscar"
@@ -64,7 +86,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20sp"
                 android:textSize="16sp"
-                android:text="Modelo"/>
+                android:text="Modelo"
+                android:textStyle="bold"/>
 
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
@@ -89,6 +112,27 @@
                     android:hint="Actualizar cantidad"
                     android:inputType="textMultiLine"/>
             </android.support.design.widget.TextInputLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10sp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Fecha  Nueva"
+                    android:textSize="15dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/fechaVentaNueva"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:hint="2019-01-01" />
+            </LinearLayout>
 
             <Button
                 android:id="@+id/btnActualizarVenta"

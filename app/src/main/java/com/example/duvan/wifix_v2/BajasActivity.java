@@ -30,7 +30,7 @@ public class BajasActivity extends AppCompatActivity {
     String cedula_U;
 
     EditText descripcion, precio;
-    Button registrar;
+    Button registrar, listar;
     RadioButton gasto, costo;
 
     private ProgressDialog progressDialog;
@@ -47,6 +47,8 @@ public class BajasActivity extends AppCompatActivity {
         costo = (RadioButton) findViewById(R.id.radio_costos);
         gasto = (RadioButton) findViewById(R.id.radio_gastos);
         registrar = (Button)findViewById(R.id.btnRegistrarBaja);
+        listar = (Button) findViewById(R.id.btnListarBajas);
+
         final Bundle recupera = getIntent().getExtras();
         if(recupera != null){
             recuperado = recupera.getString("cedula");
@@ -98,6 +100,13 @@ public class BajasActivity extends AppCompatActivity {
                 }
             }
         });
+
+        listar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listarSalidas();
+            }
+        });
     }
 
     private String validar() {
@@ -108,6 +117,11 @@ public class BajasActivity extends AppCompatActivity {
             cad = "gasto";
         }
         return cad;
+    }
+
+    public void listarSalidas(){
+        Intent intent = new Intent(getApplicationContext(), ListarSalidasActivity.class);
+        startActivity(intent);
     }
 
     //METODO PARA ENVIAR LOS DATOS AL SERVIDOR LOCAL

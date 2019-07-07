@@ -75,6 +75,7 @@ public class ReporteFragment extends Fragment {
         vista = inflater.inflate(R.layout.fragment_reporte, container, false);
 
         progressDialog = new ProgressDialog(getContext());
+
         //CODIGO FECHA DE ENTREGA ESTIPULADA
         fecha = (TextView) vista.findViewById(R.id.fechaReporte);
         mCurrentDate = Calendar.getInstance();
