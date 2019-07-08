@@ -43,7 +43,7 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Versión 1.2.156"
+            android:text="Versión 1.2.157"
             android:gravity="center"
             android:textStyle="bold"/>
     </LinearLayout>

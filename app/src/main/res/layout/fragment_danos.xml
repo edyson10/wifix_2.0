@@ -1,37 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:orientation="vertical"
-    tools:context=".Fragments.VentasFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.DanosFragment">
 
     <TextView
-        android:id="@+id/txtTituloVenta"
+        android:id="@+id/txtTituloDanos"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:textSize="20sp"
         android:layout_marginTop="10dp"
-        android:text="VENTAS"
+        android:text="BAJA DE PRODUCTOS"
         android:textStyle="bold"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="10dp"/>
 
-    <Spinner
-        android:id="@+id/spEmpleado"
-        android:layout_below="@id/txtTituloVenta"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </Spinner>
-
     <EditText
-        android:id="@+id/txtProductoVenta"
-        android:layout_below="@id/spEmpleado"
+        android:id="@+id/txtProductoDano"
+        android:layout_below="@id/txtTituloDanos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -39,26 +28,26 @@
         android:drawableLeft="@drawable/ic_search_black"/>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/layout_venta"
-        android:layout_below="@id/txtProductoVenta"
+        android:id="@+id/layout_observacion"
+        android:layout_below="@id/txtProductoDano"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/txtPrecioVenta"
+            android:id="@+id/txtObservacionDano"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="Precio del producto"
-            android:inputType="number"/>
+            android:hint="Observacion"
+            android:inputType="textImeMultiLine"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_cantidad"
-        android:layout_below="@id/layout_venta"
+        android:layout_below="@id/layout_observacion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/txtCantidadVenta"
+            android:id="@+id/txtCantidadDano"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -67,7 +56,7 @@
     </android.support.design.widget.TextInputLayout>
 
     <ListView
-        android:id="@+id/listaModelos"
+        android:id="@+id/listaModelosDanos"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layout_cantidad"
@@ -82,20 +71,20 @@
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="10sp">
         <Button
-            android:id="@+id/btnVender"
+            android:id="@+id/btnDano"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
             android:layout_weight="0.5"
-            android:text="VENDER" />
+            android:text="DAR DE BAJA" />
         <Button
-            android:id="@+id/btnListarVenta"
+            android:id="@+id/btnListarDanos"
             android:layout_gravity="center"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="13dp"
             android:layout_weight="0.5"
-            android:text="LISTAR VENTAS" />
+            android:text="LISTAR DAÑOS" />
     </LinearLayout>
 </RelativeLayout>

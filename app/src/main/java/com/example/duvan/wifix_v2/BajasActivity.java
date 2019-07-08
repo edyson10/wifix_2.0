@@ -167,6 +167,6 @@ public class BajasActivity extends AppCompatActivity {
 
     private void cargarPreferencias(){
         SharedPreferences preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        cedula_U= preferences.getString("cedula","");
+        cedula_U = preferences.getString("cedula","");
     }
 }

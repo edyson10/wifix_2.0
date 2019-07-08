@@ -1,9 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:orientation="vertical"
     tools:context=".ListarSalidasActivity">
 
-</android.support.constraint.ConstraintLayout>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="SALIDAS DE HOY"
+        android:textSize="18sp"
+        android:textStyle="bold"/>
+    <ListView
+        android:id="@+id/listaSalida"
+        android:layout_marginTop="10sp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:dividerHeight="6sp">
+    </ListView>
+
+</LinearLayout>

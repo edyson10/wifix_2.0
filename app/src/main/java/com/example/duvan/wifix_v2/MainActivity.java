@@ -28,6 +28,7 @@ import com.example.duvan.wifix_v2.Fragments.AcercaFragment;
 import com.example.duvan.wifix_v2.Fragments.BalanceFragment;
 import com.example.duvan.wifix_v2.Fragments.BodegaFragment;
 import com.example.duvan.wifix_v2.Fragments.ActualizarFragment;
+import com.example.duvan.wifix_v2.Fragments.DanosFragment;
 import com.example.duvan.wifix_v2.Fragments.EditarFragment;
 import com.example.duvan.wifix_v2.Fragments.EliminarFragment;
 import com.example.duvan.wifix_v2.Fragments.EmpleadoFragment;
@@ -43,7 +44,9 @@ public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, VentasFragment.OnFragmentInteractionListener,
         ReporteFragment.OnFragmentInteractionListener, ServicioFragment.OnFragmentInteractionListener,
         SettingFragment.OnFragmentInteractionListener, EmpleadoFragment.OnFragmentInteractionListener,
-        ProductoFragment.OnFragmentInteractionListener, AcercaFragment.OnFragmentInteractionListener{
+        ProductoFragment.OnFragmentInteractionListener, AcercaFragment.OnFragmentInteractionListener,
+        EditarFragment.OnFragmentInteractionListener, BalanceFragment.OnFragmentInteractionListener,
+        DanosFragment.OnFragmentInteractionListener {
 
     Icon logout;
     private SharedPreferences preferences;
@@ -164,6 +167,9 @@ public class MainActivity extends AppCompatActivity
             fragmentSeleccionado = true;
         } else if(id == R.id.nav_editar){
             miFragment = new EditarFragment();
+            fragmentSeleccionado = true;
+        } else if(id == R.id.nav_danos){
+            miFragment = new DanosFragment();
             fragmentSeleccionado = true;
         }
 

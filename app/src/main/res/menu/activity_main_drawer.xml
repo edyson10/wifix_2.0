@@ -35,8 +35,12 @@
             android:title="Editar"/>
         <item
             android:id="@+id/nav_actualizar"
-            android:icon="@drawable/ic_edit_black"
+            android:icon="@drawable/ic_cloud_upload_black"
             android:title="Actualizar"/>
+        <item
+            android:id="@+id/nav_danos"
+            android:icon="@drawable/ic_do_not_disturb_black"
+            android:title="Daños"/>
         <item
             android:id="@+id/nav_eliminar"
             android:icon="@drawable/ic_delete_black"

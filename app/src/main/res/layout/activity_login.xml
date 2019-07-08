@@ -139,7 +139,7 @@
             android:layout_alignParentBottom="true"
             android:layout_gravity="bottom|center"
             android:gravity="bottom|center|end"
-            android:text="Versión 1.2.156"
+            android:text="Versión 1.2.157"
             android:textColor="@color/white"
             android:textStyle="bold" />
     </LinearLayout>

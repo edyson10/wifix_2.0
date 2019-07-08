@@ -1,10 +1,7 @@
 package com.example.duvan.wifix_v2.Fragments;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.ConnectivityManager;
@@ -22,10 +19,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.example.duvan.wifix_v2.LoginActivity;
-import com.example.duvan.wifix_v2.MainEmpleadoActivity;
+import com.example.duvan.wifix_v2.ListarDanosActivity;
 import com.example.duvan.wifix_v2.R;
 
 import org.json.JSONArray;
@@ -38,26 +35,28 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class BodegaFragment extends Fragment {
+public class DanosFragment extends Fragment {
 
     View view;
-    EditText producto;
-    Button buscar;
-    ListView listProducto;
-    ArrayAdapter<String> adapter;
+    EditText cantidad, producto, observacion;
+    Button baja, listarDanos;
     String cedula_U;
+    private ListView listaProductos;
+    ArrayAdapter<String> adapter;
 
+    String recuperado = "";
     private ProgressDialog progressDialog;
 
     private OnFragmentInteractionListener mListener;
 
-    public BodegaFragment() {
+    public DanosFragment() {
         // Required empty public constructor
     }
 
-    public static BodegaFragment newInstance(String param1, String param2) {
-        BodegaFragment fragment = new BodegaFragment();
+    public static DanosFragment newInstance(String param1, String param2) {
+        DanosFragment fragment = new DanosFragment();
         Bundle args = new Bundle();
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -70,17 +69,21 @@ public class BodegaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        view = inflater.inflate(R.layout.fragment_bodega, container, false);
+        view = inflater.inflate(R.layout.fragment_danos, container, false);
         progressDialog = new ProgressDialog(getContext());
         cargarPreferencias();
-        producto = (EditText) view.findViewById(R.id.txtBuscarBodega);
-        buscar = (Button) view.findViewById(R.id.btnBuscarBodega);
-        listProducto = (ListView) view.findViewById(R.id.listProductosBodega);
+        producto = (EditText) view.findViewById(R.id.txtProductoDano);
+        cantidad = (EditText) view.findViewById(R.id.txtCantidadDano);
+        observacion = (EditText) view.findViewById(R.id.txtObservacionDano);
+        baja = (Button) view.findViewById(R.id.btnDano);
+        listarDanos = (Button) view.findViewById(R.id.btnListarDanos);
+        listaProductos = (ListView) view.findViewById(R.id.listaModelosDanos);
 
+        //CODIGO PARA VALIDAR SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
         ConnectivityManager con = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = con.getActiveNetworkInfo();
         if(networkInfo != null && networkInfo.isConnected()) {
-            Thread thread = new Thread(){
+            Thread thread = new Thread() {
                 @Override
                 public void run() {
                     final String resultado = obtenerDatosGET();
@@ -89,7 +92,8 @@ public class BodegaFragment extends Fragment {
                         public void run() {
                             cargarLista(listaProductos(resultado));
                             adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, listaProductos(resultado));
-                            listProducto.setAdapter(adapter);
+                            listaProductos.setAdapter(adapter);
+                            //Toast.makeText(getContext(),cedula_U, Toast.LENGTH_SHORT).show();
                             producto.addTextChangedListener(new TextWatcher() {
                                 @Override
                                 public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -109,11 +113,11 @@ public class BodegaFragment extends Fragment {
                             progressDialog.hide();
                         }
                     });
-                    listProducto.setClickable(true);
-                    listProducto.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    listaProductos.setClickable(true);
+                    listaProductos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Object o = listProducto.getItemAtPosition(position);
+                            Object o = listaProductos.getItemAtPosition(position);
                             String str = (String) o;//As you are using Default String Adapter
                             producto.setText(str);
                         }
@@ -126,49 +130,107 @@ public class BodegaFragment extends Fragment {
             progressDialog.dismiss();
         }
 
-        buscar.setOnClickListener(new View.OnClickListener() {
+        baja.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                if (producto.getText().toString().isEmpty()) {
+                if (producto.getText().toString().isEmpty() || cantidad.getText().toString().isEmpty() || observacion.getText().toString().isEmpty()) {
                     Toast.makeText(getContext(), "¡Complete los campos!", Toast.LENGTH_LONG).show();
-                }else {
+                } else {
                     String[] prod = producto.getText().toString().split(" - ");
+                    String id = "";
                     String art = "";
                     String mod = "";
                     for (int i = 0; i < prod.length; i++) {
-                        art = prod[0].toString();
-                        mod = prod[1].toString();
+                        id = prod[0].toString();
+                        art = prod[1].toString();
+                        mod = prod[2].toString();
                     }
 
                     final String finalArt = art;
                     final String finalMod = mod;
+                    final char[] cant = cantidad.getText().toString().toCharArray();
                     //agregas un mensaje en el ProgressDialog
                     progressDialog.setMessage("Cargando...");
                     //muestras el ProgressDialog
                     progressDialog.show();
-                    buscarProducto(art, mod);
+                    //CODIGO PARA VALIDAR SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
+                    ConnectivityManager con = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = con.getActiveNetworkInfo();
+                    if (networkInfo != null && networkInfo.isConnected()) {
+                        Thread thread = new Thread() {
+                            @Override
+                            public void run() {
+                                final String resultado = enviarDatosGET(cedula_U, finalArt, finalMod, Integer.parseInt(cantidad.getText().toString()),
+                                        observacion.getText().toString());
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        int r = obtenerDatosJSON(resultado);
+                                        //Condición para validar si los campos estan llenos
+                                        if (r > 0) {
+                                            Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
+                                            progressDialog.hide();
+                                        } else {
+                                            progressDialog.dismiss();
+
+                                            producto.setText("");
+                                            cantidad.setText("");
+                                            Toast.makeText(getContext(), "Se ha registrado la salidad del producto exitosamente", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getContext(), finalCedulaEmpleado, Toast.LENGTH_SHORT).show();
+                                        }
+                                        progressDialog.hide();
+                                    }
+                                });
+                            }
+                        };
+                        thread.start();
+                    } else {
+                        Toast.makeText(getContext(), "Verifique su conexión a internet", Toast.LENGTH_SHORT).show();
+                        progressDialog.dismiss();
+                    }
                 }
+            }
+        });
+
+        listarDanos.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ListarDanosActivity.class);
+                startActivity(intent);
             }
         });
         return view;
     }
 
-    public void buscarProducto(final String marca, final String modelo){
-        Thread thread = new Thread(){
-            @Override
-            public void run() {
-                final String resultado = buscarDatosGET(marca,modelo);
-                getActivity().runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        alertOneButton(cargarProductos(resultado));
-                        progressDialog.hide();
-                    }
-                });
+    //METODO PARA ENVIAR LOS DATOS AL SERVIDOR LOCAL
+    public String enviarDatosGET(String cedula, String marca, String modelo, int cantidad, String observacion){
+        URL url = null;
+        String linea = "";
+        int respuesta = 0;
+        StringBuilder resul = null;
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/salidaProducto.php";
+        String url_local = "http://18.228.235.94/wifix/ServiciosWeb/salidaProducto.php";
+        String mod = modelo.replace(" ", "%20");
+        String mar = marca.replace(" ", "%20");
+
+        try{
+            //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
+            url = new URL(url_aws + "?empleado=" + cedula + "&marca=" + mar + "&modelo=" + mod + "&cantidad=" + cantidad + "&observacion=" + observacion);
+            HttpURLConnection conection = (HttpURLConnection) url.openConnection();
+            respuesta = conection.getResponseCode();
+            resul = new StringBuilder();
+            if (respuesta == HttpURLConnection.HTTP_OK){
+                InputStream inputStream = new BufferedInputStream(conection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                while ((linea = reader.readLine()) != null){
+                    resul.append(linea);
+                }
             }
-        };
-        thread.start();
+        }catch (Exception e){
+            return e.getMessage();
+        }
+        return resul.toString();
     }
 
     //----INICIO CODIGO---->
@@ -178,8 +240,8 @@ public class BodegaFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_local = "http://192.168.1.3/ServiciosWeb/cargarProductosGeneral.php";
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cargarProductosGeneral.php";
+        String url_local = "http://192.168.1.6/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
@@ -200,41 +262,16 @@ public class BodegaFragment extends Fragment {
         return resul.toString();
     }
 
-    //METODO PARA ENVIAR LOS DATOS AL SERVIDOR LOCAL
-    public String buscarDatosGET(String marca, String modelo){
-        URL url = null;
-        String linea = "";
-        int respuesta = 0;
-        StringBuilder resul = null;
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/buscarProducto.php";
-        String url_local = "http://192.168.1.3/ServiciosWeb/buscarProducto.php";
-        String mod = modelo.replace(" ", "%20");
-        String mar = marca.replace(" ", "%20");
-
-        try{
-            //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_aws + "?marca=" + mar + "&modelo=" + mod);
-            HttpURLConnection conection = (HttpURLConnection) url.openConnection();
-            respuesta = conection.getResponseCode();
-            resul = new StringBuilder();
-            if (respuesta == HttpURLConnection.HTTP_OK){
-                InputStream inputStream = new BufferedInputStream(conection.getInputStream());
-                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                while ((linea = reader.readLine()) != null){
-                    resul.append(linea);
-                }
+    //METODO QUE PERMITE OBTENER EL JSON Y RECORRERLO Y SABER SI RECIBIO O NO DATOS
+    public int obtenerDatosJSON(String response){
+        int res = 0;
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            if (jsonArray.length() > 0 ){
+                res = 1;
             }
-        }catch (Exception e){
-            return e.getMessage();
-        }
-        return resul.toString();
-    }
-
-    //METODO QUE PERMITE CARGAR EL LISTVIEW
-    public void cargarLista(ArrayList<String> listaProd) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, listaProd);
-        listProducto = (ListView) view.findViewById(R.id.listProductosBodega);
-        listProducto.setAdapter(adapter);
+        }catch (Exception e){}
+        return res;
     }
 
     //ARREGLO SPINNER
@@ -244,55 +281,41 @@ public class BodegaFragment extends Fragment {
             JSONArray jsonArray = new JSONArray(response);
             String texto = "";
             for (int i = 0;i<jsonArray.length();i++){
-                texto = jsonArray.getJSONObject(i).getString("articulo") + " - " + jsonArray.getJSONObject(i).getString("modelo");
+                texto = jsonArray.getJSONObject(i).getString("id_producto") + " - "
+                        + jsonArray.getJSONObject(i).getString("articulo") + " - "
+                        + jsonArray.getJSONObject(i).getString("modelo");
                 listado.add(texto);
             }
         }catch (Exception e){}
         return listado;
     }
 
-    //ARREGLO SPINNER
-    public ArrayList<String> cargarProductos(String response){
+    public ArrayList<String> listaEmpleados(String response){
         ArrayList<String> listado = new ArrayList<String>();
         try{
             JSONArray jsonArray = new JSONArray(response);
             String texto = "";
             for (int i = 0;i<jsonArray.length();i++){
-                texto = " \n Articulo: " + jsonArray.getJSONObject(i).getString("articulo") + " \n "
-                        + "Modelo: " +  jsonArray.getJSONObject(i).getString("modelo") + " \n "
-                        + "Cantidad: " + jsonArray.getJSONObject(i).getString("cantidad") + " \n "
-                        + "Bodega: " + jsonArray.getJSONObject(i).getString("bodega");
+                texto = jsonArray.getJSONObject(i).getString("nombre") + " - " + jsonArray.getJSONObject(i).getString("cedula");
                 listado.add(texto);
             }
         }catch (Exception e){}
         return listado;
     }
 
-    public void alertOneButton(ArrayList<String> listaProd) {
-
-        final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setIcon(R.drawable.icono);
-        builder.setTitle("Productos");
-
+    //METODO QUE PERMITE CARGAR EL LISTVIEW
+    public void cargarLista(ArrayList<String> listaProd) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, listaProd);
-
-        builder.setAdapter(adapter, new DialogInterface.OnClickListener() {
-            public void onClick(DialogInterface dialog, int item) {
-                // will toast your selection
-                dialog.dismiss();
-            }
-        }).setPositiveButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        }).show();
+        listaProductos = (ListView) view.findViewById(R.id.listaModelosDanos);
+        listaProductos.setAdapter(adapter);
     }
 
     private void cargarPreferencias(){
         SharedPreferences preferences = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         cedula_U = preferences.getString("cedula","");
     }
+
+    //----FIN CODIGO--->
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
@@ -301,7 +324,7 @@ public class BodegaFragment extends Fragment {
         }
     }
 
-    /*
+     /*
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
