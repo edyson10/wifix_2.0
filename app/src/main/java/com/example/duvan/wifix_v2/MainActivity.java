@@ -38,6 +38,7 @@ import com.example.duvan.wifix_v2.Fragments.ReporteFragment;
 import com.example.duvan.wifix_v2.Fragments.ServicioFragment;
 import com.example.duvan.wifix_v2.Fragments.SettingFragment;
 import com.example.duvan.wifix_v2.Fragments.VentasFragment;
+import com.example.duvan.wifix_v2.Fragments.EditarFragment;
 
 public class MainActivity extends AppCompatActivity
     //ES IMPORTANTE AÑADIR LOS ONFRAMENTINTERACTIONLISTENER DE LOS FRAGMENT CREADOS PARA QUE PUEDAN EJECUTARSE CADA UNA
@@ -45,8 +46,8 @@ public class MainActivity extends AppCompatActivity
         ReporteFragment.OnFragmentInteractionListener, ServicioFragment.OnFragmentInteractionListener,
         SettingFragment.OnFragmentInteractionListener, EmpleadoFragment.OnFragmentInteractionListener,
         ProductoFragment.OnFragmentInteractionListener, AcercaFragment.OnFragmentInteractionListener,
-        EditarFragment.OnFragmentInteractionListener, BalanceFragment.OnFragmentInteractionListener,
-        DanosFragment.OnFragmentInteractionListener {
+        BalanceFragment.OnFragmentInteractionListener, DanosFragment.OnFragmentInteractionListener,
+        EditarFragment.OnFragmentInteractionListener{
 
     Icon logout;
     private SharedPreferences preferences;

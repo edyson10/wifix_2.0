@@ -21,27 +21,27 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ListarDanosActivity"></activity>
-        <activity android:name=".ListarSalidasActivity" />
-        <activity android:name=".UtilidadAleActivity" />
-        <activity android:name=".UtilidadPalActivity" />
-        <activity android:name=".ListarVentaAlActivity" />
-        <activity android:name=".ListarDiagnosticoActivity" />
-        <activity android:name=".ListarGarantiaActivity" />
-        <activity android:name=".ListarReparacionActivity" />
+        <activity android:name=".ListarDanosActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ListarSalidasActivity" android:screenOrientation="portrait" />
+        <activity android:name=".UtilidadAleActivity" android:screenOrientation="portrait" />
+        <activity android:name=".UtilidadPalActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ListarVentaAlActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ListarDiagnosticoActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ListarGarantiaActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ListarReparacionActivity" android:screenOrientation="portrait" />
         <activity android:name=".RegistrarProductoActivity" />
-        <activity android:name=".GarantiaActivity" />
-        <activity android:name=".ReparacionActivity" />
-        <activity android:name=".ActualizarVentaActivity" />
-        <activity android:name=".EliminaSalidaActivity" />
-        <activity android:name=".ListarVentasActivity" />
+        <activity android:name=".GarantiaActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ReparacionActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ActualizarVentaActivity" android:screenOrientation="portrait" />
+        <activity android:name=".EliminaSalidaActivity" android:screenOrientation="portrait" />
+        <activity android:name=".ListarVentasActivity" android:screenOrientation="portrait" />
         <activity
             android:name=".MainEmpleadoActivity"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ListarServicioActivity" />
-        <activity android:name=".EliminarVentaActivity" />
-        <activity android:name=".EliminarServicioActivity" />
+            android:theme="@style/AppTheme.NoActionBar" android:screenOrientation="portrait" />
+        <activity android:name=".ListarServicioActivity" android:screenOrientation="portrait" />
+        <activity android:name=".EliminarVentaActivity" android:screenOrientation="portrait" />
+        <activity android:name=".EliminarServicioActivity" android:screenOrientation="portrait" />
         <activity android:name=".EditarProductoActivity" />
         <activity android:name=".DiagnosticoActivity" /> <!-- CODIGO QUE SE CREA DE AS ACTIVITY CREADAS ANTERIORMENTE PARA MODIFICAR EL INCIO DEL APLICATIVO -->
         <activity

@@ -32,7 +32,7 @@
         android:id="@+id/imagenServicio"
         android:layout_width="200sp"
         android:layout_height="200sp"
-        android:src="@drawable/no_contenido"
+        android:src="@drawable/no_disponible"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:visibility="gone"/>

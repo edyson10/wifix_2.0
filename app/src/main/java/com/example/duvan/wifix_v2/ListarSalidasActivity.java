@@ -59,11 +59,11 @@ public class ListarSalidasActivity extends AppCompatActivity {
                             if (validar == 0) {
                                 progressDialog.dismiss();
                                 Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(), "No hay ventas registrado hoy.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "No hay salidas registrado hoy.", Toast.LENGTH_SHORT).show();
                             } else {
                                 progressDialog.dismiss();
                                 cargarLista(listarVentasDia((resultado)));
-                                Toast.makeText(getApplicationContext(), "Se han cargado las ventas exitosamente.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Se han cargado las salidas exitosamente.", Toast.LENGTH_SHORT).show();
                                 adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listarVentasDia(resultado)) {
                                     //PERMITE CAMBIAR DE COLOR EL ISTVIEW EN UN ACTIVITY YA QE LO MUESTRA LAS LETRAS EN BLANCO
                                     @Override
