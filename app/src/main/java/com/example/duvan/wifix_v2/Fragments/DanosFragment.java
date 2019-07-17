@@ -173,10 +173,10 @@ public class DanosFragment extends Fragment {
                                             progressDialog.hide();
                                         } else {
                                             progressDialog.dismiss();
-
                                             producto.setText("");
+                                            observacion.setText("");
                                             cantidad.setText("");
-                                            Toast.makeText(getContext(), "Se ha registrado la salidad del producto exitosamente", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getContext(), "Se ha registrado la salidad del producto exitosamente", Toast.LENGTH_SHORT).show();
                                             //Toast.makeText(getContext(), finalCedulaEmpleado, Toast.LENGTH_SHORT).show();
                                         }
                                         progressDialog.hide();

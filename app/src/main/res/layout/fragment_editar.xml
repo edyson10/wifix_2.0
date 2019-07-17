@@ -104,6 +104,20 @@
                     android:inputType="number"/>
             </android.support.design.widget.TextInputLayout>
 
+            <ImageView
+                android:id="@+id/fotoActualizar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@drawable/no_disponible"/>
+
+            <Button
+                android:id="@+id/btnActulizarFoto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="CARGAR FOTO"/>
+
             <Button
                 android:id="@+id/btnActualizarProducto"
                 android:layout_width="match_parent"

@@ -2,6 +2,7 @@ package com.example.duvan.wifix_v2.Fragments;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -13,9 +14,15 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.ImageRequest;
+import com.android.volley.toolbox.Volley;
 import com.example.duvan.wifix_v2.ActualizarVentaActivity;
 import com.example.duvan.wifix_v2.R;
 
@@ -33,8 +40,11 @@ public class EditarFragment extends Fragment {
     View view;
     EditText txtBuscar, txtPrecioCosto, txtCantidadProd, txtPrecioVenta;
     TextView txtModeloAct, txtArticuloAct;
-    Button actualizar;
+    Button actualizar, cargarFoto;
     ImageButton buscar;
+    ImageView foto;
+    RequestQueue request;
+
     private ProgressDialog progressDialog;
 
     private OnFragmentInteractionListener mListener;
@@ -69,6 +79,9 @@ public class EditarFragment extends Fragment {
         txtCantidadProd = (EditText) view.findViewById(R.id.txtCantidadProd);
         buscar = (ImageButton) view.findViewById(R.id.btnBuscaProducto);
         actualizar = (Button) view.findViewById(R.id.btnActualizarProducto);
+        cargarFoto = (Button) view.findViewById(R.id.btnActulizarFoto);
+        foto = (ImageView) view.findViewById(R.id.fotoActualizar);
+        request = Volley.newRequestQueue(getContext());
 
         buscar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -81,6 +94,13 @@ public class EditarFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 actualizarProducto();
+            }
+        });
+
+        cargarFoto.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
         return view;
@@ -160,7 +180,9 @@ public class EditarFragment extends Fragment {
                 txtPrecioCosto.setText(jsonArray.getJSONObject(i).getString("precioUnitario"));
                 txtPrecioVenta.setText(jsonArray.getJSONObject(i).getString("precioVenta"));
                 txtCantidadProd.setText(jsonArray.getJSONObject(i).getString("cantidad"));
-
+                Toast.makeText(getContext(), "https://18.228.235.94/wifix/ServiciosWeb/"+jsonArray.getJSONObject(i).getString("foto"), Toast.LENGTH_SHORT).show();
+                String img = "https://18.228.235.94/wifix/ServiciosWeb/"+jsonArray.getJSONObject(i).getString("foto");
+                cargarWebServicesImagen(img);
             }
         } catch (Exception ex) {
             Toast.makeText(getContext(), "Error: " + ex, Toast.LENGTH_SHORT).show();
@@ -177,6 +199,23 @@ public class EditarFragment extends Fragment {
         } catch (Exception e) {
         }
         return res;
+    }
+
+    private void cargarWebServicesImagen(String urlImagen){
+        urlImagen = urlImagen.replace(" ", "%20");
+        ImageRequest imageRequest = new ImageRequest(urlImagen, new Response.Listener<Bitmap>() {
+            @Override
+            public void onResponse(Bitmap response) {
+                foto.setImageBitmap(response);
+            }
+        }, 0,0, null, new Response.ErrorListener(){
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getContext(), "Error a cargar la foto", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Error " + error.toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
+        request.add(imageRequest);
     }
     // ==== FIN DE CODIGO BUSCAR=====
 

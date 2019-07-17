@@ -104,7 +104,7 @@ public class RegistrarProductoActivity extends AppCompatActivity {
 
         final String articulo[] = {"Seleccione un articulo","Accesorios","Acuario","Agenda","Audifonos","Baterias","Bloques","Cables","Cargador","Fibras 3D","Fibras 4D",
                 "Fibras 5D","Fibras Basicas","Fibras Basicos Chinos","Fibras Biselados","Forros 360","Forros 360 Magnetico","Forros Antishock Basicos",
-                "Forros Antishock Boomper","Forros Antishock Chinos","Forros Silicone Case","Gomas basicas","Gomas diseno","Memorias","Tablet","Telefono"};
+                "Forros Antishock Boomper","Forros Antishock Chinos","Forros Silicone Case","Gomas basicas","Gomas diseno","Memorias","Repuestos","Tablet","Telefono"};
 
         //-----CODIGO PARA MOSTRAR LOS DATOS EN EN SPINNER O COMBOBOX
         //MOSTRAR EL LISTADO DE LOS ARTICULOS EN EL SPINNER ARTICULOS
@@ -185,7 +185,7 @@ public class RegistrarProductoActivity extends AppCompatActivity {
                                         precioVenta.setText("");
                                         cantidad.setText("");
                                         descripcion.setText("");
-                                        Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_LONG).show();
                                         //Toast.makeText(getApplicationContext(), "Se ha registrado la venta exitosamente", Toast.LENGTH_SHORT).show();
                                     }
                                     progressDialog.hide();
