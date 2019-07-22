@@ -240,7 +240,7 @@ public class EditarFragment extends Fragment {
                         public void run() {
                             if (res > 0) {
                                 progressDialog.dismiss();
-                                Toast.makeText(getContext(), "Se actualizo correctamente la venta.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getContext(), "Se actualizo correctamente el producto.", Toast.LENGTH_SHORT).show();
                                 //Toast.makeText(getContext(), resultado ,Toast.LENGTH_SHORT).show();
                                 txtBuscar.setText("");
                                 txtArticuloAct.setText("Articulo");

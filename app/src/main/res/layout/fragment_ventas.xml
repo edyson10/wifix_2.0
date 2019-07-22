@@ -29,18 +29,31 @@
         android:layout_height="wrap_content">
     </Spinner>
 
-    <EditText
-        android:id="@+id/txtProductoVenta"
-        android:layout_below="@id/spEmpleado"
+    <LinearLayout
+        android:id="@+id/layout_venta1"
         android:layout_width="match_parent"
+        android:layout_below="@id/spEmpleado"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:hint="Escriba lo que desea buscar"
-        android:drawableLeft="@drawable/ic_search_black"/>
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/txtProductoVenta"
+            android:layout_weight="0.8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:hint="Escriba lo que desea buscar"
+            android:drawableLeft="@drawable/ic_search_black" />
+        <ImageButton
+            android:id="@+id/btnQR"
+            android:layout_weight="0.2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_menu_camera"/>
+    </LinearLayout>
 
     <android.support.design.widget.TextInputLayout
         android:id="@+id/layout_venta"
-        android:layout_below="@id/txtProductoVenta"
+        android:layout_below="@id/layout_venta1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText

@@ -41,7 +41,6 @@ public class EmpleadoFragment extends Fragment {
     //CODIGO
     Button verEmpleados, registrarUser;
     EditText nombre, apellido, cedula,telefono, direccion, email, pass, conPass, tienda;
-    private ProgressBar progressBar;
     Spinner spSexo;
     String [] sexo = {"Seleccione el sexo","Masculino","Femenino"};
     private ProgressDialog progressDialog;
@@ -70,7 +69,7 @@ public class EmpleadoFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_empleado, container, false);
-
+        progressDialog = new ProgressDialog(getContext());
         nombre = (EditText)view.findViewById(R.id.txtNombreReg);
         apellido = (EditText)view.findViewById(R.id.txtApellidoReg);
         cedula = (EditText)view.findViewById(R.id.txtCedulaReg);
@@ -100,6 +99,10 @@ public class EmpleadoFragment extends Fragment {
         registrarUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //agregas un mensaje en el ProgressDialog
+                progressDialog.setMessage("Cargando...");
+                //muestras el ProgressDialog
+                progressDialog.show();
                 Thread thread = new Thread(){
                     @Override
                     public void run() {
@@ -114,9 +117,12 @@ public class EmpleadoFragment extends Fragment {
                                 if(pass.getText().toString().equalsIgnoreCase(conPass.getText().toString())){
                                     //ESTA BIEN ESTA LINEA DE CODIGO SIN ERROR
                                     if (r > 0) {
+                                        progressDialog.hide();
                                         Toast.makeText(getContext(), "¡Algo ocurrio!" + resultado, Toast.LENGTH_LONG).show();
                                     } else {
+                                        progressDialog.hide();
                                         Toast.makeText(getContext(), "Empleado registrado", Toast.LENGTH_LONG).show();
+                                        //Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
                                         nombre.setText("");
                                         apellido.setText("");
                                         cedula.setText("");
@@ -128,6 +134,7 @@ public class EmpleadoFragment extends Fragment {
                                         tienda.setText("");
                                     }
                                 }else {
+                                    progressDialog.hide();
                                     Toast.makeText(getContext(), "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
                                 }
                             }

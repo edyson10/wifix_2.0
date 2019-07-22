@@ -8,6 +8,7 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -25,10 +26,15 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.duvan.wifix_v2.CodigoQRActivity;
 import com.example.duvan.wifix_v2.ListarVentasActivity;
 import com.example.duvan.wifix_v2.R;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 
 import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -46,6 +52,8 @@ public class VentasFragment extends Fragment {
     EditText precio, cantidad, producto;
     Button vender, listarVentas;
     String cedula_U;
+    ImageButton codigoqr;
+    private IntentIntegrator qrscan;
 
     private ListView lista;
     ArrayAdapter<String> adapter;
@@ -86,6 +94,7 @@ public class VentasFragment extends Fragment {
         progressDialog = new ProgressDialog(getContext());
         cargarPreferencias();
         vender = (Button) view.findViewById(R.id.btnVender);
+        codigoqr = (ImageButton) view.findViewById(R.id.btnQR);
         listarVentas = (Button) view.findViewById(R.id.btnListarVenta);
 
         final Bundle recupera = getActivity().getIntent().getExtras();
@@ -178,6 +187,14 @@ public class VentasFragment extends Fragment {
             progressDialog.dismiss();
         }
 
+        qrscan = new IntentIntegrator(this.getActivity()).forSupportFragment(this);
+        codigoqr.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                qrscan.initiateScan();
+            }
+        });
+
         //BOTON QUE PERMITE REALIZAR UNA VENTA
         vender.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -229,7 +246,6 @@ public class VentasFragment extends Fragment {
                                             progressDialog.hide();
                                         } else {
                                             progressDialog.dismiss();
-
                                             producto.setText("");
                                             cantidad.setText("");
                                             precio.setText("");
@@ -251,6 +267,58 @@ public class VentasFragment extends Fragment {
         });
         return view;
     }
+
+    // ----- METODO DE MOSTRAR LOS DATOS -----
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+        if (intentResult != null) {
+            if (intentResult.getContents() == null) {
+                Toast.makeText(getContext(), "Resultado no encontrado", Toast.LENGTH_SHORT).show();
+            } else {
+                try {
+                    JSONObject obj = new JSONObject(intentResult.getContents());
+                    Toast.makeText(getContext(), intentResult.getContents(), Toast.LENGTH_SHORT).show();
+                } catch (JSONException ex) {
+                    ex.printStackTrace();
+                    Toast.makeText(getContext(), intentResult.getContents(), Toast.LENGTH_SHORT).show();
+                    /*
+                    //agregas un mensaje en el ProgressDialog
+                    progressDialog.setMessage("Cargando...");
+                    //muestras el ProgressDialog
+                    progressDialog.show();
+                    //CODIGO PARA VALIDAR SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
+                    ConnectivityManager con = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
+                    NetworkInfo networkInfo = con.getActiveNetworkInfo();
+                    if (networkInfo != null && networkInfo.isConnected()) {
+                        //final String finalCedulaEmpleado = ;
+                        final String id = intentResult.getContents();
+                        Thread thread = new Thread() {
+                            @Override
+                            public void run() {
+                                //final String resultado = cargarDatosGET(id);
+                                getActivity().runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        progressDialog.hide();
+                                        //cargarDatos(resultado);
+                                        Toast.makeText(getContext(),id, Toast.LENGTH_SHORT).show();
+                                    }
+                                });
+                            }
+                        };
+                        thread.start();
+                    } else {
+                        Toast.makeText(getContext(), "Verifique su conexión a internet", Toast.LENGTH_SHORT).show();
+                    }
+                   */
+                }
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data);
+        }
+    }
+    // ----- FIN DEL METODO DE MOSTRAR LOS DATOS -----
 
     //METODO PARA ENVIAR LOS DATOS AL SERVIDOR LOCAL
     public String enviarDatosGET(String cedula, String marca, String modelo, int precio, int cantidad){
@@ -311,6 +379,7 @@ public class VentasFragment extends Fragment {
         return resul.toString();
     }
 
+    // ----- METODO PARA RECIBIR LOS EMPLEADOS REGISTRADOS
     public String recibirDatosGET(){
         URL url = null;
         String linea = "";
@@ -379,13 +448,14 @@ public class VentasFragment extends Fragment {
         return listado;
     }
 
-    //METODO QUE PERMITE CARGAR EL LISTVIEW
+    // ===== METODO QUE PERMITE CARGAR LOS PRODUCTOS EN EL LISTVIEW =====
     public void cargarLista(ArrayList<String> listaProd) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, listaProd);
         lista = (ListView) view.findViewById(R.id.listaModelos);
         lista.setAdapter(adapter);
     }
 
+    // ===== METODO PARA CARGAR LOS EMPLEADOS EN EL SPINNER =====
     public void cargarSpinner(ArrayList<String> empleado){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, empleado);
         spEmpleado = (Spinner) view.findViewById(R.id.spEmpleado);

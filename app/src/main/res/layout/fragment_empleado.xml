@@ -115,7 +115,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@android:color/white">
+                app:passwordToggleTint="@android:color/secondary_text_dark">
 
                 <EditText
                     android:id="@+id/txtPasswordReg"
@@ -130,7 +130,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:passwordToggleEnabled="true"
-                app:passwordToggleTint="@android:color/white">
+                app:passwordToggleTint="@android:color/secondary_text_dark">
 
                 <EditText
                     android:id="@+id/txtRepPassReg"

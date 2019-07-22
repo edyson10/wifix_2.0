@@ -132,7 +132,7 @@ public class RegistrarProductoActivity extends AppCompatActivity {
                         final String resultado1 = recibirDatosGET();
                         @Override
                         public void run() {
-                            cargarSpinner(listaEmpleados(resultado1));
+                            cargarSpinner(listaTienda(resultado1));
                         }
                     });
                 }
@@ -415,7 +415,7 @@ public class RegistrarProductoActivity extends AppCompatActivity {
         return resul.toString();
     }
 
-    public ArrayList<String> listaEmpleados(String response){
+    public ArrayList<String> listaTienda(String response){
         ArrayList<String> listado = new ArrayList<String>();
         try{
             JSONArray jsonArray = new JSONArray(response);
