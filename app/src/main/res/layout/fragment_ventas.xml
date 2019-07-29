@@ -1,77 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp"
-    android:orientation="vertical"
-    tools:context=".Fragments.VentasFragment">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.VentasFragment"
+    android:paddingBottom="16dp"
+    android:paddingLeft="16dp"
+    android:paddingRight="16dp"
+    android:paddingTop="16dp"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/txtTituloVenta"
+        android:layout_gravity="center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:textSize="20sp"
-        android:layout_marginTop="10dp"
         android:text="VENTAS"
-        android:textStyle="bold"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dp"/>
+        android:textSize="20dp"
+        android:layout_marginBottom="10dp"
+        android:textStyle="bold"/>
 
     <Spinner
-        android:id="@+id/spEmpleado"
-        android:layout_below="@id/txtTituloVenta"
+        android:id="@+id/spEmpleadoVenQR"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
     </Spinner>
 
     <LinearLayout
-        android:id="@+id/layout_venta1"
-        android:layout_width="match_parent"
-        android:layout_below="@id/spEmpleado"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <EditText
-            android:id="@+id/txtProductoVenta"
-            android:layout_weight="0.8"
+            android:id="@+id/txtBuscarProductoVenQR"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.3"
+            android:inputType="number"
+            android:hint="Digite ID Producto"
+            android:textSize="15dp" />
+        <ImageButton
+            android:id="@+id/btnBuscaProductoVenQR"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_search_black"/>
+        <ImageButton
+            android:id="@+id/btnVenQR"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_menu_camera"
+            android:screenOrientation="locked"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10sp">
+        <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:hint="Escriba lo que desea buscar"
-            android:drawableLeft="@drawable/ic_search_black" />
-        <ImageButton
-            android:id="@+id/btnQR"
-            android:layout_weight="0.2"
-            android:layout_width="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="ID Producto"
+            android:textStyle="bold"
+            android:textSize="17sp"/>
+        <TextView
+            android:id="@+id/txtIdProductoVenQR"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_menu_camera"/>
+            android:layout_weight="0.5"
+            android:textSize="17sp"
+            android:hint="None"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10sp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="Articulo"
+            android:textStyle="bold"
+            android:textSize="17sp"/>
+        <TextView
+            android:id="@+id/txtArticuloVenQR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textSize="17sp"
+            android:hint="None"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10sp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:hint="Modelo"
+            android:textStyle="bold"
+            android:textSize="17sp"/>
+        <TextView
+            android:id="@+id/txtModeloVenQR"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.5"
+            android:textSize="17sp"
+            android:hint="None"/>
     </LinearLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/layout_venta"
-        android:layout_below="@id/layout_venta1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/txtPrecioVenta"
+            android:id="@+id/txtPrecioVenQR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:hint="Precio del producto"
+            android:hint="Precio sugerido de venta"
             android:inputType="number"/>
     </android.support.design.widget.TextInputLayout>
 
     <android.support.design.widget.TextInputLayout
-        android:id="@+id/layout_cantidad"
-        android:layout_below="@id/layout_venta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <EditText
-            android:id="@+id/txtCantidadVenta"
+            android:id="@+id/txtCantidadVenQR"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -79,36 +140,22 @@
             android:inputType="number"/>
     </android.support.design.widget.TextInputLayout>
 
-    <ListView
-        android:id="@+id/listaModelos"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/layout_cantidad"
-        android:layout_above="@id/layout_botones">
-    </ListView>
-
     <LinearLayout
-        android:id="@+id/layout_botones"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10sp">
+        android:orientation="horizontal">
         <Button
-            android:id="@+id/btnVender"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
+            android:id="@+id/btnVenderVenQR"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:layout_weight="0.5"
-            android:text="VENDER" />
+            android:layout_weight="0.1"
+            android:text="VENDER"
+            android:layout_gravity="center"/>
         <Button
-            android:id="@+id/btnListarVenta"
-            android:layout_gravity="center"
-            android:layout_width="match_parent"
+            android:id="@+id/btnListarBajas"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="13dp"
-            android:layout_weight="0.5"
-            android:text="LISTAR VENTAS" />
+            android:layout_weight="0.1"
+            android:text="LISTAR VENTAS"/>
     </LinearLayout>
-</RelativeLayout>
+</LinearLayout>

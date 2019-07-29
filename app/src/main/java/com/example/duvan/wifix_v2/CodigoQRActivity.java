@@ -58,6 +58,7 @@ public class CodigoQRActivity extends AppCompatActivity {
                 qrscan.initiateScan();
             }
         });
+
         venderqr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

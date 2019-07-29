@@ -38,7 +38,6 @@ import com.example.duvan.wifix_v2.Fragments.ReporteFragment;
 import com.example.duvan.wifix_v2.Fragments.ServicioFragment;
 import com.example.duvan.wifix_v2.Fragments.SettingFragment;
 import com.example.duvan.wifix_v2.Fragments.VentasFragment;
-import com.example.duvan.wifix_v2.Fragments.EditarFragment;
 
 public class MainActivity extends AppCompatActivity
     //ES IMPORTANTE AÑADIR LOS ONFRAMENTINTERACTIONLISTENER DE LOS FRAGMENT CREADOS PARA QUE PUEDAN EJECUTARSE CADA UNA
@@ -164,8 +163,9 @@ public class MainActivity extends AppCompatActivity
             miFragment = new AcercaFragment();
             fragmentSeleccionado = true;
         } else if(id == R.id.nav_balance){
-            miFragment = new BalanceFragment();
-            fragmentSeleccionado = true;
+            //miFragment = new BalanceFragment();
+            //fragmentSeleccionado = true;
+            Toast.makeText(getApplicationContext(), "Opción no disponible", Toast.LENGTH_SHORT).show();
         } else if(id == R.id.nav_editar){
             miFragment = new EditarFragment();
             fragmentSeleccionado = true;

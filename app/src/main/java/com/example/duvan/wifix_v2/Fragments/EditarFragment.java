@@ -126,6 +126,11 @@ public class EditarFragment extends Fragment {
                         public void run() {
                             if (res == 0) {
                                 progressDialog.dismiss();
+                                txtArticuloAct.setText("Articulo");
+                                txtModeloAct.setText("Modelo");
+                                txtPrecioCosto.setText("");
+                                txtPrecioVenta.setText("");
+                                txtCantidadProd.setText("");
                                 Toast.makeText(getContext(), "No existe un producto con ese ID", Toast.LENGTH_SHORT).show();
                             } else {
                                 cargarDatos(resultado);
@@ -180,12 +185,12 @@ public class EditarFragment extends Fragment {
                 txtPrecioCosto.setText(jsonArray.getJSONObject(i).getString("precioUnitario"));
                 txtPrecioVenta.setText(jsonArray.getJSONObject(i).getString("precioVenta"));
                 txtCantidadProd.setText(jsonArray.getJSONObject(i).getString("cantidad"));
-                Toast.makeText(getContext(), "https://18.228.235.94/wifix/ServiciosWeb/"+jsonArray.getJSONObject(i).getString("foto"), Toast.LENGTH_SHORT).show();
-                String img = "https://18.228.235.94/wifix/ServiciosWeb/"+jsonArray.getJSONObject(i).getString("foto");
-                cargarWebServicesImagen(img);
+                //Toast.makeText(getContext(), "https://18.228.235.94/wifix/ServiciosWeb/"+jsonArray.getJSONObject(i).getString("foto"), Toast.LENGTH_SHORT).show();
+                //String img = "https://18.228.235.94/wifix/ServiciosWeb/"+jsonArray.getJSONObject(i).getString("foto");
+                //cargarWebServicesImagen(img);
             }
         } catch (Exception ex) {
-            Toast.makeText(getContext(), "Error: " + ex, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Error: " + ex, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -242,9 +247,7 @@ public class EditarFragment extends Fragment {
                                 progressDialog.dismiss();
                                 Toast.makeText(getContext(), "Se actualizo correctamente el producto.", Toast.LENGTH_SHORT).show();
                                 //Toast.makeText(getContext(), resultado ,Toast.LENGTH_SHORT).show();
-                                txtBuscar.setText("");
-                                txtArticuloAct.setText("Articulo");
-                                txtModeloAct.setText("");
+                                //txtBuscar.setText("");
                                 txtArticuloAct.setText("Articulo");
                                 txtModeloAct.setText("Modelo");
                                 txtPrecioCosto.setText("");

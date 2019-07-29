@@ -164,5 +164,6 @@ public class ListarVentasActivity extends AppCompatActivity {
     public void vistaListaAlejandria(){
         Intent intent = new Intent(getApplicationContext(), ListarVentaAlActivity.class);
         startActivity(intent);
+        finish();
     }
 }

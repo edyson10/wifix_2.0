@@ -26,11 +26,14 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.duvan.wifix_v2.CaptureActivityPortrait;
 import com.example.duvan.wifix_v2.CodigoQRActivity;
+import com.example.duvan.wifix_v2.ListarSalidasActivity;
 import com.example.duvan.wifix_v2.ListarVentasActivity;
 import com.example.duvan.wifix_v2.R;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
+import com.journeyapps.barcodescanner.CaptureActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -49,22 +52,19 @@ import java.util.List;
 public class VentasFragment extends Fragment {
 
     View view;
-    EditText precio, cantidad, producto;
-    Button vender, listarVentas;
-    String cedula_U;
-    ImageButton codigoqr;
+    private ImageButton codigoqr, buscarID;
+    private Button vender, listar;
     private IntentIntegrator qrscan;
+    private TextView id_producto, articulo,modelo, id;
+    private EditText precioVenta, cantidad;
+    private ProgressDialog progressDialog;
+    private Spinner spEmpleado;
+    String cedula_U;
 
-    private ListView lista;
     ArrayAdapter<String> adapter;
 
     String recuperado = "";
-    private ProgressDialog progressDialog;
     private OnFragmentInteractionListener mListener;
-
-    Spinner spEmpleado;
-    String [] empleado = {"Alex - 27677488","Diana - 1090509647","Daniel - 1092392275","Diego - 1000019832","Edyson - 1090474784",
-            "Fabian - 24356841","Gerardo - 1149457391","Lina - 1090465049","Victor - 1092338321","Yesenia - 1090456337" };
 
     public VentasFragment() {
         // Required empty public constructor
@@ -93,46 +93,18 @@ public class VentasFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_ventas, container, false);
         progressDialog = new ProgressDialog(getContext());
         cargarPreferencias();
-        vender = (Button) view.findViewById(R.id.btnVender);
-        codigoqr = (ImageButton) view.findViewById(R.id.btnQR);
-        listarVentas = (Button) view.findViewById(R.id.btnListarVenta);
 
-        final Bundle recupera = getActivity().getIntent().getExtras();
-        if (recupera != null) {
-            recuperado = recupera.getString("cedula");
-            //Log.e("e","Valor. " + recuperado);
-        }
-
-        listarVentas.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), ListarVentasActivity.class);
-                intent.putExtra("cedula", recuperado);
-                startActivity(intent);
-            }
-        });
-
-        spEmpleado = (Spinner) view.findViewById(R.id.spEmpleado);
-        /*
-        //CODIGO PARA MOSTRAR LOS DATOS EN EN SPINNER O COMBOBOX
-        List<String> listaEmpleados;
-        ArrayAdapter adapterSpinner;
-        listaEmpleados = new ArrayList<>();
-        //Cargo sexo en listaSexo
-        Collections.addAll(listaEmpleados, empleado);
-        //Paso los valores a mi adapter
-        adapterSpinner = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, listaEmpleados);
-        //Linea de código secundario sirve para asignar un layout a los ítems
-        adapterSpinner.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        //Muestro los ítems en el spinner, obtenidos gracias al adapter
-        spEmpleado.setAdapter(adapterSpinner);
-        //FIN CODIGO
-        */
-
-        lista = (ListView) view.findViewById(R.id.listaModelos);
-        cantidad = (EditText) view.findViewById(R.id.txtCantidadVenta);
-        precio = (EditText) view.findViewById(R.id.txtPrecioVenta);
-        producto = (EditText) view.findViewById(R.id.txtProductoVenta);
+        codigoqr = (ImageButton) view.findViewById(R.id.btnVenQR);
+        id_producto = (TextView) view.findViewById(R.id.txtBuscarProductoVenQR);
+        id = (TextView) view.findViewById(R.id.txtIdProductoVenQR);
+        articulo = (TextView) view.findViewById(R.id.txtArticuloVenQR);
+        modelo = (TextView) view.findViewById(R.id.txtModeloVenQR);
+        precioVenta = (EditText) view.findViewById(R.id.txtPrecioVenQR);
+        cantidad = (EditText) view.findViewById(R.id.txtCantidadVenQR);
+        spEmpleado = (Spinner) view.findViewById(R.id.spEmpleadoVenQR);
+        buscarID = (ImageButton) view.findViewById(R.id.btnBuscaProductoVenQR);
+        vender = (Button) view.findViewById(R.id.btnVenderVenQR);
+        listar = (Button) view.findViewById(R.id.btnListarBajas);
 
         //CODIGO PARA VALIDAR SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
         ConnectivityManager con = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -141,42 +113,11 @@ public class VentasFragment extends Fragment {
             Thread thread = new Thread() {
                 @Override
                 public void run() {
-                    final String resultado = obtenerDatosGET();
                     final String resultado1 = recibirDatosGET();
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
-                            cargarLista(listaProductos(resultado));
                             cargarSpinner(listaEmpleados(resultado1));
-                            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, listaProductos(resultado));
-                            lista.setAdapter(adapter);
-                            //Toast.makeText(getContext(),cedula_U, Toast.LENGTH_SHORT).show();
-                            producto.addTextChangedListener(new TextWatcher() {
-                                @Override
-                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                                    //adapter.getFilter().filter(s);
-                                }
-
-                                @Override
-                                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                                    adapter.getFilter().filter(s);
-                                }
-
-                                @Override
-                                public void afterTextChanged(Editable s) {
-                                    //adapter.getFilter().filter(s);
-                                }
-                            });
-                            progressDialog.hide();
-                        }
-                    });
-                    lista.setClickable(true);
-                    lista.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                        @Override
-                        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                            Object o = lista.getItemAtPosition(position);
-                            String str = (String) o;//As you are using Default String Adapter
-                            producto.setText(str);
                         }
                     });
                 }
@@ -188,6 +129,11 @@ public class VentasFragment extends Fragment {
         }
 
         qrscan = new IntentIntegrator(this.getActivity()).forSupportFragment(this);
+        qrscan.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
+        qrscan.setOrientationLocked(false);
+        qrscan.setCameraId(0);
+        qrscan.setCaptureActivity(CaptureActivityPortrait.class);
+        qrscan.setPrompt("ESCANEANDO CODIGO...");
         codigoqr.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,32 +141,59 @@ public class VentasFragment extends Fragment {
             }
         });
 
+        buscarID.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //agregas un mensaje en el ProgressDialog
+                progressDialog.setMessage("Cargando...");
+                //muestras el ProgressDialog
+                progressDialog.show();
+                if (!id_producto.getText().toString().isEmpty()) {
+                    Thread thread = new Thread() {
+                        @Override
+                        public void run() {
+                            final String resultado = cargarDatosGET(id_producto.getText().toString());
+                            getActivity().runOnUiThread(new Runnable() {
+                                @Override
+                                public void run() {
+                                    progressDialog.hide();
+                                    cargarDatos(resultado);
+                                }
+                            });
+                        }
+                    };
+                    thread.start();
+                } else {
+                    progressDialog.hide();
+                    Toast.makeText(getContext(),"Complete los campos",Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+
+        listar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ListarVentasActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
         //BOTON QUE PERMITE REALIZAR UNA VENTA
         vender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (producto.getText().toString().isEmpty() || cantidad.getText().toString().isEmpty() || precio.getText().toString().isEmpty()) {
+                if (articulo.getText().toString().isEmpty() || modelo.getText().toString().isEmpty() ||
+                        precioVenta.getText().toString().isEmpty() || cantidad.getText().toString().isEmpty()) {
                     Toast.makeText(getContext(), "¡Complete los campos!", Toast.LENGTH_LONG).show();
                 } else {
-                    String[] prod = producto.getText().toString().split(" - ");
-                    String id = "";
-                    String art = "";
-                    String mod = "";
-                    for (int i = 0; i < prod.length; i++) {
-                        id = prod[0].toString();
-                        art = prod[1].toString();
-                        mod = prod[2].toString();
-                    }
-
                     String cedulaEmpleado = "";
                     String[] emp = spEmpleado.getSelectedItem().toString().split(" - ");
                     for (int i=0; i < emp.length; i++){
                         cedulaEmpleado = emp[1].toString();
                     }
 
-                    final String finalArt = art;
-                    final String finalMod = mod;
-                    final int precioTotal = Integer.parseInt(precio.getText().toString()) * Integer.parseInt(cantidad.getText().toString());
+                    final int precioTotal = Integer.parseInt(precioVenta.getText().toString()) * Integer.parseInt(cantidad.getText().toString());
                     final char[] cant = cantidad.getText().toString().toCharArray();
                     //agregas un mensaje en el ProgressDialog
                     progressDialog.setMessage("Cargando...");
@@ -234,7 +207,8 @@ public class VentasFragment extends Fragment {
                         Thread thread = new Thread() {
                             @Override
                             public void run() {
-                                final String resultado = enviarDatosGET(finalCedulaEmpleado, finalArt, finalMod, precioTotal, Integer.parseInt(cantidad.getText().toString()));
+                                final String resultado = enviarDatosGET(finalCedulaEmpleado, articulo.getText().toString(), modelo.getText().toString(),
+                                        precioTotal,Integer.parseInt(cantidad.getText().toString()));
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -242,13 +216,15 @@ public class VentasFragment extends Fragment {
                                         //Condición para validar si los campos estan llenos
                                         if (r > 0) {
                                             Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
-                                            Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
+                                            //Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
                                             progressDialog.hide();
                                         } else {
                                             progressDialog.dismiss();
-                                            producto.setText("");
+                                            id.setText("None");
+                                            articulo.setText("None");
+                                            modelo.setText("None");
+                                            precioVenta.setText("");
                                             cantidad.setText("");
-                                            precio.setText("");
                                             Toast.makeText(getContext(), "Se ha registrado la venta exitosamente", Toast.LENGTH_SHORT).show();
                                             //Toast.makeText(getContext(), finalCedulaEmpleado, Toast.LENGTH_SHORT).show();
                                         }
@@ -265,6 +241,7 @@ public class VentasFragment extends Fragment {
                 }
             }
         });
+
         return view;
     }
 
@@ -278,11 +255,8 @@ public class VentasFragment extends Fragment {
             } else {
                 try {
                     JSONObject obj = new JSONObject(intentResult.getContents());
-                    Toast.makeText(getContext(), intentResult.getContents(), Toast.LENGTH_SHORT).show();
                 } catch (JSONException ex) {
                     ex.printStackTrace();
-                    Toast.makeText(getContext(), intentResult.getContents(), Toast.LENGTH_SHORT).show();
-                    /*
                     //agregas un mensaje en el ProgressDialog
                     progressDialog.setMessage("Cargando...");
                     //muestras el ProgressDialog
@@ -296,13 +270,13 @@ public class VentasFragment extends Fragment {
                         Thread thread = new Thread() {
                             @Override
                             public void run() {
-                                //final String resultado = cargarDatosGET(id);
+                                final String resultado = cargarDatosGET(id);
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressDialog.hide();
-                                        //cargarDatos(resultado);
-                                        Toast.makeText(getContext(),id, Toast.LENGTH_SHORT).show();
+                                        cargarDatos(resultado);
+                                        //Toast.makeText(getContext(),id, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -311,7 +285,6 @@ public class VentasFragment extends Fragment {
                     } else {
                         Toast.makeText(getContext(), "Verifique su conexión a internet", Toast.LENGTH_SHORT).show();
                     }
-                   */
                 }
             }
         } else {
@@ -350,30 +323,28 @@ public class VentasFragment extends Fragment {
         return resul.toString();
     }
 
-    //----INICIO CODIGO---->
-    //METODO PARA OBTENER LOS DATOS DE LOS PRODUCTOS
-    public String obtenerDatosGET(){
+    public String cargarDatosGET(String producto) {
         URL url = null;
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-            String url_local = "http://192.168.1.6/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
-            String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/buscarProductoID.php?";
+        String url_local = "http://192.168.1.6/ServiciosWeb/buscarVenta.php?";
 
-        try{
+        try {
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_aws);
+            url = new URL(url_aws + "producto=" + producto);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
-            if (respuesta == HttpURLConnection.HTTP_OK){
+            if (respuesta == HttpURLConnection.HTTP_OK) {
                 InputStream inputStream = new BufferedInputStream(conection.getInputStream());
                 BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
-                while ((linea = reader.readLine()) != null){
+                while ((linea = reader.readLine()) != null) {
                     resul.append(linea);
                 }
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             return e.getMessage();
         }
         return resul.toString();
@@ -407,6 +378,20 @@ public class VentasFragment extends Fragment {
         return resul.toString();
     }
 
+    public void cargarDatos(String response) {
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                id.setText(jsonArray.getJSONObject(i).getString("id_producto"));
+                articulo.setText(jsonArray.getJSONObject(i).getString("articulo"));
+                modelo.setText(jsonArray.getJSONObject(i).getString("modelo"));
+                precioVenta.setText(jsonArray.getJSONObject(i).getString("precioVenta"));
+            }
+        } catch (Exception ex) {
+            Toast.makeText(getContext(), "Error: " + ex, Toast.LENGTH_SHORT).show();
+        }
+    }
+
     //METODO QUE PERMITE OBTENER EL JSON Y RECORRERLO Y SABER SI RECIBIO O NO DATOS
     public int obtenerDatosJSON(String response){
         int res = 0;
@@ -417,22 +402,6 @@ public class VentasFragment extends Fragment {
             }
         }catch (Exception e){}
         return res;
-    }
-
-    //ARREGLO SPINNER
-    public ArrayList<String> listaProductos(String response){
-        ArrayList<String> listado = new ArrayList<String>();
-        try{
-            JSONArray jsonArray = new JSONArray(response);
-            String texto = "";
-            for (int i = 0;i<jsonArray.length();i++){
-                texto = jsonArray.getJSONObject(i).getString("id_producto") + " - "
-                        + jsonArray.getJSONObject(i).getString("articulo") + " - "
-                        + jsonArray.getJSONObject(i).getString("modelo");
-                listado.add(texto);
-            }
-        }catch (Exception e){}
-        return listado;
     }
 
     public ArrayList<String> listaEmpleados(String response){
@@ -448,17 +417,10 @@ public class VentasFragment extends Fragment {
         return listado;
     }
 
-    // ===== METODO QUE PERMITE CARGAR LOS PRODUCTOS EN EL LISTVIEW =====
-    public void cargarLista(ArrayList<String> listaProd) {
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, listaProd);
-        lista = (ListView) view.findViewById(R.id.listaModelos);
-        lista.setAdapter(adapter);
-    }
-
     // ===== METODO PARA CARGAR LOS EMPLEADOS EN EL SPINNER =====
     public void cargarSpinner(ArrayList<String> empleado){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, empleado);
-        spEmpleado = (Spinner) view.findViewById(R.id.spEmpleado);
+        spEmpleado = (Spinner) view.findViewById(R.id.spEmpleadoVenQR);
         spEmpleado.setAdapter(adapter);
     }
 

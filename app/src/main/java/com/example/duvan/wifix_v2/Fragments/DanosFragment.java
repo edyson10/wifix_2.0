@@ -148,6 +148,7 @@ public class DanosFragment extends Fragment {
 
                     final String finalArt = art;
                     final String finalMod = mod;
+                    final String finalId = id;
                     final char[] cant = cantidad.getText().toString().toCharArray();
                     //agregas un mensaje en el ProgressDialog
                     progressDialog.setMessage("Cargando...");
@@ -160,7 +161,7 @@ public class DanosFragment extends Fragment {
                         Thread thread = new Thread() {
                             @Override
                             public void run() {
-                                final String resultado = enviarDatosGET(cedula_U, finalArt, finalMod, Integer.parseInt(cantidad.getText().toString()),
+                                final String resultado = enviarDatosGET(cedula_U, finalId, finalArt, finalMod, Integer.parseInt(cantidad.getText().toString()),
                                         observacion.getText().toString());
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
@@ -168,16 +169,16 @@ public class DanosFragment extends Fragment {
                                         int r = obtenerDatosJSON(resultado);
                                         //Condición para validar si los campos estan llenos
                                         if (r > 0) {
-                                            Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
-                                            Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
-                                            progressDialog.hide();
-                                        } else {
                                             progressDialog.dismiss();
                                             producto.setText("");
                                             observacion.setText("");
                                             cantidad.setText("");
-                                            //Toast.makeText(getContext(), "Se ha registrado la salidad del producto exitosamente", Toast.LENGTH_SHORT).show();
+                                            Toast.makeText(getContext(), "Se ha registrado la salida del producto exitosamente", Toast.LENGTH_SHORT).show();
                                             //Toast.makeText(getContext(), finalCedulaEmpleado, Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
+                                            progressDialog.hide();
                                         }
                                         progressDialog.hide();
                                     }
@@ -204,7 +205,7 @@ public class DanosFragment extends Fragment {
     }
 
     //METODO PARA ENVIAR LOS DATOS AL SERVIDOR LOCAL
-    public String enviarDatosGET(String cedula, String marca, String modelo, int cantidad, String observacion){
+    public String enviarDatosGET(String cedula, String id, String marca, String modelo, int cantidad, String observacion){
         URL url = null;
         String linea = "";
         int respuesta = 0;
@@ -213,10 +214,12 @@ public class DanosFragment extends Fragment {
         String url_local = "http://18.228.235.94/wifix/ServiciosWeb/salidaProducto.php";
         String mod = modelo.replace(" ", "%20");
         String mar = marca.replace(" ", "%20");
+        String obs = observacion.replace(" ", "%20");
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_aws + "?empleado=" + cedula + "&marca=" + mar + "&modelo=" + mod + "&cantidad=" + cantidad + "&observacion=" + observacion);
+            url = new URL(url_aws + "?empleado=" + cedula + "&id" + id + "&marca=" + mar + "&modelo=" + mod
+                    + "&cantidad=" + cantidad + "&observacion=" + obs);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
