@@ -76,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="13dp"
                 android:layout_weight="0.5"
-                android:text="ACTUALIZAR\n CANTIDAD" />
+                android:text="AÑADIR\n CANTIDAD" />
             <Button
                 android:id="@+id/btnVistaRegistrarProd"
                 android:layout_gravity="center"
@@ -96,13 +96,19 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="VER PRODUCTOS \n PALACIO"/>
+                android:text="VER PRODUCTOS \n WIFIX 1.0"/>
             <Button
                 android:id="@+id/btnVerProdAle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.5"
-                android:text="VER PRODUCTOS \n ALEJANDRIA"/>
+                android:text="VER PRODUCTOS \n WIFIX 2.0"/>
+            <Button
+                android:id="@+id/btnVerProdSep"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+                android:text="VER PRODUCTOS \n WIFIX 3.0"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

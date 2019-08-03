@@ -5,22 +5,22 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    tools:context=".UtilidadSeptimaActivity"
+    android:orientation="vertical"
     android:paddingBottom="16dp"
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
-    android:paddingTop="16dp"
-    android:orientation="vertical"
-    tools:context=".UtilidadPalActivity">
+    android:paddingTop="16dp">
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="UTILIDAD PALACIO"
+        android:text="UTILIDAD SEPTIMA"
         android:textSize="18sp"
         android:textStyle="bold"/>
     <ListView
-        android:id="@+id/listUtilidadPal"
+        android:id="@+id/listUtilidadSep"
         android:layout_marginTop="10sp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

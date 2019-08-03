@@ -45,7 +45,7 @@ public class ProductoFragment extends Fragment {
 
     View vista;
     EditText cantidad, producto;
-    Button añadir, verPalacio, verAlejandria, registrar;
+    Button añadir, verPalacio, verAlejandria, erSeptima, registrar;
     ListView listaModelos;
     ArrayAdapter<String> adapter;
 

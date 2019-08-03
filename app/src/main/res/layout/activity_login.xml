@@ -104,12 +104,20 @@
                     android:gravity="center_horizontal"
                     android:orientation="horizontal">
                     <RadioButton
+                        android:id="@+id/radio_master"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:checked="false"
+                        android:text="Gerente"
+                        android:textColor="@color/white"
+                        android:buttonTint="@color/white"/>
+                    <RadioButton
                         android:id="@+id/radio_admin"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="16dp"
                         android:checked="true"
-                        android:text="Administrador"
+                        android:text="Admin"
                         android:textColor="@color/white"
                         android:buttonTint="@color/white"/>
                     <RadioButton

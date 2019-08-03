@@ -25,6 +25,8 @@ import com.example.duvan.wifix_v2.BajasActivity;
 import com.example.duvan.wifix_v2.R;
 import com.example.duvan.wifix_v2.UtilidadAleActivity;
 import com.example.duvan.wifix_v2.UtilidadPalActivity;
+import com.example.duvan.wifix_v2.UtilidadSeptimaActivity;
+import com.google.zxing.integration.android.IntentIntegrator;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -47,7 +49,7 @@ public class ReporteFragment extends Fragment {
     TextView fecha;
     Calendar mCurrentDate;
     int dia, mes, anio;
-    Button reporteDiaPal,reporteDiaAl, reporteMes, bajas, utilidadA, utilidadP;
+    Button reporteDiaPal,reporteDiaAl, reporteDiaSep, reporteMes, bajas, utilidadA, utilidadP, utilidadSep;
     private ProgressDialog progressDialog;
     String recuperado = "";
 
@@ -138,6 +140,24 @@ public class ReporteFragment extends Fragment {
             progressDialog.dismiss();
         }
 
+        //CODIGO PARA VALIDAD SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
+        //REPORTE LOCAL SEPTIMA
+        if(networkInfo != null && networkInfo.isConnected()) {
+            reporteDiaSep = (Button) vista.findViewById(R.id.btnReporteDiaSep);
+            reporteDiaSep.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Uri url_aws = Uri.parse("http://18.228.235.94/wifix/ServiciosWeb/indexpordia3.php?fecha=" + fecha.getText().toString());
+                    Intent intent = new Intent(Intent.ACTION_VIEW, url_aws);
+                    startActivity(intent);
+                }
+            });
+        }  else{
+            Toast.makeText(getContext(), "Verifique su conexión a internet",Toast.LENGTH_SHORT).show();
+            progressDialog.dismiss();
+        }
+
+
         reporteMes = (Button) vista.findViewById(R.id.btnReporteMes);
         //CODIGO PARA VALIDAR SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
         if(networkInfo != null && networkInfo.isConnected()) {
@@ -185,6 +205,14 @@ public class ReporteFragment extends Fragment {
                 vistaUtilidadAle();
             }
         });
+
+        utilidadSep = (Button) vista.findViewById(R.id.btnUtilidadSep);
+        utilidadSep.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                vistaUtilidadSep();
+            }
+        });
         return vista;
     }
 
@@ -195,6 +223,11 @@ public class ReporteFragment extends Fragment {
 
     public void vistaUtilidadAle(){
         Intent intent = new Intent(getContext(), UtilidadAleActivity.class);
+        startActivity(intent);
+    }
+
+    public void vistaUtilidadSep(){
+        Intent intent = new Intent(getContext(), UtilidadSeptimaActivity.class);
         startActivity(intent);
     }
 

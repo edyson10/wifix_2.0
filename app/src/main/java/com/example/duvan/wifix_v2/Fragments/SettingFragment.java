@@ -51,7 +51,7 @@ public class SettingFragment extends Fragment {
     View vista;
     TextView nombre, apellido, cedula, sexo,telefono, direccion, correo, tienda;
     Spinner spTienda;
-    String [] idTienda = {"1 - Palacio","2 - Alejandria"};
+    String [] idTienda = {"1 - Palacio","2 - Alejandria", "3 - Septima"};
     Button btnCambiarPass, actualizarTienda;
     ImageView imagen;
     String cedula_U;
@@ -156,7 +156,7 @@ public class SettingFragment extends Fragment {
         btnCambiarPass.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(getContext(), "Esta opción aun no esta disponible", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Esta opción aún no esta disponible", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -194,7 +194,8 @@ public class SettingFragment extends Fragment {
                             if (r > 0) {
                                 progressDialog.dismiss();
                                 Toast.makeText(getContext(), "Se ha cambiado de tienda exitosamente", Toast.LENGTH_SHORT).show();
-                                cargarDatosEmpleado(resultado);
+                                Toast.makeText(getContext(), resultado, Toast.LENGTH_SHORT).show();
+                                //cargarDatosEmpleado(resultado);
                                 /*nombre.setText("None");
                                 apellido.setText("None");
                                 cedula.setText("123456789");
@@ -228,8 +229,10 @@ public class SettingFragment extends Fragment {
                 String id_tienda = (jsonArray.getJSONObject(i).getString("id_tienda"));
                 if(id_tienda.equalsIgnoreCase("1")){
                     nomTienda = "Palacio";
-                } else {
+                } else if (id_tienda.equalsIgnoreCase("2")) {
                     nomTienda = "Alejandria";
+                } else {
+                    nomTienda = "Septima";
                 }
 
                 nombre.setText(jsonArray.getJSONObject(i).getString("nombre"));
@@ -278,7 +281,7 @@ public class SettingFragment extends Fragment {
         int respuesta = 0;
         StringBuilder resul = null;
         String url_local = "http://192.168.1.6/ServiciosWeb/cambiarBodega.php?";
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cargarBodega.php?";
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cambiarBodega.php?";
 
         try{
             url = new URL(url_aws + "cedula=" + buscar + "&tienda=" + tienda);

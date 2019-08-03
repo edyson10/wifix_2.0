@@ -56,7 +56,7 @@
                     android:id="@+id/btnReporteDia"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="REPORTE \n PALACIO"
+                    android:text="REPORTE \nWIFIX 1.0"
                     android:layout_marginTop="10sp"
                     android:textSize="16dp"
                     android:layout_weight="0.5"/>
@@ -64,7 +64,15 @@
                     android:id="@+id/btnReporteDiaAl"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="REPORTE \n ALEJANDRIA"
+                    android:text="REPORTE \nWIFIX 2.0"
+                    android:layout_marginTop="10sp"
+                    android:textSize="16dp"
+                    android:layout_weight="0.5"/>
+                <Button
+                    android:id="@+id/btnReporteDiaSep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="REPORTE \nWIFIX 3.0"
                     android:layout_marginTop="10sp"
                     android:textSize="16dp"
                     android:layout_weight="0.5"/>
@@ -103,15 +111,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Utilidad\n Palacio"/>
+                    android:text="Utilidad\n WIFIX 1.0"/>
                 <Button
                     android:id="@+id/btnUtilidadAle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
-                    android:text="Utilidad\n Alejandria"/>
+                    android:text="Utilidad\n WIFIX 2.0"/>
+                <Button
+                    android:id="@+id/btnUtilidadSep"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.5"
+                    android:text="Utilidad\n WIFIX 3.0"/>
             </LinearLayout>
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

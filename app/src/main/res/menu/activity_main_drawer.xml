@@ -30,10 +30,6 @@
             android:icon="@drawable/ic_local_offer_black"
             android:title="Producto"/>
         <item
-            android:id="@+id/nav_editar"
-            android:icon="@drawable/ic_edit_black"
-            android:title="Editar"/>
-        <item
             android:id="@+id/nav_actualizar"
             android:icon="@drawable/ic_cloud_upload_black"
             android:title="Actualizar"/>
@@ -41,10 +37,6 @@
             android:id="@+id/nav_danos"
             android:icon="@drawable/ic_do_not_disturb_black"
             android:title="Daños"/>
-        <item
-            android:id="@+id/nav_eliminar"
-            android:icon="@drawable/ic_delete_black"
-            android:title="Eliminar"/>
         <item
             android:id="@+id/nav_bodega"
             android:icon="@drawable/ic_store_black"

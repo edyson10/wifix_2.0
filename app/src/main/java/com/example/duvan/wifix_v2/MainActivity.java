@@ -147,9 +147,6 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_actualizar) {
             miFragment = new ActualizarFragment();
             fragmentSeleccionado = true;
-        } else if (id == R.id.nav_eliminar) {
-            miFragment = new EliminarFragment();
-            fragmentSeleccionado = true;
         } else if (id == R.id.nav_bodega) {
             miFragment = new BodegaFragment();
             fragmentSeleccionado = true;
@@ -166,9 +163,6 @@ public class MainActivity extends AppCompatActivity
             //miFragment = new BalanceFragment();
             //fragmentSeleccionado = true;
             Toast.makeText(getApplicationContext(), "Opción no disponible", Toast.LENGTH_SHORT).show();
-        } else if(id == R.id.nav_editar){
-            miFragment = new EditarFragment();
-            fragmentSeleccionado = true;
         } else if(id == R.id.nav_danos){
             miFragment = new DanosFragment();
             fragmentSeleccionado = true;
