@@ -22,7 +22,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".UtilidadSeptimaActivity"></activity>
+        <activity
+            android:name=".MasterMainActivity"
+            android:label="@string/title_activity_master_main"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".UtilidadSeptimaActivity" />
         <activity android:name=".MainMasterActivity" />
         <activity android:name=".CodigoQRActivity" />
         <activity

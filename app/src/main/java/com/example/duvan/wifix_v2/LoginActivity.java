@@ -35,7 +35,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     Button login, registro;
     TextView olvidastoPass;
     private ProgressDialog progressDialog;
-    RadioButton empleado, admin;
+    RadioButton empleado, admin, master;
     String tipo = "";
     private SharedPreferences preferences;
 
@@ -52,6 +52,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         login.setOnClickListener(this);
         empleado = (RadioButton) findViewById(R.id.radio_empleado);
         admin = (RadioButton) findViewById(R.id.radio_admin);
+        master = (RadioButton) findViewById(R.id.radio_master);
 
         /*
         olvidastoPass = (TextView) findViewById(R.id.txtOlvidoPass);
@@ -80,8 +81,10 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         String cad = "";
         if(admin.isChecked()){
             cad = "Administrador";
-        }else if(empleado.isChecked()){
+        } else if(empleado.isChecked()){
             cad = "Empleado";
+        } else if(master.isChecked()){
+            cad = "Gerente";
         }
         return cad;
     }
@@ -92,7 +95,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         startActivity(intent);
     }
-
 
     @Override
     public void onClick(final View view) {
@@ -108,7 +110,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             Thread thread = new Thread() {
                 @Override
                 public void run() {
-                    final String resultado = enviarDatosGET(usuario.getText().toString(), contraseña.getText().toString(), 1);
+                    final String resultado = enviarDatosGET(usuario.getText().toString(), contraseña.getText().toString(), 3);
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
@@ -124,14 +126,20 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                         savePreferences(usuario.getText().toString(),contraseña.getText().toString(), "1");
                                         goToMain();
                                         startActivity(intent);
-                                    }else if(rol.equalsIgnoreCase("Empleado")){
+                                    } else if(rol.equalsIgnoreCase("Empleado")){
                                         Intent intent = new Intent(getApplicationContext(), MainEmpleadoActivity.class);
                                         intent.putExtra("cedula", usuario.getText().toString());
                                         savePreferences(usuario.getText().toString(),contraseña.getText().toString(), "2");
                                         goToMain();
                                         startActivity(intent);
+                                    } else if(rol.equalsIgnoreCase("Gerente")) {
+                                        Intent intent = new Intent(getApplicationContext(), MasterMainActivity.class);
+                                        intent.putExtra("cedula", usuario.getText().toString());
+                                        savePreferences(usuario.getText().toString(),contraseña.getText().toString(), "3");
+                                        goToMain();
+                                        startActivity(intent);
                                     }
-                                }else {
+                                } else {
                                     Toast.makeText(getApplicationContext(), "Usuario y/o contraseña incorrectos", Toast.LENGTH_SHORT).show();
                                     //Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_SHORT).show();
                                     progressDialog.hide();
@@ -143,7 +151,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                 }
             };
             thread.start();
-        }else {
+        } else {
             Toast.makeText(getApplicationContext(), "Verifique su conexión a internet",Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         }
@@ -158,16 +166,18 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         String tipo = validar();
         if(tipo.equalsIgnoreCase("Administrador")){
             rol = 1;
-        }else{
+        }else if (tipo.equalsIgnoreCase("Empleado")) {
             rol = 2;
+        } else if (tipo.equalsIgnoreCase("Gerente")) {
+            rol = 3;
         }
+
         StringBuilder resul = null;
         String url_local = "http://192.168.1.6/ServiciosWeb/validarEmpleado.php?";
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/validarEmpleado.php?";
+            String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/validarEmpleado.php?";
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO
-            // YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
             url = new URL(url_aws + "cedula=" + usu + "&password=" + pass + "&tipo=" + rol);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
@@ -222,8 +232,11 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
             //intent.putExtra("cedula", usuario.getText().toString());
-        }else if(user.equalsIgnoreCase("2")){
+        } else if(user.equalsIgnoreCase("2")){
             Intent intent = new Intent(getApplicationContext(), MainEmpleadoActivity.class);
+            startActivity(intent);
+        } else if(user.equalsIgnoreCase("3")){
+            Intent intent = new Intent(getApplicationContext(), MasterMainActivity.class);
             startActivity(intent);
         }
     }
