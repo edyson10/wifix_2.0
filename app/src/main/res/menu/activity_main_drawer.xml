@@ -30,6 +30,10 @@
             android:icon="@drawable/ic_local_offer_black"
             android:title="Producto"/>
         <item
+            android:id="@+id/nav_editar"
+            android:icon="@drawable/ic_edit_black"
+            android:title="Editar"/>
+        <item
             android:id="@+id/nav_actualizar"
             android:icon="@drawable/ic_cloud_upload_black"
             android:title="Actualizar"/>

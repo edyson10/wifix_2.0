@@ -27,7 +27,6 @@
             android:label="@string/title_activity_master_main"
             android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".UtilidadSeptimaActivity" />
-        <activity android:name=".MainMasterActivity" />
         <activity android:name=".CodigoQRActivity" />
         <activity
             android:name=".ListarDanosActivity"

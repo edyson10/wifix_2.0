@@ -162,6 +162,9 @@ public class MainActivity extends AppCompatActivity
         } else if(id == R.id.nav_danos){
             miFragment = new DanosFragment();
             fragmentSeleccionado = true;
+        } else if(id == R.id.nav_editar){
+            miFragment = new EditarFragment();
+            fragmentSeleccionado = true;
         }
 
         //CODIGO AÑADIDO

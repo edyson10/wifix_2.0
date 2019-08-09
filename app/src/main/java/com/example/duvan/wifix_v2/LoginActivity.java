@@ -230,12 +230,16 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
         if(user.equalsIgnoreCase("1")){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            //Intent intent = new Intent(getApplicationContext(), MasterMainActivity.class);
             startActivity(intent);
             //intent.putExtra("cedula", usuario.getText().toString());
-        } else if(user.equalsIgnoreCase("2")){
+        }
+        /*
+        else if(user.equalsIgnoreCase("2")){
             Intent intent = new Intent(getApplicationContext(), MainEmpleadoActivity.class);
             startActivity(intent);
-        } else if(user.equalsIgnoreCase("3")){
+        }*/
+        else if(user.equalsIgnoreCase("3")){
             Intent intent = new Intent(getApplicationContext(), MasterMainActivity.class);
             startActivity(intent);
         }
