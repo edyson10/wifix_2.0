@@ -35,15 +35,15 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="0.3"
-            android:inputType="number"
-            android:hint="Digite ID Producto"
+            android:inputType="text"
+            android:hint="Digite el producto"
             android:textSize="15dp" />
         <ImageButton
             android:id="@+id/btnBuscaProductoVenQR"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:src="@drawable/ic_search_black"/>
+            android:src="@drawable/ic_file_download_black"/>
         <ImageButton
             android:id="@+id/btnVenQR"
             android:layout_width="fill_parent"
@@ -51,69 +51,6 @@
             android:layout_weight="1"
             android:src="@drawable/ic_menu_camera"
             android:screenOrientation="locked"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10sp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:hint="ID Producto"
-            android:textStyle="bold"
-            android:textSize="17sp"/>
-        <TextView
-            android:id="@+id/txtIdProductoVenQR"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:textSize="17sp"
-            android:hint="None"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10sp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:hint="Articulo"
-            android:textStyle="bold"
-            android:textSize="17sp"/>
-        <TextView
-            android:id="@+id/txtArticuloVenQR"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:textSize="17sp"
-            android:hint="None"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginTop="10sp">
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:hint="Modelo"
-            android:textStyle="bold"
-            android:textSize="17sp"/>
-        <TextView
-            android:id="@+id/txtModeloVenQR"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="0.5"
-            android:textSize="17sp"
-            android:hint="None"/>
     </LinearLayout>
 
     <android.support.design.widget.TextInputLayout
@@ -158,4 +95,9 @@
             android:layout_weight="0.1"
             android:text="LISTAR VENTAS"/>
     </LinearLayout>
+    <ListView
+        android:id="@+id/listaProductosVentas"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    </ListView>
 </LinearLayout>

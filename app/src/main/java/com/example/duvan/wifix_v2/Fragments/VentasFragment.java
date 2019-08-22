@@ -55,11 +55,12 @@ public class VentasFragment extends Fragment {
     private ImageButton codigoqr, buscarID;
     private Button vender, listar;
     private IntentIntegrator qrscan;
-    private TextView id_producto, articulo,modelo, id;
+    private TextView producto;
     private EditText precioVenta, cantidad;
     private ProgressDialog progressDialog;
     private Spinner spEmpleado;
     String cedula_U;
+    private ListView listaModelos;
 
     ArrayAdapter<String> adapter;
 
@@ -95,16 +96,17 @@ public class VentasFragment extends Fragment {
         cargarPreferencias();
 
         codigoqr = (ImageButton) view.findViewById(R.id.btnVenQR);
-        id_producto = (TextView) view.findViewById(R.id.txtBuscarProductoVenQR);
-        id = (TextView) view.findViewById(R.id.txtIdProductoVenQR);
-        articulo = (TextView) view.findViewById(R.id.txtArticuloVenQR);
-        modelo = (TextView) view.findViewById(R.id.txtModeloVenQR);
+        producto = (TextView) view.findViewById(R.id.txtBuscarProductoVenQR);
+        //id = (TextView) view.findViewById(R.id.txtIdProductoVenQR);
+        //articulo = (TextView) view.findViewById(R.id.txtArticuloVenQR);
+        //modelo = (TextView) view.findViewById(R.id.txtModeloVenQR);
         precioVenta = (EditText) view.findViewById(R.id.txtPrecioVenQR);
         cantidad = (EditText) view.findViewById(R.id.txtCantidadVenQR);
         spEmpleado = (Spinner) view.findViewById(R.id.spEmpleadoVenQR);
         buscarID = (ImageButton) view.findViewById(R.id.btnBuscaProductoVenQR);
         vender = (Button) view.findViewById(R.id.btnVenderVenQR);
         listar = (Button) view.findViewById(R.id.btnListarBajas);
+        listaModelos = (ListView) view.findViewById(R.id.listaProductosVentas);
 
         //CODIGO PARA VALIDAR SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
         ConnectivityManager con = (ConnectivityManager) getActivity().getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -113,11 +115,41 @@ public class VentasFragment extends Fragment {
             Thread thread = new Thread() {
                 @Override
                 public void run() {
-                    final String resultado1 = recibirDatosGET();
+                    final String resultado1 = recibirDatosEmpleadosGET();
+                    final String resultado = cargarDatosGET();
                     getActivity().runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             cargarSpinner(listaEmpleados(resultado1));
+                            cargarLista(listaProductos(resultado));
+                            adapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_1, listaProductos(resultado));
+                            listaModelos.setAdapter(adapter);
+                            producto.addTextChangedListener(new TextWatcher() {
+                                @Override
+                                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                                    //adapter.getFilter().filter(s);
+                                }
+
+                                @Override
+                                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                                    adapter.getFilter().filter(s);
+                                }
+
+                                @Override
+                                public void afterTextChanged(Editable s) {
+                                    //adapter.getFilter().filter(s);
+                                }
+                            });
+                            progressDialog.hide();
+                            listaModelos.setClickable(true);
+                            listaModelos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                                @Override
+                                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                                    Object o = listaModelos.getItemAtPosition(position);
+                                    String str = (String) o;//As you are using Default String Adapter
+                                    producto.setText(str);
+                                }
+                            });
                         }
                     });
                 }
@@ -128,6 +160,10 @@ public class VentasFragment extends Fragment {
             progressDialog.dismiss();
         }
 
+        /*
+        * SECTOR DE CODIGO PARA LA UTILIZACION DE LA API
+        * DE LECTURA DE CODIGO QR CON LA CAMARA
+        * */
         qrscan = new IntentIntegrator(this.getActivity()).forSupportFragment(this);
         qrscan.setDesiredBarcodeFormats(IntentIntegrator.ALL_CODE_TYPES);
         qrscan.setOrientationLocked(false);
@@ -141,6 +177,10 @@ public class VentasFragment extends Fragment {
             }
         });
 
+        /*
+        * SECTOR DE CODIGO PARA LA ACCION DEL BOTON DE BUSCAR
+        * EL PRODUCTO POR EL ID DEL PRODUCTO
+        * */
         buscarID.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,16 +188,22 @@ public class VentasFragment extends Fragment {
                 progressDialog.setMessage("Cargando...");
                 //muestras el ProgressDialog
                 progressDialog.show();
-                if (!id_producto.getText().toString().isEmpty()) {
+                if (!producto.getText().toString().isEmpty()) {
                     Thread thread = new Thread() {
                         @Override
                         public void run() {
-                            final String resultado = cargarDatosGET(id_producto.getText().toString());
+                            String[] prod = producto.getText().toString().split(" - ");
+                            String id = "";
+                            for (int i = 0; i < prod.length; i++) {
+                                id = prod[0].toString();
+                            }
+                            final String resultado = cargarDatosProdIDGET(id);
                             getActivity().runOnUiThread(new Runnable() {
                                 @Override
                                 public void run() {
                                     progressDialog.hide();
                                     cargarDatos(resultado);
+                                    Toast.makeText(getContext(),resultado,Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -170,6 +216,10 @@ public class VentasFragment extends Fragment {
             }
         });
 
+        /*
+        * ACCION DEL BOTON DE LISTAR QUE PERMITE QUE SE VAYA
+        * A OTRA ACTIVITY PARA QUE LISTE LAS VENTAS REALIZADAS HATSA EL MOMENTO
+        * */
         listar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -178,13 +228,14 @@ public class VentasFragment extends Fragment {
             }
         });
 
-
-        //BOTON QUE PERMITE REALIZAR UNA VENTA
+        /*
+        * ACCION DEL BOTON VENDER QUE PERMITE REALIZAR
+        * LAS RESPECTIVAS VENTAS DE LOS PRODUCTOS
+        * */
         vender.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (articulo.getText().toString().isEmpty() || modelo.getText().toString().isEmpty() ||
-                        precioVenta.getText().toString().isEmpty() || cantidad.getText().toString().isEmpty()) {
+                if (producto.getText().toString().isEmpty() || precioVenta.getText().toString().isEmpty() || cantidad.getText().toString().isEmpty()) {
                     Toast.makeText(getContext(), "¡Complete los campos!", Toast.LENGTH_LONG).show();
                 } else {
                     String cedulaEmpleado = "";
@@ -207,7 +258,7 @@ public class VentasFragment extends Fragment {
                         Thread thread = new Thread() {
                             @Override
                             public void run() {
-                                final String resultado = enviarDatosGET(finalCedulaEmpleado, articulo.getText().toString(), modelo.getText().toString(),
+                                final String resultado = enviarDatosVentaGET(finalCedulaEmpleado, producto.getText().toString(), producto.getText().toString(),
                                         precioTotal,Integer.parseInt(cantidad.getText().toString()));
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
@@ -220,13 +271,9 @@ public class VentasFragment extends Fragment {
                                             progressDialog.hide();
                                         } else {
                                             progressDialog.dismiss();
-                                            id.setText("None");
-                                            articulo.setText("None");
-                                            modelo.setText("None");
                                             precioVenta.setText("");
                                             cantidad.setText("");
                                             Toast.makeText(getContext(), "Se ha registrado la venta exitosamente", Toast.LENGTH_SHORT).show();
-                                            //Toast.makeText(getContext(), finalCedulaEmpleado, Toast.LENGTH_SHORT).show();
                                         }
                                         progressDialog.hide();
                                     }
@@ -245,7 +292,9 @@ public class VentasFragment extends Fragment {
         return view;
     }
 
-    // ----- METODO DE MOSTRAR LOS DATOS -----
+    /*
+    * METODO DE MOSTRAR LOS DATOS LEYENDO POR MEDIO DEL LECTOR DE CCOIGO QR
+    * */
     @Override
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         IntentResult intentResult = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
@@ -270,7 +319,7 @@ public class VentasFragment extends Fragment {
                         Thread thread = new Thread() {
                             @Override
                             public void run() {
-                                final String resultado = cargarDatosGET(id);
+                                final String resultado = cargarDatosProdIDGET(id);
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
@@ -291,10 +340,11 @@ public class VentasFragment extends Fragment {
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-    // ----- FIN DEL METODO DE MOSTRAR LOS DATOS -----
 
-    //METODO PARA ENVIAR LOS DATOS AL SERVIDOR LOCAL
-    public String enviarDatosGET(String cedula, String marca, String modelo, int precio, int cantidad){
+    /*
+    * METODO PARA ENVIAR LOS DATOS DE LA VENTA AL SERVIDOR POR WEB SERVICES
+    * */
+    public String enviarDatosVentaGET(String cedula, String marca, String modelo, int precio, int cantidad){
         URL url = null;
         String linea = "";
         int respuesta = 0;
@@ -323,12 +373,16 @@ public class VentasFragment extends Fragment {
         return resul.toString();
     }
 
-    public String cargarDatosGET(String producto) {
+    /*
+    * METODO PARAA CARGAR LOS DATOS DEL PRODUCTO RECIBIENDO
+    * RECIBIENDO COMO PARAMETRO EL ID DEL PRODUCTO
+    * */
+    public String cargarDatosProdIDGET(String producto) {
         URL url = null;
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/buscarProductoID.php?";
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/buscarProducto.php?";
         String url_local = "http://192.168.1.6/ServiciosWeb/buscarVenta.php?";
 
         try {
@@ -350,8 +404,40 @@ public class VentasFragment extends Fragment {
         return resul.toString();
     }
 
-    // ----- METODO PARA RECIBIR LOS EMPLEADOS REGISTRADOS
-    public String recibirDatosGET(){
+    /*
+    * METODO PARA OBTENER LOS DATOS DE LOS PRODUCTOS
+    * */
+    public String cargarDatosGET(){
+        URL url = null;
+        String linea = "";
+        int respuesta = 0;
+        StringBuilder resul = null;
+        String url_local = "http://192.168.1.6/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cargarProductosBD.php?cedula=" + cedula_U;
+
+        try{
+            //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
+            url = new URL(url_aws);
+            HttpURLConnection conection = (HttpURLConnection) url.openConnection();
+            respuesta = conection.getResponseCode();
+            resul = new StringBuilder();
+            if (respuesta == HttpURLConnection.HTTP_OK){
+                InputStream inputStream = new BufferedInputStream(conection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                while ((linea = reader.readLine()) != null){
+                    resul.append(linea);
+                }
+            }
+        }catch (Exception e){
+            return e.getMessage();
+        }
+        return resul.toString();
+    }
+
+    /*
+    * METODO PARA RECIBIR LOS EMPLEADOS REGISTRADOS
+    * */
+    public String recibirDatosEmpleadosGET(){
         URL url = null;
         String linea = "";
         int respuesta = 0;
@@ -378,18 +464,37 @@ public class VentasFragment extends Fragment {
         return resul.toString();
     }
 
+    /*
+    * METODO PARA MOSTRAR LOS DATOS RECIBIDOS EN EL JSON EN LOS DIFERENTES CAMPOS
+    * */
     public void cargarDatos(String response) {
         try {
             JSONArray jsonArray = new JSONArray(response);
             for (int i = 0; i < jsonArray.length(); i++) {
-                id.setText(jsonArray.getJSONObject(i).getString("id_producto"));
-                articulo.setText(jsonArray.getJSONObject(i).getString("articulo"));
-                modelo.setText(jsonArray.getJSONObject(i).getString("modelo"));
+                producto.setText(jsonArray.getJSONObject(i).getString("id_producto") + " - " + jsonArray.getJSONObject(i).getString("articulo") + " - " +
+                        jsonArray.getJSONObject(i).getString("modelo"));
                 precioVenta.setText(jsonArray.getJSONObject(i).getString("precioVenta"));
             }
         } catch (Exception ex) {
+            Log.e(getTag(), "Error 1: " + ex.toString());
             Toast.makeText(getContext(), "Error: " + ex, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    //ARREGLO SPINNER
+    public ArrayList<String> listaProductos(String response){
+        ArrayList<String> listado = new ArrayList<String>();
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            String texto = "";
+            for (int i = 0; i < jsonArray.length(); i++){
+                texto = jsonArray.getJSONObject(i).getString("id_producto") + " - "
+                        + jsonArray.getJSONObject(i).getString("nombre") + " - "
+                        + jsonArray.getJSONObject(i).getString("modelo");
+                listado.add(texto);
+            }
+        }catch (Exception e){}
+        return listado;
     }
 
     //METODO QUE PERMITE OBTENER EL JSON Y RECORRERLO Y SABER SI RECIBIO O NO DATOS
@@ -424,12 +529,19 @@ public class VentasFragment extends Fragment {
         spEmpleado.setAdapter(adapter);
     }
 
+    //METODO QUE PERMITE CARGAR EL LISTVIEW
+    public void cargarLista(ArrayList<String> listaProd) {
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, listaProd);
+        listaModelos = (ListView) view.findViewById(R.id.listaProductosVentas);
+        listaModelos.setAdapter(adapter);
+    }
+
     private void cargarPreferencias(){
         SharedPreferences preferences = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         cedula_U = preferences.getString("cedula","");
     }
 
-    //----FIN CODIGO--->
+    //****************** ================= FIN CODIGO ================= ******************//
 
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
