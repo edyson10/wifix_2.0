@@ -3,6 +3,7 @@ package com.example.duvan.wifix_v2;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -32,21 +33,15 @@ public class ListarVentasActivity extends AppCompatActivity {
     private ProgressDialog progressDialog;
     ArrayAdapter<String> adapter;
     Button vistaAlejandria;
+    String tienda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_listar_ventas);
-
+        cargarPreferencias();
         progressDialog = new ProgressDialog(ListarVentasActivity.this);
         listaVentas = (ListView) findViewById(R.id.listVentas);
-        vistaAlejandria = (Button) findViewById(R.id.btnListarVentaAl) ;
-        vistaAlejandria.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vistaListaAlejandria();
-            }
-        });
         //agregas un mensaje en el ProgressDialog
         progressDialog.setMessage("Cargando servicios...");
         //muestras el ProgressDialog
@@ -58,7 +53,7 @@ public class ListarVentasActivity extends AppCompatActivity {
             Thread thread = new Thread() {
                 @Override
                 public void run() {
-                    final String resultado = listarVentasGET();
+                    final String resultado = listarVentasGET(tienda);
                     final int validar = validarDatosJSON(resultado);
                     runOnUiThread(new Runnable() {
                         @Override
@@ -67,10 +62,12 @@ public class ListarVentasActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 //Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_SHORT).show();
                                 Toast.makeText(getApplicationContext(), "No hay ventas registrado hoy.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "Tienda: " + tienda, Toast.LENGTH_SHORT).show();
                             } else {
                                 progressDialog.dismiss();
                                 cargarLista(listarVentasDia((resultado)));
                                 Toast.makeText(getApplicationContext(), "Se han cargado las ventas exitosamente.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), tienda, Toast.LENGTH_SHORT).show();
                                 adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listarVentasDia(resultado)) {
                                     //PERMITE CAMBIAR DE COLOR EL ISTVIEW EN UN ACTIVITY YA QE LO MUESTRA LAS LETRAS EN BLANCO
                                     @Override
@@ -105,9 +102,10 @@ public class ListarVentasActivity extends AppCompatActivity {
             String estado = "";
             for (int i = 0;i<jsonArray.length();i++){
                 texto = "ID Venta: " + jsonArray.getJSONObject(i).getString("id_venta") + "\n"
-                        + "Nombre: " + jsonArray.getJSONObject(i).getString("nombre") + "\n"
-                        + "Marca: " + jsonArray.getJSONObject(i).getString("marca") + "\n"
+                        + "Nombre: " + jsonArray.getJSONObject(i).getString("empleado") + "\n"
+                        + "Marca: " + jsonArray.getJSONObject(i).getString("articulo") + "\n"
                         + "Modelo: " + jsonArray.getJSONObject(i).getString("modelo") + "\n"
+                        + "Cantidad: " + jsonArray.getJSONObject(i).getString("cantidad") + "\n"
                         + "Precio: $ " + jsonArray.getJSONObject(i).getString("precio");
                 listado.add(texto);
             }
@@ -123,16 +121,16 @@ public class ListarVentasActivity extends AppCompatActivity {
     }
 
     //===== INICIO CODIGO SERVIDOR Y JSON
-    public String listarVentasGET() {
+    public String listarVentasGET(String tienda) {
         URL url = null;
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_local = "http://192.168.1.6/ServiciosWeb/listarVentas1.php";
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/listarVentas1.php";
+        String url_local = "http://192.168.56.1/ServiciosWeb/listarVentasBD.php?";
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/listarVentasBD.php?";
 
         try {
-            url = new URL(url_aws);
+            url = new URL(url_local + "tienda=" + tienda);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -161,9 +159,8 @@ public class ListarVentasActivity extends AppCompatActivity {
         return res;
     }
 
-    public void vistaListaAlejandria(){
-        Intent intent = new Intent(getApplicationContext(), ListarVentaAlActivity.class);
-        startActivity(intent);
-        finish();
+    private void cargarPreferencias(){
+        SharedPreferences preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        tienda = preferences.getString("tienda","");
     }
 }

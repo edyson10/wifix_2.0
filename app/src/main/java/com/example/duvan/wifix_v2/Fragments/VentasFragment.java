@@ -156,7 +156,7 @@ public class VentasFragment extends Fragment {
             };
             thread.start();
         }else {
-            Toast.makeText(getContext(), "Verifique su conexión a internet",Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "¡Verifique su conexión a internet!",Toast.LENGTH_SHORT).show();
             progressDialog.dismiss();
         }
 
@@ -203,7 +203,6 @@ public class VentasFragment extends Fragment {
                                 public void run() {
                                     progressDialog.hide();
                                     cargarDatos(resultado);
-                                    Toast.makeText(getContext(),resultado,Toast.LENGTH_SHORT).show();
                                 }
                             });
                         }
@@ -211,7 +210,7 @@ public class VentasFragment extends Fragment {
                     thread.start();
                 } else {
                     progressDialog.hide();
-                    Toast.makeText(getContext(),"Complete los campos",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(),"¡Complete los campos!",Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -244,6 +243,12 @@ public class VentasFragment extends Fragment {
                         cedulaEmpleado = emp[1].toString();
                     }
 
+                    String id_producto = "";
+                    String[] prod = producto.getText().toString().split(" - ");
+                    for (int i=0; i < prod.length; i++) {
+                        id_producto = prod[0].toString();
+                    }
+
                     final int precioTotal = Integer.parseInt(precioVenta.getText().toString()) * Integer.parseInt(cantidad.getText().toString());
                     final char[] cant = cantidad.getText().toString().toCharArray();
                     //agregas un mensaje en el ProgressDialog
@@ -255,25 +260,26 @@ public class VentasFragment extends Fragment {
                     NetworkInfo networkInfo = con.getActiveNetworkInfo();
                     if (networkInfo != null && networkInfo.isConnected()) {
                         final String finalCedulaEmpleado = cedulaEmpleado;
+                        final String finalId_producto = id_producto;
                         Thread thread = new Thread() {
                             @Override
                             public void run() {
-                                final String resultado = enviarDatosVentaGET(finalCedulaEmpleado, producto.getText().toString(), producto.getText().toString(),
-                                        precioTotal,Integer.parseInt(cantidad.getText().toString()));
+                                final String resultado = enviarDatosVentaGET(finalId_producto, precioTotal, Integer.parseInt(cantidad.getText().toString()),
+                                        finalCedulaEmpleado);
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         int r = obtenerDatosJSON(resultado);
-                                        //Condición para validar si los campos estan llenos
                                         if (r > 0) {
-                                            Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
-                                            //Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
-                                            progressDialog.hide();
-                                        } else {
                                             progressDialog.dismiss();
+                                            producto.setText("");
                                             precioVenta.setText("");
                                             cantidad.setText("");
                                             Toast.makeText(getContext(), "Se ha registrado la venta exitosamente", Toast.LENGTH_SHORT).show();
+                                        } else {
+                                            Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
+                                            progressDialog.hide();
                                         }
                                         progressDialog.hide();
                                     }
@@ -288,7 +294,6 @@ public class VentasFragment extends Fragment {
                 }
             }
         });
-
         return view;
     }
 
@@ -325,7 +330,6 @@ public class VentasFragment extends Fragment {
                                     public void run() {
                                         progressDialog.hide();
                                         cargarDatos(resultado);
-                                        //Toast.makeText(getContext(),id, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -344,19 +348,17 @@ public class VentasFragment extends Fragment {
     /*
     * METODO PARA ENVIAR LOS DATOS DE LA VENTA AL SERVIDOR POR WEB SERVICES
     * */
-    public String enviarDatosVentaGET(String cedula, String marca, String modelo, int precio, int cantidad){
+    public String enviarDatosVentaGET(String producto, int precio, int cantidad, String cedula){
         URL url = null;
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/registrarVenta.php";
-        String url_local = "http://192.168.1.6/ServiciosWeb/registrarVenta.php";
-        String mod = modelo.replace(" ", "%20");
-        String mar = marca.replace(" ", "%20");
+        String url_local = "http://192.168.56.1/ServiciosWeb/registrarVentaBD.php";
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_aws + "?empleado=" + cedula + "&marca=" + mar + "&modelo=" + mod + "&precio=" + precio + "&cantidad=" + cantidad);
+            url = new URL(url_local + "?producto=" + producto + "&cantidad=" + cantidad + "&precio=" + precio + "&empleado=" + cedula);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -383,11 +385,11 @@ public class VentasFragment extends Fragment {
         int respuesta = 0;
         StringBuilder resul = null;
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/buscarProducto.php?";
-        String url_local = "http://192.168.1.6/ServiciosWeb/buscarVenta.php?";
+        String url_local = "http://192.168.56.1/ServiciosWeb/buscarProducto.php?";
 
         try {
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_aws + "producto=" + producto);
+            url = new URL(url_local + "producto=" + producto);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -412,12 +414,12 @@ public class VentasFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_local = "http://192.168.1.6/ServiciosWeb/cargarProductos.php?cedula=" + cedula_U;
+        String url_local = "http://192.168.56.1/ServiciosWeb/cargarProductosBD.php?cedula=" + cedula_U;
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cargarProductosBD.php?cedula=" + cedula_U;
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_aws);
+            url = new URL(url_local);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -442,12 +444,13 @@ public class VentasFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_local = "http://192.168.1.6/ServiciosWeb/empleados.php";
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/empleados.php";
+        String url_local = "http://192.168.56.1/ServiciosWeb/empleadosBD.php";
+        //DDIRECCION DEL NUEVO SERVICIO DE LA NUEVA BD
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/empleadosBD.php";
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_aws);
+            url = new URL(url_local);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -468,27 +471,34 @@ public class VentasFragment extends Fragment {
     * METODO PARA MOSTRAR LOS DATOS RECIBIDOS EN EL JSON EN LOS DIFERENTES CAMPOS
     * */
     public void cargarDatos(String response) {
+        JSONArray jsonArray = null;
         try {
-            JSONArray jsonArray = new JSONArray(response);
+            jsonArray = new JSONArray(response);
             for (int i = 0; i < jsonArray.length(); i++) {
-                producto.setText(jsonArray.getJSONObject(i).getString("id_producto") + " - " + jsonArray.getJSONObject(i).getString("articulo") + " - " +
-                        jsonArray.getJSONObject(i).getString("modelo"));
                 precioVenta.setText(jsonArray.getJSONObject(i).getString("precioVenta"));
             }
         } catch (Exception ex) {
-            Log.e(getTag(), "Error 1: " + ex.toString());
-            Toast.makeText(getContext(), "Error: " + ex, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Error: " + ex, Toast.LENGTH_SHORT).show();
+            for (int i = 0; i < jsonArray.length(); i++) {
+                try {
+                    precioVenta.setText(jsonArray.getJSONObject(i).getString("precioVenta"));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 
-    //ARREGLO SPINNER
+    /* SECTOR DE CODIGO QUE PEERMITE CARRGAR LOS PRODUCTOS EN UN ARREGLO
+    * PARA LUEGO CARGARLOS EN UN LISTVIEW
+    * */
     public ArrayList<String> listaProductos(String response){
         ArrayList<String> listado = new ArrayList<String>();
         try{
             JSONArray jsonArray = new JSONArray(response);
             String texto = "";
             for (int i = 0; i < jsonArray.length(); i++){
-                texto = jsonArray.getJSONObject(i).getString("id_producto") + " - "
+                texto = jsonArray.getJSONObject(i).getString("id_prodtienda") + " - "
                         + jsonArray.getJSONObject(i).getString("nombre") + " - "
                         + jsonArray.getJSONObject(i).getString("modelo");
                 listado.add(texto);
@@ -497,7 +507,9 @@ public class VentasFragment extends Fragment {
         return listado;
     }
 
-    //METODO QUE PERMITE OBTENER EL JSON Y RECORRERLO Y SABER SI RECIBIO O NO DATOS
+    /* METODO QUE PERMITE OBTENER EL JSON
+    * Y RECORRERLO Y SABER SI RECIBIO O NO DATOS
+    * */
     public int obtenerDatosJSON(String response){
         int res = 0;
         try {
@@ -509,6 +521,9 @@ public class VentasFragment extends Fragment {
         return res;
     }
 
+    /* SECTOR DE CODIGO QUE PEERMITE CARRGAR LOS EMPLEADOS
+    *  EN UN ARREGLO PARA LUEGO CARGARLOS EN UN LISTVIEW
+    * */
     public ArrayList<String> listaEmpleados(String response){
         ArrayList<String> listado = new ArrayList<String>();
         try{
@@ -522,14 +537,18 @@ public class VentasFragment extends Fragment {
         return listado;
     }
 
-    // ===== METODO PARA CARGAR LOS EMPLEADOS EN EL SPINNER =====
+    /* METODO PARA CARGAR EL ARRAYLIST
+    *  DE EMPLEADOS EN EL SPINNER
+    * */
     public void cargarSpinner(ArrayList<String> empleado){
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, empleado);
         spEmpleado = (Spinner) view.findViewById(R.id.spEmpleadoVenQR);
         spEmpleado.setAdapter(adapter);
     }
 
-    //METODO QUE PERMITE CARGAR EL LISTVIEW
+    /* METODO QUE PERMITE CARGAR EL ARRAYLIST DE
+    *  PRODUCTOS EN EL LISTVIEW
+    * */
     public void cargarLista(ArrayList<String> listaProd) {
         ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getContext(), android.R.layout.simple_list_item_1, listaProd);
         listaModelos = (ListView) view.findViewById(R.id.listaProductosVentas);
@@ -549,19 +568,6 @@ public class VentasFragment extends Fragment {
             mListener.onFragmentInteraction(uri);
         }
     }
-
-    /*
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
-    }
-    */
 
     @Override
     public void onDetach() {

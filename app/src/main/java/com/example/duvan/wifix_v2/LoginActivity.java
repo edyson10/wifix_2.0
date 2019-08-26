@@ -10,6 +10,7 @@ import android.net.NetworkInfo;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -35,9 +36,8 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     Button login, registro;
     TextView olvidastoPass;
     private ProgressDialog progressDialog;
-    RadioButton empleado, admin, master;
-    String tipo = "";
     private SharedPreferences preferences;
+    private String tienda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +50,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         contraseña = (EditText) findViewById(R.id.txtPass);
         login = (Button) findViewById(R.id.btnLoginActivity);
         login.setOnClickListener(this);
-        empleado = (RadioButton) findViewById(R.id.radio_empleado);
-        admin = (RadioButton) findViewById(R.id.radio_admin);
-        master = (RadioButton) findViewById(R.id.radio_master);
 
         /*
         olvidastoPass = (TextView) findViewById(R.id.txtOlvidoPass);
@@ -77,17 +74,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         }
     }
     */
-    private String validar() {
-        String cad = "";
-        if(admin.isChecked()){
-            cad = "Administrador";
-        } else if(empleado.isChecked()){
-            cad = "Empleado";
-        } else if(master.isChecked()){
-            cad = "Gerente";
-        }
-        return cad;
-    }
 
     private void goToMain() {
         Intent intent = new Intent( getApplicationContext(), MainActivity.class);
@@ -102,7 +88,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         progressDialog.setMessage("Cargando...");
         //muestras el ProgressDialog
         progressDialog.show();
-        final String rol = validar();
+        //final String rol = validar();
         //CODIGO PARA VALIDAR SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
         ConnectivityManager con = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = con.getActiveNetworkInfo();
@@ -110,32 +96,33 @@ public class LoginActivity extends Activity implements View.OnClickListener{
             Thread thread = new Thread() {
                 @Override
                 public void run() {
-                    final String resultado = enviarDatosGET(usuario.getText().toString(), contraseña.getText().toString(), 3);
+                    final String resultado = enviarDatosGET(usuario.getText().toString(), contraseña.getText().toString());
                     runOnUiThread(new Runnable() {
                         @Override
                         public void run() {
                             int r = obtenerDatosJSON(resultado);
+                            int tipo = cargarDatos(resultado);
                             if (usuario.getText().toString().isEmpty() || contraseña.getText().toString().isEmpty()) {
                                 Toast.makeText(getApplicationContext(), "¡Complete los campos!", Toast.LENGTH_LONG).show();
                             } else {
                                 if (r > 0) {
                                     progressDialog.dismiss();
-                                    if(rol.equalsIgnoreCase("Administrador")){
+                                    if (tipo ==  1){
+                                        Intent intent = new Intent(getApplicationContext(), GerenteMainActivity.class);
+                                        intent.putExtra("cedula", usuario.getText().toString());
+                                        savePreferences(usuario.getText().toString(),contraseña.getText().toString(), tienda);
+                                        goToMain();
+                                        startActivity(intent);
+                                    } else if(tipo == 2){
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         intent.putExtra("cedula", usuario.getText().toString());
-                                        savePreferences(usuario.getText().toString(),contraseña.getText().toString(), "1");
+                                        savePreferences(usuario.getText().toString(),contraseña.getText().toString(), tienda);
                                         goToMain();
                                         startActivity(intent);
-                                    } else if(rol.equalsIgnoreCase("Empleado")){
+                                    } else if(tipo == 3){
                                         Intent intent = new Intent(getApplicationContext(), MainEmpleadoActivity.class);
                                         intent.putExtra("cedula", usuario.getText().toString());
-                                        savePreferences(usuario.getText().toString(),contraseña.getText().toString(), "2");
-                                        goToMain();
-                                        startActivity(intent);
-                                    } else if(rol.equalsIgnoreCase("Gerente")) {
-                                        Intent intent = new Intent(getApplicationContext(), MasterMainActivity.class);
-                                        intent.putExtra("cedula", usuario.getText().toString());
-                                        savePreferences(usuario.getText().toString(),contraseña.getText().toString(), "3");
+                                        savePreferences(usuario.getText().toString(),contraseña.getText().toString(), tienda);
                                         goToMain();
                                         startActivity(intent);
                                     }
@@ -158,27 +145,18 @@ public class LoginActivity extends Activity implements View.OnClickListener{
     }
 
     //METODO PARA ENVIAR LOS DATOS AL SERVIDOR LOCAL
-    public String enviarDatosGET(String usu, String pass, int rol){
+    public String enviarDatosGET(String usu, String pass){
         URL url = null;
         String linea = "";
         int respuesta = 0;
-        rol = 0;
-        String tipo = validar();
-        if(tipo.equalsIgnoreCase("Administrador")){
-            rol = 1;
-        }else if (tipo.equalsIgnoreCase("Empleado")) {
-            rol = 2;
-        } else if (tipo.equalsIgnoreCase("Gerente")) {
-            rol = 3;
-        }
 
         StringBuilder resul = null;
-        String url_local = "http://192.168.1.6/ServiciosWeb/validarEmpleado.php?";
-            String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/validarEmpleado.php?";
+        String url_local = "http://192.168.56.1/ServiciosWeb/loginBD.php?";
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/loginBD.php?";
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO
-            url = new URL(url_aws + "cedula=" + usu + "&password=" + pass + "&tipo=" + rol);
+            url = new URL(url_local + "cedula=" + usu + "&password=" + pass);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -206,12 +184,26 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         return res;
     }
 
-    private void savePreferences(String cedula, String pass, String rol){
+    public int cargarDatos(String response) {
+        int tipo = 0;
+        try {
+            JSONArray jsonArray = new JSONArray(response);
+            for (int i = 0; i < jsonArray.length(); i++) {
+                tipo = Integer.parseInt(jsonArray.getJSONObject(i).getString("id_tipoempleado"));
+                tienda = jsonArray.getJSONObject(i).getString("tienda");
+            }
+        } catch (Exception ex) {
+            Toast.makeText(getApplicationContext(), "Error: " + ex, Toast.LENGTH_SHORT).show();
+        }
+        return tipo;
+    }
+
+    private void savePreferences(String cedula, String pass, String tienda){
         SharedPreferences preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferences.edit();
         editor.putString("cedula", cedula);
         editor.putString("pass", pass);
-        editor.putString("rol", rol);
+        editor.putString("tienda", tienda);
         editor.commit();
     }
 
@@ -229,18 +221,12 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         String user = preferences.getString("rol", "");
 
         if(user.equalsIgnoreCase("1")){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+            //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             //Intent intent = new Intent(getApplicationContext(), MasterMainActivity.class);
-            startActivity(intent);
+            //startActivity(intent);
             //intent.putExtra("cedula", usuario.getText().toString());
-        }
-        /*
-        else if(user.equalsIgnoreCase("2")){
-            Intent intent = new Intent(getApplicationContext(), MainEmpleadoActivity.class);
-            startActivity(intent);
-        }*/
-        else if(user.equalsIgnoreCase("3")){
-            Intent intent = new Intent(getApplicationContext(), MasterMainActivity.class);
+        } else if(user.equalsIgnoreCase("2")){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }
     }

@@ -9,8 +9,6 @@ import android.content.SharedPreferences;
 import android.graphics.drawable.Icon;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,6 +33,7 @@ import com.example.duvan.wifix_v2.Fragments.EliminarFragment;
 import com.example.duvan.wifix_v2.Fragments.EmpleadoFragment;
 import com.example.duvan.wifix_v2.Fragments.ListarServiciosFragment;
 import com.example.duvan.wifix_v2.Fragments.ProductoFragment;
+import com.example.duvan.wifix_v2.Fragments.RegistrarProductoFragment;
 import com.example.duvan.wifix_v2.Fragments.ReporteFragment;
 import com.example.duvan.wifix_v2.Fragments.ServicioFragment;
 import com.example.duvan.wifix_v2.Fragments.SettingFragment;
@@ -47,7 +46,7 @@ public class MasterMainActivity extends AppCompatActivity
         SettingFragment.OnFragmentInteractionListener, EmpleadoFragment.OnFragmentInteractionListener,
         ProductoFragment.OnFragmentInteractionListener, AcercaFragment.OnFragmentInteractionListener,
         BalanceFragment.OnFragmentInteractionListener, DanosFragment.OnFragmentInteractionListener,
-        EditarFragment.OnFragmentInteractionListener{
+        EditarFragment.OnFragmentInteractionListener, RegistrarProductoFragment.OnFragmentInteractionListener{
 
     Icon logout;
     private SharedPreferences preferences;
@@ -97,7 +96,6 @@ public class MasterMainActivity extends AppCompatActivity
             alertOneButton();
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
@@ -109,12 +107,7 @@ public class MasterMainActivity extends AppCompatActivity
         Fragment miFragment = null;
         boolean fragmentSeleccionado = false;
 
-        if (id == R.id.nav_venta) {
-            // Handle the camera action
-            //CODIGO AÑADIDO
-            miFragment = new VentasFragment();
-            fragmentSeleccionado = true;
-        } else if (id == R.id.nav_servicio) {
+         if (id == R.id.nav_servicio) {
             miFragment = new ListarServiciosFragment();
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_reporte) {
@@ -138,7 +131,7 @@ public class MasterMainActivity extends AppCompatActivity
         } else if(id == R.id.nav_balance){
             //miFragment = new BalanceFragment();
             //fragmentSeleccionado = true;
-            Toast.makeText(getApplicationContext(), "Opción no disponible", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "Opción no disponible Gerente", Toast.LENGTH_SHORT).show();
         } else if(id == R.id.nav_danos){
             miFragment = new DanosFragment();
             fragmentSeleccionado = true;
@@ -150,6 +143,9 @@ public class MasterMainActivity extends AppCompatActivity
             fragmentSeleccionado = true;
         } else if (id == R.id.nav_empleado){
             miFragment = new EmpleadoFragment();
+            fragmentSeleccionado = true;
+        } else if (id == R.id.nav_registra_producto) {
+            miFragment = new RegistrarProductoFragment();
             fragmentSeleccionado = true;
         }
 

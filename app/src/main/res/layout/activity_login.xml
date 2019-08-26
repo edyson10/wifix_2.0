@@ -97,38 +97,7 @@
                         android:inputType="textPassword"
                         android:hint="Contraseña"/>/>
                 </android.support.design.widget.TextInputLayout>
-                <RadioGroup
-                    android:id="@+id/opciones_rol"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="horizontal">
-                    <RadioButton
-                        android:id="@+id/radio_master"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="Gerente"
-                        android:textColor="@color/white"
-                        android:buttonTint="@color/white"/>
-                    <RadioButton
-                        android:id="@+id/radio_admin"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="16dp"
-                        android:checked="true"
-                        android:text="Admin"
-                        android:textColor="@color/white"
-                        android:buttonTint="@color/white"/>
-                    <RadioButton
-                        android:id="@+id/radio_empleado"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:checked="false"
-                        android:text="Empleado"
-                        android:textColor="@color/white"
-                        android:buttonTint="@color/white"/>
-                </RadioGroup>
+
                 <Button
                     android:id="@+id/btnLoginActivity"
                     android:layout_width="match_parent"
