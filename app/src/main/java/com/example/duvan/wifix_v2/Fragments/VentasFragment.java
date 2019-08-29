@@ -353,12 +353,12 @@ public class VentasFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/registrarVenta.php";
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/registrarVentaBD.php";
         String url_local = "http://192.168.56.1/ServiciosWeb/registrarVentaBD.php";
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_local + "?producto=" + producto + "&cantidad=" + cantidad + "&precio=" + precio + "&empleado=" + cedula);
+            url = new URL(url_aws + "?producto=" + producto + "&cantidad=" + cantidad + "&precio=" + precio + "&empleado=" + cedula);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -389,7 +389,7 @@ public class VentasFragment extends Fragment {
 
         try {
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_local + "producto=" + producto);
+            url = new URL(url_aws + "producto=" + producto);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -419,7 +419,7 @@ public class VentasFragment extends Fragment {
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_local);
+            url = new URL(url_aws);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -450,7 +450,7 @@ public class VentasFragment extends Fragment {
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
-            url = new URL(url_local);
+            url = new URL(url_aws);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -475,10 +475,11 @@ public class VentasFragment extends Fragment {
         try {
             jsonArray = new JSONArray(response);
             for (int i = 0; i < jsonArray.length(); i++) {
+                //Toast.makeText(getContext(), "Hola ", Toast.LENGTH_SHORT).show();
                 precioVenta.setText(jsonArray.getJSONObject(i).getString("precioVenta"));
             }
         } catch (Exception ex) {
-            //Toast.makeText(getContext(), "Error: " + ex, Toast.LENGTH_SHORT).show();
+            Toast.makeText(getContext(), "Error: " + ex, Toast.LENGTH_SHORT).show();
             for (int i = 0; i < jsonArray.length(); i++) {
                 try {
                     precioVenta.setText(jsonArray.getJSONObject(i).getString("precioVenta"));

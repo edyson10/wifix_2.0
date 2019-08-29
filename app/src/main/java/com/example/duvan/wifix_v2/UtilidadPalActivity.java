@@ -2,6 +2,7 @@ package com.example.duvan.wifix_v2;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONArray;
+import org.w3c.dom.Text;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedReader;
@@ -29,6 +31,8 @@ public class UtilidadPalActivity extends AppCompatActivity {
     ListView listaUtilidad;
     private ProgressDialog progressDialog;
     ArrayAdapter<String> adapter;
+    TextView titulo;
+    String tienda;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,6 +41,9 @@ public class UtilidadPalActivity extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(UtilidadPalActivity.this);
         listaUtilidad = (ListView) findViewById(R.id.listUtilidadPal);
+        titulo = (TextView) findViewById(R.id.txtTituloUtilidad);
+        cargarPreferencias();
+        cargarTitulo();
         //agregas un mensaje en el ProgressDialog
         progressDialog.setMessage("Cargando servicios...");
         //muestras el ProgressDialog
@@ -94,9 +101,8 @@ public class UtilidadPalActivity extends AppCompatActivity {
             String texto = "";
             for (int i = 0;i<jsonArray.length();i++){
                 texto = "Nombre: " + jsonArray.getJSONObject(i).getString("nombre") + "\n"
-                        + "Total vendido: $ " + jsonArray.getJSONObject(i).getString("PrecioVenta") + "\n"
-                        + "Total Costos: $ " + jsonArray.getJSONObject(i).getString("PrecioCosto") + "\n"
-                        + "Utilidad Neta: $ " + jsonArray.getJSONObject(i).getString("Utilidad_Neta");
+                        + "Total vendido: $ " + jsonArray.getJSONObject(i).getString("precioVenta") + "\n"
+                        + "Total Costos: $ " + jsonArray.getJSONObject(i).getString("precioCosto");
                 listado.add(texto);
             }
         }catch (Exception e){}
@@ -117,10 +123,10 @@ public class UtilidadPalActivity extends AppCompatActivity {
         int respuesta = 0;
         StringBuilder resul = null;
         String url_local = "http://192.168.1.6/ServiciosWeb/utilidad1.php";
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/utilidad1.php";
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/utilidadBD.php?tienda=";
 
         try {
-            url = new URL(url_aws);
+            url = new URL(url_aws + tienda);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -147,5 +153,23 @@ public class UtilidadPalActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
         return res;
+    }
+
+    private void cargarTitulo(){
+        if(tienda.equalsIgnoreCase("1")) {
+            titulo.setText("UTILIDAD PALACIO");
+            titulo.setTextColor(Color.RED);
+        } else if(tienda.equalsIgnoreCase("2")) {
+            titulo.setText("UTILIDAD ALEJANDRIA");
+            titulo.setTextColor(Color.RED);
+        } else if (tienda.equalsIgnoreCase("3")) {
+            titulo.setText("UTILIDAD SEPTIMA");
+            titulo.setTextColor(Color.RED);
+        }
+    }
+
+    private void cargarPreferencias(){
+        SharedPreferences preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        tienda = preferences.getString("tienda","");
     }
 }

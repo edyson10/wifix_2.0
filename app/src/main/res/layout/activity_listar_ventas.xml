@@ -13,10 +13,10 @@
     tools:context=".ListarVentasActivity">
 
     <TextView
+        android:id="@+id/txtTituloVentasDia"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="VENTAS DE HOY PALACIO"
         android:textSize="18sp"
         android:textStyle="bold"/>
 
@@ -27,6 +27,4 @@
         android:layout_marginTop="10sp"
         android:dividerHeight="6sp">
     </ListView>
-
-
 </LinearLayout>

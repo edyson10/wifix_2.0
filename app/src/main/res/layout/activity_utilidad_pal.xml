@@ -13,10 +13,10 @@
     tools:context=".UtilidadPalActivity">
 
     <TextView
+        android:id="@+id/txtTituloUtilidad"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:text="UTILIDAD PALACIO"
         android:textSize="18sp"
         android:textStyle="bold"/>
     <ListView

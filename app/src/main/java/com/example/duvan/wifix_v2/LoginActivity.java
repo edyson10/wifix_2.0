@@ -156,7 +156,7 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO
-            url = new URL(url_local + "cedula=" + usu + "&password=" + pass);
+            url = new URL(url_aws + "cedula=" + usu + "&password=" + pass);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();

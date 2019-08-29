@@ -45,7 +45,7 @@ public class ProductoFragment extends Fragment {
 
     View vista;
     EditText cantidad, producto;
-    Button añadir, verPalacio, verAlejandria, verSeptima, registrar;
+    Button añadir, verPalacio, verAlejandria, verSeptima;
     ListView listaModelos;
     ArrayAdapter<String> adapter;
 
@@ -83,7 +83,6 @@ public class ProductoFragment extends Fragment {
         añadir = (Button)vista.findViewById(R.id.btnAñadir);
         verPalacio = (Button)vista.findViewById(R.id.btnVerProdPal);
         verAlejandria = (Button)vista.findViewById(R.id.btnVerProdAle);
-        registrar = (Button)vista.findViewById(R.id.btnVistaRegistrarProd);
         listaModelos = (ListView) vista.findViewById(R.id.listModelos);
 
         //CODIGO PARA VALIDAR SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
@@ -219,13 +218,6 @@ public class ProductoFragment extends Fragment {
             }
         });
 
-        registrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), RegistrarProductoActivity.class);
-                startActivity(intent);
-            }
-        });
         return vista;
     }
 

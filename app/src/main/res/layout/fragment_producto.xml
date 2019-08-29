@@ -77,14 +77,6 @@
                 android:layout_marginTop="13dp"
                 android:layout_weight="0.5"
                 android:text="AÑADIR\n CANTIDAD" />
-            <Button
-                android:id="@+id/btnVistaRegistrarProd"
-                android:layout_gravity="center"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="13dp"
-                android:layout_weight="0.5"
-                android:text="REGISTRAR\n PRODUCTO"/>
         </LinearLayout>
 
         <LinearLayout

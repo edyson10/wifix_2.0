@@ -34,6 +34,7 @@ public class ListarVentasActivity extends AppCompatActivity {
     ArrayAdapter<String> adapter;
     Button vistaAlejandria;
     String tienda;
+    TextView titulo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +43,8 @@ public class ListarVentasActivity extends AppCompatActivity {
         cargarPreferencias();
         progressDialog = new ProgressDialog(ListarVentasActivity.this);
         listaVentas = (ListView) findViewById(R.id.listVentas);
+        titulo = (TextView) findViewById(R.id.txtTituloVentasDia);
+        cargarTitulo();
         //agregas un mensaje en el ProgressDialog
         progressDialog.setMessage("Cargando servicios...");
         //muestras el ProgressDialog
@@ -62,12 +65,10 @@ public class ListarVentasActivity extends AppCompatActivity {
                                 progressDialog.dismiss();
                                 //Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_SHORT).show();
                                 Toast.makeText(getApplicationContext(), "No hay ventas registrado hoy.", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(), "Tienda: " + tienda, Toast.LENGTH_SHORT).show();
                             } else {
                                 progressDialog.dismiss();
                                 cargarLista(listarVentasDia((resultado)));
                                 Toast.makeText(getApplicationContext(), "Se han cargado las ventas exitosamente.", Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(), tienda, Toast.LENGTH_SHORT).show();
                                 adapter = new ArrayAdapter<String>(getApplicationContext(), android.R.layout.simple_list_item_1, listarVentasDia(resultado)) {
                                     //PERMITE CAMBIAR DE COLOR EL ISTVIEW EN UN ACTIVITY YA QE LO MUESTRA LAS LETRAS EN BLANCO
                                     @Override
@@ -130,7 +131,7 @@ public class ListarVentasActivity extends AppCompatActivity {
         String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/listarVentasBD.php?";
 
         try {
-            url = new URL(url_local + "tienda=" + tienda);
+            url = new URL(url_aws + "tienda=" + tienda);
             HttpURLConnection conection = (HttpURLConnection) url.openConnection();
             respuesta = conection.getResponseCode();
             resul = new StringBuilder();
@@ -157,6 +158,20 @@ public class ListarVentasActivity extends AppCompatActivity {
         } catch (Exception e) {
         }
         return res;
+    }
+
+    private void cargarTitulo(){
+        String tit = "";
+        if(tienda.equalsIgnoreCase("1")) {
+            titulo.setText("VENTAS HOY PALACIO");
+            titulo.setTextColor(Color.RED);
+        } else if(tienda.equalsIgnoreCase("2")) {
+            titulo.setText("VENTAS HOY ALEJANDRIA");
+            titulo.setTextColor(Color.RED);
+        } else if (tienda.equalsIgnoreCase("3")) {
+            titulo.setText("VENTAS HOY SEPTIMA");
+            titulo.setTextColor(Color.RED);
+        }
     }
 
     private void cargarPreferencias(){
