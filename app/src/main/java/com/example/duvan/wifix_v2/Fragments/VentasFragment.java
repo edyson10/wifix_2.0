@@ -61,6 +61,7 @@ public class VentasFragment extends Fragment {
     private Spinner spEmpleado;
     String cedula_U;
     private ListView listaModelos;
+    String tienda;
 
     ArrayAdapter<String> adapter;
 
@@ -324,12 +325,12 @@ public class VentasFragment extends Fragment {
                         Thread thread = new Thread() {
                             @Override
                             public void run() {
-                                final String resultado = cargarDatosProdIDGET(id);
+                                final String resultado = recibirProductoQRGET(id,tienda);
                                 getActivity().runOnUiThread(new Runnable() {
                                     @Override
                                     public void run() {
                                         progressDialog.hide();
-                                        cargarDatos(resultado);
+                                        listaProductosQR(resultado);
                                     }
                                 });
                             }
@@ -401,6 +402,38 @@ public class VentasFragment extends Fragment {
                 }
             }
         } catch (Exception e) {
+            return e.getMessage();
+        }
+        return resul.toString();
+    }
+
+    /*
+     * METODO PARA RECIBIR LOS DATOS DEL PRODUCTO
+     * POR MEDIO DEL CODIGO QR
+     * */
+    public String recibirProductoQRGET(String producto, String tienda){
+        URL url = null;
+        String linea = "";
+        int respuesta = 0;
+        StringBuilder resul = null;
+        String url_local = "http://192.168.56.1/ServiciosWeb/empleadosBD.php";
+        //DDIRECCION DEL NUEVO SERVICIO DE LA NUEVA BD
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/buscarProductoQR.php?";
+
+        try{
+            //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
+            url = new URL(url_aws + "producto=" + producto + "&tienda=" + tienda);
+            HttpURLConnection conection = (HttpURLConnection) url.openConnection();
+            respuesta = conection.getResponseCode();
+            resul = new StringBuilder();
+            if (respuesta == HttpURLConnection.HTTP_OK){
+                InputStream inputStream = new BufferedInputStream(conection.getInputStream());
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream));
+                while ((linea = reader.readLine()) != null){
+                    resul.append(linea);
+                }
+            }
+        }catch (Exception e){
             return e.getMessage();
         }
         return resul.toString();
@@ -508,6 +541,25 @@ public class VentasFragment extends Fragment {
         return listado;
     }
 
+    /* SECTOR DE CODIGO QUE PEERMITE CARRGAR LOS PRODUCTOS EN UN ARREGLO
+     * PARA LUEGO CARGARLOS EN UN LISTVIEW
+     * */
+    public ArrayList<String> listaProductosQR(String response){
+        ArrayList<String> listado = new ArrayList<String>();
+        try{
+            JSONArray jsonArray = new JSONArray(response);
+            String texto = "";
+            for (int i = 0; i < jsonArray.length(); i++){
+                texto = jsonArray.getJSONObject(i).getString("id_prodtienda") + " - "
+                        + jsonArray.getJSONObject(i).getString("nombre") + " - "
+                        + jsonArray.getJSONObject(i).getString("modelo");
+                precioVenta.setText(jsonArray.getJSONObject(i).getString("precioCosto"));
+                listado.add(texto);
+            }
+        }catch (Exception e){}
+        return listado;
+    }
+
     /* METODO QUE PERMITE OBTENER EL JSON
     * Y RECORRERLO Y SABER SI RECIBIO O NO DATOS
     * */
@@ -559,6 +611,7 @@ public class VentasFragment extends Fragment {
     private void cargarPreferencias(){
         SharedPreferences preferences = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         cedula_U = preferences.getString("cedula","");
+        tienda = preferences.getString("tienda","");
     }
 
     //****************** ================= FIN CODIGO ================= ******************//

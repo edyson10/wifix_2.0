@@ -108,18 +108,21 @@ public class LoginActivity extends Activity implements View.OnClickListener{
                                 if (r > 0) {
                                     progressDialog.dismiss();
                                     if (tipo ==  1){
+                                        Toast.makeText(getApplicationContext(), "Has iniciado sesión como Gerente", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(getApplicationContext(), GerenteMainActivity.class);
                                         intent.putExtra("cedula", usuario.getText().toString());
                                         savePreferences(usuario.getText().toString(),contraseña.getText().toString(), tienda);
                                         goToMain();
                                         startActivity(intent);
                                     } else if(tipo == 2){
+                                        Toast.makeText(getApplicationContext(), "Has iniciado sesión como Administrador", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         intent.putExtra("cedula", usuario.getText().toString());
                                         savePreferences(usuario.getText().toString(),contraseña.getText().toString(), tienda);
                                         goToMain();
                                         startActivity(intent);
                                     } else if(tipo == 3){
+                                        Toast.makeText(getApplicationContext(), "Has iniciado sesión como Empleado", Toast.LENGTH_LONG).show();
                                         Intent intent = new Intent(getApplicationContext(), MainEmpleadoActivity.class);
                                         intent.putExtra("cedula", usuario.getText().toString());
                                         savePreferences(usuario.getText().toString(),contraseña.getText().toString(), tienda);

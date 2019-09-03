@@ -67,7 +67,7 @@ public class MasterMainActivity extends AppCompatActivity
         drawer.addDrawerListener(toggle);
         toggle.syncState();
 
-        Fragment fragment = new VentasFragment();
+        Fragment fragment = new SettingFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.content_main, fragment).commit();
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);

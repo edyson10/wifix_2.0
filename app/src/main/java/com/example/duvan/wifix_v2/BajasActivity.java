@@ -131,7 +131,7 @@ public class BajasActivity extends AppCompatActivity {
         int respuesta = 0;
         StringBuilder resul = null;
         String url_local="http://192.168.1.3/ServiciosWeb/registrarBaja.php?";
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/registrarBaja.php?";
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/registrarSalidaBD.php?";
         //cedula = cedula_U;
 
         try{
