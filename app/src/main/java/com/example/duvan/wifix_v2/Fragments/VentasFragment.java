@@ -277,14 +277,9 @@ public class VentasFragment extends Fragment {
                                             precioVenta.setText("");
                                             cantidad.setText("");
                                             Toast.makeText(getContext(), "Se ha registrado la venta exitosamente", Toast.LENGTH_SHORT).show();
+                                            //Toast.makeText(getContext(), "->" + resultado, Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
-                                            Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
-                                            Toast.makeText(getContext(), "pp"+cantidad.getText().toString(), Toast.LENGTH_LONG).show();
-                                            Toast.makeText(getContext(), "cc"+precioVenta.getText().toString(), Toast.LENGTH_LONG).show();
-                                            Toast.makeText(getContext(), ""+finalId_producto, Toast.LENGTH_LONG).show();
-                                            Toast.makeText(getContext(), ""+finalCedulaEmpleado, Toast.LENGTH_LONG).show();
-
                                             progressDialog.hide();
                                         }
                                         progressDialog.hide();

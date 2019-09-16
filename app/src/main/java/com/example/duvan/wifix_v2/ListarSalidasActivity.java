@@ -97,12 +97,12 @@ public class ListarSalidasActivity extends AppCompatActivity {
             String texto = "";
             String estado = "";
             for (int i = 0;i<jsonArray.length();i++){
-                texto = "ID Baja: " + jsonArray.getJSONObject(i).getString("id_baja") + "\n"
-                        + "Nombre: " + jsonArray.getJSONObject(i).getString("nombre") + "\n"
+                texto = "ID Salida: " + jsonArray.getJSONObject(i).getString("id_baja") + "\n"
+                        + "Empleado: " + jsonArray.getJSONObject(i).getString("nombre") + "\n"
                         + "Tipo: " + jsonArray.getJSONObject(i).getString("tipo_baja") + "\n"
                         + "Descripcion: " + jsonArray.getJSONObject(i).getString("descripcion") + "\n"
-                        + "Precio: " + jsonArray.getJSONObject(i).getString("precio") + "\n"
-                        + "Fecha salida: $ " + jsonArray.getJSONObject(i).getString("fecha_baja");
+                        + "Precio: $" + jsonArray.getJSONObject(i).getString("precio") + "\n"
+                        + "Fecha salida: " + jsonArray.getJSONObject(i).getString("fecha_baja");
                 listado.add(texto);
             }
         }catch (Exception e){}
@@ -123,7 +123,7 @@ public class ListarSalidasActivity extends AppCompatActivity {
         int respuesta = 0;
         StringBuilder resul = null;
         String url_local = "http://192.168.1.6/ServiciosWeb/listarSalidas.php";
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/listarSalidas.php?empleado=";
+        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/listarSalidaBD.php?empleado=";
 
         try {
             url = new URL(url_aws + cedula_U);
