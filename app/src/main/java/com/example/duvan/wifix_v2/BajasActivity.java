@@ -84,7 +84,7 @@ public class BajasActivity extends AppCompatActivity {
                                             precio.setText("");
                                         } else {
                                             Toast.makeText(getApplicationContext(), "Error al registrar", Toast.LENGTH_SHORT).show();
-                                            Toast.makeText(getApplicationContext(), "Mensaje " + resultado, Toast.LENGTH_LONG).show();
+                                            //Toast.makeText(getApplicationContext(), "Mensaje " + resultado, Toast.LENGTH_LONG).show();
                                             progressDialog.hide();
                                         }
                                     }

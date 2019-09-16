@@ -64,7 +64,7 @@ public class ListarVentasActivity extends AppCompatActivity {
                             if (validar == 0) {
                                 progressDialog.dismiss();
                                 //Toast.makeText(getApplicationContext(), resultado, Toast.LENGTH_SHORT).show();
-                                Toast.makeText(getApplicationContext(), "No hay ventas registrado hoy.", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(getApplicationContext(), "No hay ventas registradas hoy.", Toast.LENGTH_SHORT).show();
                             } else {
                                 progressDialog.dismiss();
                                 cargarLista(listarVentasDia((resultado)));

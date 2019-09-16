@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="BAJAS"
+        android:text="SALIDAS"
         android:textSize="17dp"
         android:textStyle="bold"
         android:gravity="center"
@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:hint="Descripción "
+                    android:hint="Descripción"
                     android:inputType="text"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -49,7 +49,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:hint="Valor "
+                    android:hint="Valor $"
                     android:inputType="number"/>
             </android.support.design.widget.TextInputLayout>
 
@@ -82,13 +82,13 @@
                 android:id="@+id/btnRegistrarBaja"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="REGISTRAR BAJA"/>
+                android:text="REGISTRAR SALIDA"/>
 
             <Button
                 android:id="@+id/btnListarBajas"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="LISTAR BAJAS DE HOY"/>
+                android:text="LISTAR SALIDAS DE HOY"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

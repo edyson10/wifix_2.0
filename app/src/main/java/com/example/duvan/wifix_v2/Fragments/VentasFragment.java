@@ -279,7 +279,12 @@ public class VentasFragment extends Fragment {
                                             Toast.makeText(getContext(), "Se ha registrado la venta exitosamente", Toast.LENGTH_SHORT).show();
                                         } else {
                                             Toast.makeText(getContext(), "¡Algo malo ocurrio!", Toast.LENGTH_SHORT).show();
-                                            //Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getContext(), resultado, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getContext(), "pp"+cantidad.getText().toString(), Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getContext(), "cc"+precioVenta.getText().toString(), Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getContext(), ""+finalId_producto, Toast.LENGTH_LONG).show();
+                                            Toast.makeText(getContext(), ""+finalCedulaEmpleado, Toast.LENGTH_LONG).show();
+
                                             progressDialog.hide();
                                         }
                                         progressDialog.hide();
@@ -331,6 +336,7 @@ public class VentasFragment extends Fragment {
                                     public void run() {
                                         progressDialog.hide();
                                         listaProductosQR(resultado);
+                                        //Toast.makeText(getContext(), "Producto: " + resultado, Toast.LENGTH_SHORT).show();
                                     }
                                 });
                             }
@@ -550,10 +556,10 @@ public class VentasFragment extends Fragment {
             JSONArray jsonArray = new JSONArray(response);
             String texto = "";
             for (int i = 0; i < jsonArray.length(); i++){
-                texto = jsonArray.getJSONObject(i).getString("id_prodtienda") + " - "
-                        + jsonArray.getJSONObject(i).getString("nombre") + " - "
-                        + jsonArray.getJSONObject(i).getString("modelo");
                 precioVenta.setText(jsonArray.getJSONObject(i).getString("precioCosto"));
+                producto.setText(jsonArray.getJSONObject(i).getString("id_prodtienda") + " - "
+                        + jsonArray.getJSONObject(i).getString("nombre") + " - "
+                        + jsonArray.getJSONObject(i).getString("modelo"));
                 listado.add(texto);
             }
         }catch (Exception e){}

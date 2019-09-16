@@ -49,7 +49,7 @@ public class ReporteFragment extends Fragment {
     TextView fecha;
     Calendar mCurrentDate;
     int dia, mes, anio;
-    Button reporteDiaPal,reporteDiaAl, reporteDiaSep, reporteMes, bajas, utilidadA, utilidadP, utilidadSep;
+    Button reporteDiaPal,reporteDiaAl, reporteDiaSep, reporteMes, bajas, utilidadP;
     private ProgressDialog progressDialog;
     String recuperado = "";
 
@@ -198,36 +198,11 @@ public class ReporteFragment extends Fragment {
             }
         });
 
-        utilidadA = (Button) vista.findViewById(R.id.btnUtilidadAle);
-        utilidadA.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vistaUtilidadAle();
-            }
-        });
-
-        utilidadSep = (Button) vista.findViewById(R.id.btnUtilidadSep);
-        utilidadSep.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                vistaUtilidadSep();
-            }
-        });
         return vista;
     }
 
     public void vistaUtilidadPal(){
         Intent intent = new Intent(getContext(), UtilidadPalActivity.class);
-        startActivity(intent);
-    }
-
-    public void vistaUtilidadAle(){
-        Intent intent = new Intent(getContext(), UtilidadAleActivity.class);
-        startActivity(intent);
-    }
-
-    public void vistaUtilidadSep(){
-        Intent intent = new Intent(getContext(), UtilidadSeptimaActivity.class);
         startActivity(intent);
     }
 
