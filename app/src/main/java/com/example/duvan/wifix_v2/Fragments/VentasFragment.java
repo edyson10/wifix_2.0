@@ -551,7 +551,7 @@ public class VentasFragment extends Fragment {
             JSONArray jsonArray = new JSONArray(response);
             String texto = "";
             for (int i = 0; i < jsonArray.length(); i++){
-                precioVenta.setText(jsonArray.getJSONObject(i).getString("precioCosto"));
+                precioVenta.setText(jsonArray.getJSONObject(i).getString("precioVenta"));
                 producto.setText(jsonArray.getJSONObject(i).getString("id_prodtienda") + " - "
                         + jsonArray.getJSONObject(i).getString("nombre") + " - "
                         + jsonArray.getJSONObject(i).getString("modelo"));
