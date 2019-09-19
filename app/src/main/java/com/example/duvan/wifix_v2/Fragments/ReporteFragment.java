@@ -162,7 +162,6 @@ public class ReporteFragment extends Fragment {
             progressDialog.dismiss();
         }
 
-
         reporteMes = (Button) vista.findViewById(R.id.btnReporteMes);
         //CODIGO PARA VALIDAR SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
         if(networkInfo != null && networkInfo.isConnected()) {
@@ -200,14 +199,14 @@ public class ReporteFragment extends Fragment {
         utilidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                vistaUtilidadPal();
+                vistaUtilidad();
             }
         });
 
         return vista;
     }
 
-    public void vistaUtilidadPal(){
+    public void vistaUtilidad(){
         Intent intent = new Intent(getContext(), UtilidadPalActivity.class);
         startActivity(intent);
     }
@@ -220,13 +219,13 @@ public class ReporteFragment extends Fragment {
     private void cargarTitulo(){
         if(tienda.equalsIgnoreCase("1")) {
             utilidad.setText("UTILIDAD PALACIO");
-            utilidad.setTextColor(Color.BLACK);
+            utilidad.setTextColor(Color.RED);
         } else if(tienda.equalsIgnoreCase("2")) {
             utilidad.setText("UTILIDAD ALEJANDRIA");
-            utilidad.setTextColor(Color.BLACK);
+            utilidad.setTextColor(Color.RED);
         } else if (tienda.equalsIgnoreCase("3")) {
             utilidad.setText("UTILIDAD SEPTIMA");
-            utilidad.setTextColor(Color.BLACK);
+            utilidad.setTextColor(Color.RED);
         }
     }
 
