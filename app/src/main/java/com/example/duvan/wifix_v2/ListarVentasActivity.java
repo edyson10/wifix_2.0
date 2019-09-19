@@ -32,7 +32,6 @@ public class ListarVentasActivity extends AppCompatActivity {
     ListView listaVentas;
     private ProgressDialog progressDialog;
     ArrayAdapter<String> adapter;
-    Button vistaAlejandria;
     String tienda;
     TextView titulo;
 

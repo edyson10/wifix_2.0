@@ -107,12 +107,10 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
                 <Button
-                    android:id="@+id/btnUtilidadPal"
+                    android:id="@+id/btnUtilidad"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:text="Utilidad\n WIFIX"/>
-
+                    android:layout_weight="0.5"/>
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

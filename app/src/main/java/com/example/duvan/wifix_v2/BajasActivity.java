@@ -28,6 +28,7 @@ public class BajasActivity extends AppCompatActivity {
 
     String recuperado = "";
     String cedula_U;
+    String tienda;
 
     EditText descripcion, precio;
     Button registrar, listar;
@@ -168,5 +169,6 @@ public class BajasActivity extends AppCompatActivity {
     private void cargarPreferencias(){
         SharedPreferences preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
         cedula_U = preferences.getString("cedula","");
+        tienda = preferences.getString("tienda","");
     }
 }

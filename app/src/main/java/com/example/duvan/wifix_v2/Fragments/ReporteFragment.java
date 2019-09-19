@@ -4,6 +4,8 @@ import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -49,9 +51,10 @@ public class ReporteFragment extends Fragment {
     TextView fecha;
     Calendar mCurrentDate;
     int dia, mes, anio;
-    Button reporteDiaPal,reporteDiaAl, reporteDiaSep, reporteMes, bajas, utilidadP;
+    Button reporteDiaPal,reporteDiaAl, reporteDiaSep, reporteMes, bajas, utilidad;
     private ProgressDialog progressDialog;
     String recuperado = "";
+    String tienda;
 
     private OnFragmentInteractionListener mListener;
 
@@ -77,6 +80,8 @@ public class ReporteFragment extends Fragment {
         vista = inflater.inflate(R.layout.fragment_reporte, container, false);
 
         progressDialog = new ProgressDialog(getContext());
+        cargarPreferencias();
+
 
         //CODIGO FECHA DE ENTREGA ESTIPULADA
         fecha = (TextView) vista.findViewById(R.id.fechaReporte);
@@ -190,8 +195,9 @@ public class ReporteFragment extends Fragment {
             }
         });
 
-        utilidadP = (Button) vista.findViewById(R.id.btnUtilidadPal);
-        utilidadP.setOnClickListener(new View.OnClickListener() {
+        utilidad = (Button) vista.findViewById(R.id.btnUtilidad);
+        cargarTitulo();
+        utilidad.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 vistaUtilidadPal();
@@ -204,6 +210,24 @@ public class ReporteFragment extends Fragment {
     public void vistaUtilidadPal(){
         Intent intent = new Intent(getContext(), UtilidadPalActivity.class);
         startActivity(intent);
+    }
+
+    private void cargarPreferencias(){
+        SharedPreferences preferences = getActivity().getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        tienda = preferences.getString("tienda","");
+    }
+
+    private void cargarTitulo(){
+        if(tienda.equalsIgnoreCase("1")) {
+            utilidad.setText("UTILIDAD PALACIO");
+            utilidad.setTextColor(Color.BLACK);
+        } else if(tienda.equalsIgnoreCase("2")) {
+            utilidad.setText("UTILIDAD ALEJANDRIA");
+            utilidad.setTextColor(Color.BLACK);
+        } else if (tienda.equalsIgnoreCase("3")) {
+            utilidad.setText("UTILIDAD SEPTIMA");
+            utilidad.setTextColor(Color.BLACK);
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event
