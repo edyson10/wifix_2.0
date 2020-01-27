@@ -14,22 +14,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.duvan.wifix_v2.Clases.Conexion;
-
-import org.json.JSONArray;
-
-import java.io.BufferedInputStream;
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class LoginActivity extends Activity implements View.OnClickListener{
 
     EditText usuario, contraseña;
-    Button login, registro;
+    Button login;
     TextView olvidastoPass;
     private ProgressDialog progressDialog;
     private SharedPreferences preferences;
@@ -62,17 +52,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         //setCredentialsIfExist();
     }
 
-    /*
-    private void setCredentialsIfExist() {
-        String email = getUserPreferences();
-        String pass = getPassPreferences();
-        if(!TextUtils.isEmpty(email) && !TextUtils.isEmpty(pass)){
-            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-            startActivity(intent);
-        }
-    }
-    */
-
     private void goToMain() {
         Intent intent = new Intent( getApplicationContext(), MainActivity.class);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
@@ -86,7 +65,6 @@ public class LoginActivity extends Activity implements View.OnClickListener{
         progressDialog.setMessage("Cargando...");
         //muestras el ProgressDialog
         progressDialog.show();
-        //final String rol = validar();
         //CODIGO PARA VALIDAR SI EL DISPOSITIVO ESTA CONECTADO A INTERNET
         ConnectivityManager con = (ConnectivityManager) getApplicationContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = con.getActiveNetworkInfo();
@@ -122,14 +100,14 @@ public class LoginActivity extends Activity implements View.OnClickListener{
 
     private void cargarPreferencias(){
         SharedPreferences preferences = getSharedPreferences("Preferences", Context.MODE_PRIVATE);
-        String user = preferences.getString("rol", "");
+        String tienda = preferences.getString("tienda", "");
 
-        if(user.equalsIgnoreCase("1")){
-            //Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+        if(tienda.equalsIgnoreCase("1")){
+            Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             //Intent intent = new Intent(getApplicationContext(), MasterMainActivity.class);
-            //startActivity(intent);
+            startActivity(intent);
             //intent.putExtra("cedula", usuario.getText().toString());
-        } else if(user.equalsIgnoreCase("2")){
+        } else if(tienda.equalsIgnoreCase("2")){
             Intent intent = new Intent(getApplicationContext(), MainActivity.class);
             startActivity(intent);
         }

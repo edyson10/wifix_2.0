@@ -2,6 +2,8 @@ package com.example.duvan.wifix_v2.Clases;
 
 import android.content.Context;
 import android.content.Intent;
+
+
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
@@ -12,7 +14,6 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
-import com.example.duvan.wifix_v2.LoginActivity;
 import com.example.duvan.wifix_v2.MainActivity;
 import com.example.duvan.wifix_v2.MainEmpleadoActivity;
 import com.example.duvan.wifix_v2.MasterMainActivity;
@@ -47,7 +48,6 @@ public class Conexion {
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        // Display the first 500 characters of the response string.
                         if(response.equals("0")) {
                             Toast.makeText(contexto, "¡Usuario y/o contraseña incorrectos!", Toast.LENGTH_SHORT).show();
                         } else {
@@ -56,11 +56,10 @@ public class Conexion {
                                 String cedula = jsonArray.getJSONObject(0).getString("cedula");
                                 String tipo = jsonArray.getJSONObject(0).getString("id_tipoempleado");
                                 String tienda = jsonArray.getJSONObject(0).getString("tienda");
-                                // ABRIMOS UNA NUEVA ACTIVITY Y MANDAMOS LOS DATOS QUE SE VAN A MOSTRAR
-                                Toast.makeText(contexto, "--> " + tipo, Toast.LENGTH_SHORT).show();
+                                savePreferences(contexto, cedula, tienda);
                                 Intent intent = new Intent();
                                 if(tipo.equals("1")){
-                                    intent = new Intent(contexto, MasterMainActivity.class);
+                                    intent = new Intent(contexto, MainActivity.class);
                                     intent.putExtra("cedula", cedula);
                                     intent.putExtra("tienda", tienda);
                                 } else if(tipo.equals("2")){
@@ -142,5 +141,13 @@ public class Conexion {
                 return parametros;
             }
         };
+    }
+
+    public static final void savePreferences(Context contexto, String cedula, String tienda){
+        SharedPreferences preferences = contexto.getSharedPreferences("Preferences", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.putString("cedula", cedula);
+        editor.putString("tienda", tienda);
+        editor.commit();
     }
 }

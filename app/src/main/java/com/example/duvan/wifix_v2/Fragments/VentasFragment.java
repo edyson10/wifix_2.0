@@ -420,7 +420,7 @@ public class VentasFragment extends Fragment {
         StringBuilder resul = null;
         String url_local = "http://192.168.56.1/ServiciosWeb/empleadosBD.php";
         //DDIRECCION DEL NUEVO SERVICIO DE LA NUEVA BD
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/buscarProductoQR.php?";
+        String url_aws = Conexion.URL + "buscarProductoQR.php?";
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
@@ -450,7 +450,7 @@ public class VentasFragment extends Fragment {
         int respuesta = 0;
         StringBuilder resul = null;
         String url_local = "http://192.168.56.1/ServiciosWeb/cargarProductosBD.php?cedula=" + cedula_U;
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/cargarProductosBD.php?cedula=" + cedula_U;
+        String url_aws = Conexion.URL + "/cargarProductosBD.php?cedula=" + cedula_U;
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
@@ -481,7 +481,7 @@ public class VentasFragment extends Fragment {
         StringBuilder resul = null;
         String url_local = "http://192.168.56.1/ServiciosWeb/empleadosBD.php";
         //DDIRECCION DEL NUEVO SERVICIO DE LA NUEVA BD
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/empleadosBD.php";
+        String url_aws = Conexion.URL + "empleadosBD.php";
 
         try{
             //LA IP SE CAMBIA CON RESPECTO O EN BASE A LA MAQUINA EN LA CUAL SE ESTA EJECUTANDO YA QUE NO TODAS LAS IP SON LAS MISMAS EN LOS EQUIPOS
