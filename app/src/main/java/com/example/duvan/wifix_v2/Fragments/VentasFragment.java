@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.duvan.wifix_v2.CaptureActivityPortrait;
+import com.example.duvan.wifix_v2.Clases.Conexion;
 import com.example.duvan.wifix_v2.CodigoQRActivity;
 import com.example.duvan.wifix_v2.ListarSalidasActivity;
 import com.example.duvan.wifix_v2.ListarVentasActivity;
@@ -355,7 +356,7 @@ public class VentasFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/registrarVentaBD.php";
+        String url_aws =  Conexion.URL + "registrarVentaBD.php";
         String url_local = "http://192.168.56.1/ServiciosWeb/registrarVentaBD.php";
 
         try{
@@ -386,7 +387,7 @@ public class VentasFragment extends Fragment {
         String linea = "";
         int respuesta = 0;
         StringBuilder resul = null;
-        String url_aws = "http://18.228.235.94/wifix/ServiciosWeb/buscarProducto.php?";
+        String url_aws = Conexion.URL + "buscarProducto.php?";
         String url_local = "http://192.168.56.1/ServiciosWeb/buscarProducto.php?";
 
         try {
