@@ -16,7 +16,7 @@ import com.example.duvan.wifix_v2.R;
 public class BalanceFragment extends Fragment {
 
     View view;
-    Button codigoqr;
+    Button cargarImagen;
 
     private OnFragmentInteractionListener mListener;
 
@@ -44,15 +44,17 @@ public class BalanceFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         view = inflater.inflate(R.layout.fragment_balance, container, false);
-        codigoqr = (Button) view.findViewById(R.id.btnCodigoQR);
-        codigoqr.setOnClickListener(new View.OnClickListener() {
+        cargarImagen.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), CodigoQRActivity.class);
-                startActivity(intent);
+            public void onClick(View view) {
+                cargarImagen(view);
             }
         });
         return view;
+    }
+
+    public void cargarImagen(View view){
+
     }
 
     // TODO: Rename method, update argument and hook method into UI event
