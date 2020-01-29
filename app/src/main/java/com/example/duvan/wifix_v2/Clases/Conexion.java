@@ -28,6 +28,8 @@ public class Conexion {
 
     public static final String SERVER_LOCAL = "192.168.137.1";
     public static final String URL = "http://wifix.com.co/ServiciosWeb/";
+    public static final String URL_IMAGEN = "http://wifix.com.co/ServiciosWeb/imagenes/";
+
 
     private static RequestQueue queue;
 

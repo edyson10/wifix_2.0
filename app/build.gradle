@@ -16,6 +16,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    packagingOptions{
+        exclude 'META-INF/DEPENDENCIES'
+    }
 }
 
 dependencies {
@@ -39,5 +43,9 @@ dependencies {
 
     implementation('com.journeyapps:zxing-android-embedded:3.6.0') { transitive = false }
     implementation 'com.google.zxing:core:3.3.0'
+
+    implementation 'org.apache.httpcomponents:httpclient:4.5'
+    implementation 'org.apache.httpcomponents:httpcore:4.4'
+    implementation 'org.apache.httpcomponents:httpmime:4.4'
 
 }

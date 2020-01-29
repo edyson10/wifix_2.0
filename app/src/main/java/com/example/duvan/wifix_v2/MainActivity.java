@@ -155,9 +155,8 @@ public class MainActivity extends AppCompatActivity
             miFragment = new AcercaFragment();
             fragmentSeleccionado = true;
         } else if(id == R.id.nav_balance){
-            //miFragment = new BalanceFragment();
-            //fragmentSeleccionado = true;
-            Toast.makeText(getApplicationContext(), "Opción no disponible", Toast.LENGTH_SHORT).show();
+            miFragment = new BalanceFragment();
+            fragmentSeleccionado = true;
         } else if(id == R.id.nav_danos){
             miFragment = new DanosFragment();
             fragmentSeleccionado = true;
