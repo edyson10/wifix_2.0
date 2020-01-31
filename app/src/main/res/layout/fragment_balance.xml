@@ -36,7 +36,7 @@
         android:layout_width="300dp"
         android:layout_height="300dp"
         android:layout_gravity="center_horizontal"
-        android:src="@drawable/wifix"/>
+        android:src="@drawable/no_disponible"/>
 
     <Button
         android:id="@+id/btnSubirFoto"
@@ -44,4 +44,11 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:text="UPLOAD"/>
+
+    <Button
+        android:id="@+id/btnBajarFoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="BAJAR"/>
 </LinearLayout>
