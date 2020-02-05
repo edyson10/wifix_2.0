@@ -263,8 +263,6 @@ public class BalanceFragment extends Fragment {
         return false;//implementamos el que procesa el evento dependiendo de lo que se defina aqui
     }
 
-
-
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

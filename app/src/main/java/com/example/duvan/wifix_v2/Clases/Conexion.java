@@ -2,8 +2,6 @@ package com.example.duvan.wifix_v2.Clases;
 
 import android.content.Context;
 import android.content.Intent;
-
-
 import android.content.SharedPreferences;
 import android.util.Log;
 import android.widget.Toast;
@@ -16,11 +14,8 @@ import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 import com.example.duvan.wifix_v2.MainActivity;
 import com.example.duvan.wifix_v2.MainEmpleadoActivity;
-import com.example.duvan.wifix_v2.MasterMainActivity;
-
 import org.json.JSONArray;
 import org.json.JSONException;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -29,7 +24,6 @@ public class Conexion {
     public static final String URL_LOCAL = "http://192.168.137.1/wifix/";
     public static final String URL = "http://wifix.com.co/ServiciosWeb/";
     public static final String URL_IMAGEN = "http://wifix.com.co/ServiciosWeb/imagenes/";
-
 
     private static RequestQueue queue;
 
@@ -96,10 +90,6 @@ public class Conexion {
             }
         };
         queue.add(stringRequest);
-    }
-
-    public static void cargarProductos(final Context contexto){
-
     }
 
     public static void realizarVenta(final Context contexto, final String producto, final int precio, final int cantidad, final String cedula){
