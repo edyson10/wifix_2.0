@@ -1,0 +1,17 @@
+
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(–ìíÈ
+;
+java:S1659"&Declare "servicio" on a separate line.(Ö”»%
+9
+java:S1659"$Declare "salida" on a separate line.(Ö”»%
+;
+java:S1659"&Declare "producto" on a separate line.(Ö”»%
+<
+java:S1172!"&Remove these unused method parameters.(«É‹
+>
+java:S1185)"(Remove this method to simply inherit it.(ßìê¯
+H
+java:S1135_"2Complete the task associated to this TODO comment.(åµÈ¶
+I
+java:S1135«"2Complete the task associated to this TODO comment.(‡‚ùˆ
+R	java:S125"<This block of commented-out lines of code should be removed.(ˆÏ€¶

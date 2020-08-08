@@ -1,0 +1,24 @@
+
+V	java:S110"<This class has 8 parents which is greater than 5 authorized.(ğ‰ä†üÿÿÿÿ
+f	java:S117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¤¹!
+l	java:S117‡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(şáÜÓüÿÿÿÿ
+?
+java:S1659!"$Declare "precio" on a separate line.(‹Ô¡Šúÿÿÿÿ
+?
+java:S1659""$Declare "listar" on a separate line.(çÔÊ¦ÿÿÿÿÿ
+9
+java:S1659#"#Declare "costo" on a separate line.(«ÙŠ¢
+h	java:S116"SRename this field "cedula_U" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÒïÀ
+Q
+java:S1874%"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+m
+java:S3776("RRefactor this method to reduce its Cognitive Complexity from 19 to the 15 allowed.(¨Œşÿÿÿÿ
+Q
+java:S1874,"6Remove this use of "ProgressDialog"; it is deprecated.(Î‚ºŸüÿÿÿÿ
+S
+java:S1854†"=Remove this useless assignment to local variable "url_local".(¤¹!
+D	java:S108¥")Either remove or fill this block of code.(¬Àáªøÿÿÿÿ
+D
+java:S1481†".Remove this unused "url_local" local variable.(¤¹!
+Q	java:S1259"<This block of commented-out lines of code should be removed.(ÁÒ…ö
+R	java:S125ˆ"<This block of commented-out lines of code should be removed.(Ù¾¡

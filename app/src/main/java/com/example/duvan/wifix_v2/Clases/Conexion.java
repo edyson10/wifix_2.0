@@ -22,7 +22,7 @@ import java.util.Map;
 public class Conexion {
 
     public static final String URL_LOCAL = "http://192.168.137.1/wifix/";
-    public static final String URL = "http://wifix.com.co/ServiciosWeb/";
+    public static final String URL = "http://54.144.85.160/wifix/";
     public static final String URL_IMAGEN = "http://wifix.com.co/ServiciosWeb/imagenes/";
 
     private static RequestQueue queue;

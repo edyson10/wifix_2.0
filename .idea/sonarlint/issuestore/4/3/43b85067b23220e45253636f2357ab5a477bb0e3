@@ -1,0 +1,112 @@
+
+K
+java:S3740‡"/Provide the parametrized type for this generic.(ÿ¤Õ€şÿÿÿÿ
+g	java:S117Ş"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Éü³Ÿ
+g	java:S117ù"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(€ß¿£
+f	java:S117ú"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯¸…X
+f	java:S117•"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¯ô¹g
+l	java:S117–"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(İÜ½æúÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(–ìíÈ
+_
+java:S1226û"CIntroduce a new variable instead of reusing the parameter "cedula".(İù¹æûÿÿÿÿ
+]
+java:S1128'"BRemove this unused import 'com.android.volley.DefaultRetryPolicy'.(š à«ùÿÿÿÿ
+E
+java:S1128B"*Remove this unused import 'java.util.Map'.(¼è½Òşÿÿÿÿ
+\
+java:S1128"ARemove this unused import 'android.media.MediaScannerConnection'.(•ûîıúÿÿÿÿ
+X
+java:S1128"BRemove this unused import 'android.arch.lifecycle.LifecycleOwner'.(ßŒò×
+V
+java:S1128";Remove this unused import 'android.graphics.BitmapFactory'.(âàºÍûÿÿÿÿ
+I
+java:S1128@".Remove this unused import 'java.util.HashMap'.(™˜”€ùÿÿÿÿ
+V
+java:S1128&"@Remove this unused import 'com.android.volley.AuthFailureError'.(¤ˆñ¢
+K
+java:S11289"0Remove this unused import 'java.io.IOException'.(ªº»Úıÿÿÿÿ
+i
+java:S1450Z"SRemove the "path" field and declare it as a local variable in the relevant methods.(™ŠÇó
+<
+java:S1659J"&Declare "apellido" on a separate line.(®ü‹
+:
+java:S1659J"$Declare "cedula" on a separate line.(®ü‹
+8
+java:S1659J""Declare "sexo" on a separate line.(®ü‹
+<
+java:S1659J"&Declare "telefono" on a separate line.(®ü‹
+=
+java:S1659J"'Declare "direccion" on a separate line.(®ü‹
+:
+java:S1659J"$Declare "correo" on a separate line.(®ü‹
+:
+java:S1659J"$Declare "tienda" on a separate line.(®ü‹
+<
+java:S1659J"&Declare "fechaNac" on a separate line.(®ü‹
+C
+java:S1659M".Declare "actualizarTienda" on a separate line.(ß„›8
+h	java:S116O"SRename this field "cedula_U" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(öÒïÀ
+q	java:S116T"WRename this field "MIS_PERMISOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öìşˆÿÿÿÿÿ
+<
+java:S1170T"!Make this final field static too.(Öìşˆÿÿÿÿÿ
+Q
+java:S1874Q"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+<
+java:S1172e"&Remove these unused method parameters.(©†ñ
+S
+java:S1854g"8Remove this useless assignment to local variable "args".(´‰Ó²şÿÿÿÿ
+>
+java:S1185m"(Remove this method to simply inherit it.(ßìê¯
+Q
+java:S1874x"6Remove this use of "ProgressDialog"; it is deprecated.(õ¹´ıüÿÿÿÿ
+^
+java:S1126•"BReplace this if-then-else statement by a single method invocation.(‘‚—Ğûÿÿÿÿ
+Z
+java:S1858Ü"C"emp" is an array of strings, there's no need to call "toString()".(ºÉ°õ
+Q
+java:S2209ò"5Change this instance-reference to a static reference.(²÷Ÿÿÿÿÿÿ
+V
+java:S1117†":Rename "nombre" which hides the field declared at line 74.(¼½û¶ÿÿÿÿÿ
+W
+java:S1854³";Remove this useless assignment to local variable "resuEmp".(¬È‹Æûÿÿÿÿ
+D	java:S108ñ")Either remove or fill this block of code.(¬Àáªøÿÿÿÿ
+Q
+java:S1854ú";Remove this useless assignment to local variable "url_aws".(¯¸…X
+S
+java:S1854•"=Remove this useless assignment to local variable "url_local".(¯ô¹g
+?	java:S108±")Either remove or fill this block of code.(”ı¾
+I
+java:S1135»"2Complete the task associated to this TODO comment.(åµÈ¶
+R
+java:S1874"6Remove this use of "ProgressDialog"; it is deprecated.(õ¹´ıüÿÿÿÿ
+Y
+java:S1854˜"=Remove this useless assignment to local variable "!unknown!".(Óê®½şÿÿÿÿ
+T
+java:S1854—"=Remove this useless assignment to local variable "!unknown!".(³ìØ‹
+Y
+java:S1854¤"=Remove this useless assignment to local variable "!unknown!".(ğÍÍËşÿÿÿÿ
+T	java:S106«"9Replace this use of System.out or System.err by a logger.(ªÓ¼áşÿÿÿÿ
+Q
+java:S2209Ü"5Change this instance-reference to a static reference.(È£ºµûÿÿÿÿ
+O
+java:S1117ã"8Rename "path" which hides the field declared at line 90.(éûæ
+I
+java:S1135ï"2Complete the task associated to this TODO comment.(‡‚ùˆ
+D
+java:S1481g")Remove this unused "args" local variable.(´‰Ó²şÿÿÿÿ
+H
+java:S1481³",Remove this unused "resuEmp" local variable.(¬È‹Æûÿÿÿÿ
+B
+java:S1481ú",Remove this unused "url_aws" local variable.(¯¸…X
+D
+java:S1481•".Remove this unused "url_local" local variable.(¯ô¹g
+W	java:S125²"<This block of commented-out lines of code should be removed.(ˆŠÖ“øÿÿÿÿ
+W	java:S125Ä"<This block of commented-out lines of code should be removed.(êŸ·àûÿÿÿÿ
+R	java:S125¿"<This block of commented-out lines of code should be removed.(Õ·Ú
+R	java:S125Î"<This block of commented-out lines of code should be removed.(ˆÏ€¶
+T
+java:S1144œ"8Remove this unused private "redimensionarImagen" method.(‘“óéøÿÿÿÿ
+O
+java:S1144Œ"3Remove this unused private "downloadImagen" method.(ª›İşÿÿÿÿ
+H
+java:S1144Ù"1Remove this unused private "cargarImagen" method.(õôœÜ

@@ -1,0 +1,62 @@
+
+‡
+java:S1319Ô"pThe return type of this method should be an interface such as "List" rather than the implementation "ArrayList".(Ã¶ØÜ
+Œ
+java:S1319ú"pThe type of the "lista" object should be an interface such as "List" rather than the implementation "ArrayList".(ã§‰¾üÿÿÿÿ
+V	java:S110."<This class has 8 parents which is greater than 5 authorized.(³±Ð£ùÿÿÿÿ
+g	java:S117³"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(™ü³Ñ
+l	java:S117´"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ ½Ëÿÿÿÿÿ
+l	java:S117†"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(”ÚÁÈþÿÿÿÿ
+g	java:S117‡"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(±ŽÛÙ
+H
+java:S1128"3Remove this unused import 'android.content.Intent'.(³ð‹G
+N
+java:S1128"8Remove this unused import 'com.android.volley.Response'.(ˆïƒ 
+K
+java:S1128$"0Remove this unused import 'org.json.JSONObject'.(œÖ´üþÿÿÿÿ
+[
+java:S1128"ERemove this unused import 'com.android.volley.toolbox.StringRequest'.(”¯ÆÞ
+b
+java:S1128 "LRemove this unused import 'com.example.duvan.wifix_v2.Entidades.ServicioVo'.(Ë–»Û
+_
+java:S1128"IRemove this unused import 'com.android.volley.toolbox.JsonObjectRequest'.(Ã¦¿¾
+R
+java:S1128"<Remove this unused import 'com.android.volley.RequestQueue'.(¹þÌ×
+e
+java:S1128"JRemove this unused import 'android.support.v7.widget.LinearLayoutManager'.(í™½Úúÿÿÿÿ
+Q
+java:S1128";Remove this unused import 'com.android.volley.VolleyError'.(­°Ñ”
+Y
+java:S1128"CRemove this unused import 'android.support.v7.widget.RecyclerView'.(ÊŠáó
+M
+java:S1128"7Remove this unused import 'com.android.volley.Request'.(Å½ä
+d
+java:S1128!"IRemove this unused import 'com.example.duvan.wifix_v2.adapter.Servicios'.(õ£¡Îúÿÿÿÿ
+}
+java:S4144œ"aUpdate this method so that its implementation is not identical to "obtenerDatosJSON" on line 201.(çœ²½øÿÿÿÿ
+Q
+java:S18744"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+m
+java:S37769"RRefactor this method to reduce its Cognitive Complexity from 23 to the 15 allowed.(ž¨Œþÿÿÿÿ
+L
+java:S1874<"6Remove this use of "ProgressDialog"; it is deprecated.(ƒúôÐ
+M
+java:S1854x"7Remove this useless assignment to local variable "str".(²ùé½
+T
+java:S1854³"=Remove this useless assignment to local variable "url_local".(™ü³Ñ
+D	java:S108Ð")Either remove or fill this block of code.(¬Àáªøÿÿÿÿ
+d	java:S100Ô"NRename this method name to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ã¶ØÜ
+o
+java:S2293Õ"YReplace the type specification in this constructor call with the diamond operator ("<>").(§—ÿ*
+D	java:S108õ")Either remove or fill this block of code.(¬Àáªøÿÿÿÿ
+u
+java:S2293û"YReplace the type specification in this constructor call with the diamond operator ("<>").(åÜ¿íøÿÿÿÿ
+R
+java:S1854‡";Remove this useless assignment to local variable "url_aws".(±ŽÛÙ
+D	java:S108£")Either remove or fill this block of code.(¬Àáªøÿÿÿÿ
+>
+java:S1481x"(Remove this unused "str" local variable.(²ùé½
+E
+java:S1481³".Remove this unused "url_local" local variable.(™ü³Ñ
+C
+java:S1481‡",Remove this unused "url_aws" local variable.(±ŽÛÙ

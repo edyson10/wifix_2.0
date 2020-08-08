@@ -1,0 +1,10 @@
+
+n	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(êş‹D
+V
+java:S1128";Remove this unused import 'android.graphics.BitmapFactory'.(âàºÍûÿÿÿÿ
+I
+java:S1128"4Remove this unused import 'android.graphics.Bitmap'.(¾ì
+E
+java:S1128"0Remove this unused import 'android.util.Base64'.(ìÔ×[
+H
+java:S1068"-Remove this unused "documento" private field.(¤Â–”úÿÿÿÿ

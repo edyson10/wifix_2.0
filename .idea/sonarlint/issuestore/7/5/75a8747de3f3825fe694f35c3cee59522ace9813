@@ -1,0 +1,15 @@
+
+Q
+java:S18744"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+˜
+java:S1186»"€Add a nested comment explaining why this method is empty, throw an UnsupportedOperationException or complete the implementation.(„˜®’
+M
+java:S10684"2Remove this unused "progressDialog" private field.(·á…Çùÿÿÿÿ
+V	java:S125s"<This block of commented-out lines of code should be removed.(â¶”€øÿÿÿÿ
+V	java:S125u"<This block of commented-out lines of code should be removed.(Úö”èüÿÿÿÿ
+L
+java:S1874J"6Remove this use of "ProgressDialog"; it is deprecated.(›ãÙ¯
+x
+java:S14504"]Remove the "progressDialog" field and declare it as a local variable in the relevant methods.(·á…Çùÿÿÿÿ
+k	java:S117K"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(¬…õ³úÿÿÿÿ
+]	java:S110)"<This class has 8 parents which is greater than 5 authorized.(ù ®Íúÿÿÿÿ8Ïƒ×¼.

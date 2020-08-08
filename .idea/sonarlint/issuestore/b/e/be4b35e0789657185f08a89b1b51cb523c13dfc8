@@ -1,0 +1,93 @@
+
+g
+java:S1301¤"KReplace this "switch" statement by "if" statements to increase readability.(×ö³–úÿÿÿÿ
+S	java:S107×"=Method has 10 parameters, which is greater than 7 authorized.(À‚ÎÉ
+Q	java:S110>"<This class has 8 parents which is greater than 5 authorized.(ž”ïÖ
+g	java:S117Ø"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(üèÚß
+l	java:S117Ý"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Òà×Èýÿÿÿÿ
+l	java:S117Þ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(‚ø þÿÿÿÿ
+f	java:S117å"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Í›¡J
+l	java:S117æ"QRename this local variable to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Íîûâüÿÿÿÿ
+€
+java:S1488Â"dImmediately return this expression instead of assigning it to the temporary variable "imagenString".(šþËïþÿÿÿÿ
+P
+java:S1128"<Remove this unused import 'android.net.ConnectivityManager'.(ŒñK
+O
+java:S1128"4Remove this unused import 'android.net.NetworkInfo'.(«¸”ýøÿÿÿÿ
+E
+java:S1659I"*Declare "cargarImages" on a separate line.(Ìñ‚šÿÿÿÿÿ
+<
+java:S1659M"!Declare "mes" on a separate line.(Ä‰‹øÿÿÿÿ
+=
+java:S1659M""Declare "anio" on a separate line.(Ä‰‹øÿÿÿÿ
+?
+java:S1659O"$Declare "marcaE" on a separate line.(Â‰âùÿÿÿÿ
+@
+java:S1659O"%Declare "modeloE" on a separate line.(Â‰âùÿÿÿÿ
+H
+java:S1659O"-Declare "fallaExpresadaE" on a separate line.(Â‰âùÿÿÿÿ
+E
+java:S1659O"*Declare "diagnosticoE" on a separate line.(Â‰âùÿÿÿÿ
+E
+java:S1659O"*Declare "observacionE" on a separate line.(Â‰âùÿÿÿÿ
+J
+java:S1659O"/Declare "precioReparacionE" on a separate line.(Â‰âùÿÿÿÿ
+G
+java:S1659O",Declare "cedulaClienteE" on a separate line.(Â‰âùÿÿÿÿ
+?
+java:S1659O"$Declare "claveE" on a separate line.(Â‰âùÿÿÿÿ
+l	java:S116@"WRename this field "CARPETA_RAIZ" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(·›ËÔ
+k	java:S116A"VRename this field "RUTA_IMAGEN" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Æ„Õë
+n	java:S116D"YRename this field "COD_SELECCIONA" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(ìÅ¹å
+m	java:S116E"SRename this field "COD_FOTO" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Ç¨¶ÿÿÿÿÿ
+m
+java:S1149š"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(»¨ò„
+7
+java:S1170@"!Make this final field static too.(·›ËÔ
+7
+java:S1170A"!Make this final field static too.(Æ„Õë
+7
+java:S1170D"!Make this final field static too.(ìÅ¹å
+<
+java:S1170E"!Make this final field static too.(Ç¨¶ÿÿÿÿÿ
+Q
+java:S1874S"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+K
+java:S1874]"6Remove this use of "ProgressDialog"; it is deprecated.(Å±.
+O
+java:S1874|"9Remove this use of "TYPE_SYSTEM_ALERT"; it is deprecated.(¨†·¼
+Y
+java:S1854Ý"=Remove this useless assignment to local variable "url_local".(Òà×Èýÿÿÿÿ
+?	java:S108ÿ")Either remove or fill this block of code.(”ý¾
+@
+java:S1125‰")Remove the literal "false" boolean value.(àãîƒ
+Q
+java:S1117‘":Rename "imagen" which hides the field declared at line 80.(©ýÃï
+=	java:S131¤""Add a default case to this switch.(×ö³–úÿÿÿÿ
+S
+java:S1854å"=Remove this useless assignment to local variable "url_local".(Í›¡J
+m
+java:S1149š"VReplace the synchronized class "Hashtable" by an unsynchronized one such as "HashMap".(»¨ò„
+[
+java:S4143¥"DVerify this is the key that was intended; it was already set before.(­îçü
+d
+java:S1858Ž"M"recuperado" is already a string, there's no need to call "toString()" on it.(œžèˆ
+J
+java:S1481Ý".Remove this unused "url_local" local variable.(Òà×Èýÿÿÿÿ
+D
+java:S1481å".Remove this unused "url_local" local variable.(Í›¡J
+R	java:S125¥"<This block of commented-out lines of code should be removed.(¤«Å„
+W	java:S125Æ"<This block of commented-out lines of code should be removed.(“Ô¡þÿÿÿÿ
+W	java:S125â"<This block of commented-out lines of code should be removed.(™ç„¬úÿÿÿÿ
+R	java:S125È"<This block of commented-out lines of code should be removed.(õôœÜ
+W	java:S125þ"<This block of commented-out lines of code should be removed.(ù¹Ûæþÿÿÿÿ
+Q	java:S125™"<This block of commented-out lines of code should be removed.(ÑÀ†
+R	java:S125¦"<This block of commented-out lines of code should be removed.(Ë“³Ì
+K
+java:S1144…"4Remove this unused private "tomarFotografia" method.(¸ù„¯
+S
+java:S1144½"7Remove this unused private "convertirImgString" method.(ÝÃ—ëÿÿÿÿÿ
+M
+java:S1144á"6Remove this unused private "cargarWebServices" method.(ÓÚÄË
+P
+java:S1144°"4Remove this unused private "validarPermisos" method.(™‰Ì¾øÿÿÿÿ

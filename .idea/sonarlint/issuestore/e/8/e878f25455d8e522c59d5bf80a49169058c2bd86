@@ -1,0 +1,43 @@
+
+g
+java:S1301É"KReplace this "switch" statement by "if" statements to increase readability.(×ö³–úÿÿÿÿ
+a	java:S112¸"FDefine and throw a dedicated exception instead of using a generic one.(¢äÅ‰ÿÿÿÿÿ
+o	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(–ìíÈ
+€
+java:S1488ê"dImmediately return this expression instead of assigning it to the temporary variable "imagenString".(šþËïþÿÿÿÿ
+m
+java:S1450="WRemove the "btnBajar" field and declare it as a local variable in the relevant methods.(Ò…ë²
+m
+java:S1450="WRemove the "btnSubir" field and declare it as a local variable in the relevant methods.(Ò…ë²
+<
+java:S1659="&Declare "btnBajar" on a separate line.(Ò…ë²
+q	java:S116H"WRename this field "MIS_PERMISOS" to match the regular expression '^[a-z][a-zA-Z0-9]*$'.(Öìþˆÿÿÿÿÿ
+<
+java:S1170H"!Make this final field static too.(Öìþˆÿÿÿÿÿ
+Q
+java:S1874L"6Remove this use of "ProgressDialog"; it is deprecated.(·á…Çùÿÿÿÿ
+<
+java:S1172W"&Remove these unused method parameters.(½äïï
+C	java:S108a")Either remove or fill this block of code.(·›¼©ÿÿÿÿÿ
+Q
+java:S1874i"6Remove this use of "ProgressDialog"; it is deprecated.(õ¹´ýüÿÿÿÿ
+]
+java:S1126q"BReplace this if-then-else statement by a single method invocation.(‘‚—Ðûÿÿÿÿ
+Q
+java:S2209›"5Change this instance-reference to a static reference.(²÷Ÿÿÿÿÿÿ
+V
+java:S1117¯":Rename "nombre" which hides the field declared at line 63.(¼½û¶ÿÿÿÿÿ
+=	java:S131É""Add a default case to this switch.(×ö³–úÿÿÿÿ
+R
+java:S1874ð"6Remove this use of "ProgressDialog"; it is deprecated.(õ¹´ýüÿÿÿÿ
+Y
+java:S1854û"=Remove this useless assignment to local variable "!unknown!".(Óê®½þÿÿÿÿ
+T
+java:S1854ú"=Remove this useless assignment to local variable "!unknown!".(³ìØ‹
+Y
+java:S1854‡"=Remove this useless assignment to local variable "!unknown!".(ðÍÍËþÿÿÿÿ
+T	java:S106Ž"9Replace this use of System.out or System.err by a logger.(ªÓ¼áþÿÿÿÿ
+I
+java:S1135«"2Complete the task associated to this TODO comment.(åµÈ¶
+I
+java:S1135Ã"2Complete the task associated to this TODO comment.(‡‚ùˆ
